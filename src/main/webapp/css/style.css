@@ -1,115 +1,174 @@
 /* Arquivo style.css */
 
-/* Reset básico */
+/* Reset básico e estilos base */
 body, html {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .container {
-    background: #fff;
-    padding: 30px;
+    background: white;
+    padding: 40px;
     margin: 30px auto;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     width: 90%;
     max-width: 600px;
+    transition: transform 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-5px);
 }
 
 .content {
     padding: 20px;
     max-width: 600px;
-    margin: 20px auto; /* centraliza */
+    margin: 20px auto;
     text-align: center;
 }
 
 .form-container {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
     margin-top: 20px;
 }
 
 .form-container label {
     text-align: left;
     margin-bottom: 5px;
+    color: #555;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .form-container input,
 .form-container select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-container input:focus,
+.form-container select:focus {
+    outline: none;
+    border-color: #764ba2;
+    box-shadow: 0 0 0 2px rgba(118, 75, 162, 0.2);
 }
 
 .button {
-    padding: 10px;
-    background-color: #28a745;
+    padding: 14px;
+    background: linear-gradient(to right, #667eea, #764ba2);
     color: white;
     border: none;
-    border-radius: 4px;
-    font-weight: bold;
+    border-radius: 6px;
+    font-weight: 600;
     font-size: 16px;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .button:hover {
-    background-color: #218838;
+    background: linear-gradient(to right, #5a72e0, #6a3d99);
+    box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
 }
-
 
 h1, h2 {
     text-align: center;
     color: #333;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+h1::after, h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 4px;
+    width: 50px;
+    border-radius: 2px;
+    background-color: #764ba2;
 }
 
 form label {
     display: block;
     margin-top: 15px;
     color: #555;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 form input, form select, form button {
     width: 100%;
-    padding: 10px;
+    padding: 12px 15px;
     margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+form input:focus, form select:focus {
+    outline: none;
+    border-color: #764ba2;
+    box-shadow: 0 0 0 2px rgba(118, 75, 162, 0.2);
 }
 
 form button {
-    background-color: #007BFF;
+    background: linear-gradient(to right, #667eea, #764ba2);
     color: white;
     border: none;
     margin-top: 20px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
+    font-weight: 600;
 }
 
 form button:hover {
-    background-color: #0056b3;
+    background: linear-gradient(to right, #5a72e0, #6a3d99);
+    box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
 }
 
 .button, .logout-button {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 14px 20px;
     margin-top: 20px;
-    background-color: #28a745;
+    background: linear-gradient(to right, #667eea, #764ba2);
     color: white;
     text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-weight: 600;
 }
 
 .button:hover, .logout-button:hover {
-    background-color: #218838;
+    background: linear-gradient(to right, #5a72e0, #6a3d99);
+    box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
 }
 
 .navbar {
-    background-color: #333;
+    background: linear-gradient(to right, #333, #222);
     overflow: hidden;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 
 .navbar a {
@@ -117,35 +176,97 @@ form button:hover {
     display: block;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 20px;
+    padding: 16px 20px;
     text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
 }
 
 .navbar a:hover {
-    background-color: #ddd;
-    color: black;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
 }
 
 .success-message {
     text-align: center;
     margin-top: 50px;
     font-size: 1.2em;
-    color: green;
+    color: #764ba2;
+    background-color: rgba(118, 75, 162, 0.1);
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 4px solid #764ba2;
 }
 
 /* Estilo para o título principal */
 .content h1 {
-    font-size: 32px;      /* Título maior */
-    margin-top: 20px;     /* Espaço no topo */
-    margin-bottom: 10px;  /* Espaço entre o título e o parágrafo */
-    text-align: center;   /* Centraliza o título */
+    font-size: 32px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+    font-weight: 600;
 }
 
 /* Estilo para o parágrafo principal */
 .content p {
-    font-size: 18px;       /* Fonte um pouco maior */
-    margin: 20px 40px;     /* Espaço em cima/baixo e maior nas laterais */
-    line-height: 1.6;      /* Altura da linha para melhor leitura */
-    text-align: center;    /* Também centraliza o texto */
+    font-size: 18px;
+    margin: 20px 40px;
+    line-height: 1.6;
+    text-align: center;
+    color: #555;
 }
 
+/* Estilo específico para o login-container */
+.login-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    margin: 30px auto;
+}
+
+.login-container:hover {
+    transform: translateY(-5px);
+}
+
+.login-container h2 {
+    color: #333;
+    margin-bottom: 30px;
+    font-weight: 600;
+    font-size: 28px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.login-container h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 4px;
+    width: 50px;
+    border-radius: 2px;
+    background-color: #764ba2;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container, .login-container {
+        width: 90%;
+        padding: 30px 20px;
+    }
+
+    .content p {
+        margin: 20px 20px;
+    }
+
+    .navbar a {
+        padding: 12px 15px;
+    }
+}
