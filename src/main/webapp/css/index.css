@@ -1,114 +1,49 @@
-/* Reset and base styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
 body {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    height: 100vh;
+    margin: 0;
 }
 
-/* Login container styling */
 .login-container {
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    padding: 40px;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+h2 {
     text-align: center;
-    transition: transform 0.3s ease;
+    margin-bottom: 20px;
 }
 
-.login-container:hover {
-    transform: translateY(-5px);
-}
-
-/* Heading styles */
-.login-container h2 {
-    color: #333;
-    margin-bottom: 30px;
-    font-weight: 600;
-    font-size: 28px;
-    position: relative;
-    padding-bottom: 10px;
-}
-
-.login-container h2::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%);
-    height: 4px;
-    width: 50px;
-    border-radius: 2px;
-    background-color: #764ba2;
-}
-
-/* Form styling */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-label {
+label, input {
     display: block;
-    text-align: left;
-    margin-bottom: 5px;
-    color: #555;
-    font-size: 14px;
-    font-weight: 500;
+    width: 100%;
+    margin-bottom: 15px;
 }
 
 input {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 16px;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-input:focus {
-    outline: none;
-    border-color: #764ba2;
-    box-shadow: 0 0 0 2px rgba(118, 75, 162, 0.2);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 button {
-    background: linear-gradient(to right, #667eea, #764ba2);
+    width: 100%;
+    padding: 10px;
+    background-color: #0066cc;
     color: white;
     border: none;
-    border-radius: 6px;
-    padding: 14px;
+    border-radius: 4px;
     font-size: 16px;
-    font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 10px;
 }
 
 button:hover {
-    background: linear-gradient(to right, #5a72e0, #6a3d99);
-    box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
-}
-
-/* Responsive adjustments */
-@media (max-width: 480px) {
-    .login-container {
-        padding: 30px 20px;
-    }
-
-    button {
-        padding: 12px;
-    }
+    background-color: #004d99;
 }
