@@ -20,35 +20,55 @@
     </div>
 
     <!-- Conteúdo principal -->
-<!-- TODO verificar se a unica maneira de passar as informações é pelo jeito que o chat passou ${sessionScope.nome} -->
-    <div class="login-container">
+    <div class="cadastro-container">
         <h2>Trocar informações</h2>
-        <form method="post" action="loginAction">
+        <form method="post" action="meuCadastro">
 
-            <label for="nome">Nome:</label>
+            <label for="nomenovo">Nome:</label>
             <p>${sessionScope.nome}</p>
             <p> trocar para:</p>
-            <input type="text" id="nomenovo" name="nomenova" required>
+            <input type="text" id="nomenovo" name="nome" value="${sessionScope.nome}" required>
 
-            <label for="telefone">Telefone:</label>
-            <p>${sessionScope.telefone}</p>
-            <p> trocar para:</p>
-            <input type="text" id="telefone" name="telefone" required>
+<!--TODO Porra professor, celular como float foi foda-->
+            <%
+                Long celular = (Long) session.getAttribute("celular");
+                String celularFormatado = celular != null ? celular.toString() : "Valor não disponível";
 
+                // Sempre assume que o celular tem 11 dígitos
+                String celularFormatado2 = String.format("(%s) %s-%s",
+                        celularFormatado.substring(0, 2),
+                        celularFormatado.substring(2, 7),
+                        celularFormatado.substring(7, 11));
+            %>
+            <label for="celularnovo">Celular:</label>
+            <p><%= celularFormatado2 %></p>
+            <p>Trocar para:</p>
+            <input type="text" id="celularnovo" name="celular" value="<%= celularFormatado %>" required>
+
+            <%
+                String CPF = (String) session.getAttribute("cpf");
+
+                // Sempre assume que o celular tem 11 dígitos
+                String CPFFormatado = String.format("%s.%s.%s-%s",
+                        CPF.substring(0, 3),
+                        CPF.substring(3, 6),
+                        CPF.substring(6, 9),
+                        CPF.substring(9, 11));
+            %>
             <label for="CPF">CPF:</label>
-            <p>${sessionScope.cpf}</p>
+            <p><%= CPFFormatado %></p>
             <p> trocar para:</p>
-            <input type="text" id="CPF" name="CPF" required>
+            <input type="text" id="CPF" name="CPF" value="<%= CPF %>" required>
 
-            <label for="email">E-mail:</label>
+            <label for="emailnovo">E-mail:</label>
             <p> email da pessoa</p>
             <p> trocar para:</p>
-            <input type="text" id="emailnovo" name="emailnova" required>
+            <input type="text" id="emailnovo" name="email" required>
 
-            <label for="senha">Senha:</label>
+            <label for="senhanova">Senha:</label>
             <p> Senha da pessoa</p>
             <p> trocar para:</p>
-            <input type="text" id="senhanova" name="senhanova" required>
+            <input type="text" id="senhanova" name="senha" required>
 
             <button type="submit">Mudar</button>
         </form>
