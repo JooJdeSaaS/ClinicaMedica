@@ -8,7 +8,7 @@ public class Usuario {
     private String nome;
     private String tipo; // paciente ou admin
     private String CPF;
-    private String celular;
+    private long celular;
 
 
 
@@ -37,11 +37,19 @@ public class Usuario {
         this.tipo = tipo;
     }
 
-    public void setCPF(String CPF) {this.CPF = CPF;}
+    public void setCPF(String CPF) {
+        this.CPF = CPF;
+    }
 
-    public String getCPF() {return CPF;}
+    public String getCPF() {
+        return CPF;
+    }
 
-    public void setCelular(String celular) {this.celular = celular;}
+    public void setCelular(long celular) {
+        this.celular = celular;
+    }
 
-    public String getCelular() {return celular;}
+    public long getCelular() {
+        return celular;
+    }
 }

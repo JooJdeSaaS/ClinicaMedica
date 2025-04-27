@@ -31,7 +31,7 @@ public class UsuarioDAO {
                 usuario.setNome(rs.getString("nome"));
                 usuario.setTipo(rs.getString("tipo"));
                 usuario.setCPF(rs.getString("cpf"));
-                usuario.setCelular(rs.getString("celular"));
+                usuario.setCelular(rs.getLong("celular"));
                 return usuario;
             }
 
