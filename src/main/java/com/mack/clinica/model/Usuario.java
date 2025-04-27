@@ -7,6 +7,10 @@ public class Usuario {
     private int id;
     private String nome;
     private String tipo; // paciente ou admin
+    private String CPF;
+    private String celular;
+
+
 
     // Getters e Setters
     public int getId() {
@@ -32,4 +36,12 @@ public class Usuario {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+    public void setCPF(String CPF) {this.CPF = CPF;}
+
+    public String getCPF() {return CPF;}
+
+    public void setCelular(String celular) {this.celular = celular;}
+
+    public String getCelular() {return celular;}
 }
