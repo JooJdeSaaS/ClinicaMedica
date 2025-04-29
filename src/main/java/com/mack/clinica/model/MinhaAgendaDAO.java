@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class MinhaConsultaDAO {
+public class MinhaAgendaDAO {
 
     /**
      * Busca uma consulta pelo ID no banco de dados.
