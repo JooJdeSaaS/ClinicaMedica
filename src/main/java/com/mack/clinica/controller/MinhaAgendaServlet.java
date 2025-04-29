@@ -9,7 +9,7 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/minha-agenda")
+@WebServlet("/minha_agenda")
 public class MinhaAgendaServlet extends HttpServlet {
 
     @Override
@@ -26,7 +26,7 @@ public class MinhaAgendaServlet extends HttpServlet {
                 List<Consulta> consultas = dao.listarConsultasDoPaciente(pacienteId);
 
                 request.setAttribute("consultas", consultas);
-                request.getRequestDispatcher("/agenda.jsp").forward(request, response);
+                request.getRequestDispatcher("/minha_agenda.jsp").forward(request, response);
 
             } catch (NumberFormatException e) {
                 request.setAttribute("erro", "ID inválido.");

@@ -27,8 +27,6 @@ public class MeuCadastroDAO {
 
             ResultSet rs = stmt.executeQuery();
 
-
-
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Erro ao buscar usuário no banco de dados.", e);
