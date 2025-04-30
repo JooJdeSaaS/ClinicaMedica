@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class MinhaAgendaDAO {
 
@@ -16,22 +18,30 @@ public class MinhaAgendaDAO {
         this.realPathBase = realPathBase;
     }
 
-     public List<Consulta> buscarConsultasPorPacienteId(int pacienteId) {
+    public List<Consulta> buscarConsultasPorPacienteId(int pacienteId) {
         List<Consulta> consultas = new ArrayList<>();
         try (Connection conn = DatabaseConnection.getConnection(realPathBase)) {
-            String sql = "SELECT id, paciente_id, profissional_id, data_hora, status, observacoes FROM consultas WHERE paciente_id = ?";
+            String sql = "SELECT c.paciente_id, c.profissional_id, c.data_hora, c.status, c.observacoes, u.nome " +
+                    "FROM consultas c " +
+                    "JOIN usuarios u ON c.profissional_id = u.id " +
+                    "WHERE c.paciente_id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, pacienteId);
 
             ResultSet rs = stmt.executeQuery();
+            int count = 1;
             while (rs.next()) {
-                int id = rs.getInt("id");
-                int profissionalId = rs.getInt("profissional_id");
+                int id = count;
+                count++;
+                String nomeProfissional = rs.getString("nome"); // agora pega o campo 'nome'
                 String dataHora = rs.getString("data_hora");
+                LocalDateTime dataHora1 = LocalDateTime.parse(dataHora);
+                DateTimeFormatter formatador = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
+                String dataFormatada = dataHora1.format(formatador);
                 String status = rs.getString("status");
                 String observacoes = rs.getString("observacoes");
 
-                Consulta consulta = new Consulta(id, pacienteId, profissionalId, dataHora, status, observacoes);
+                Consulta consulta = new Consulta(id, pacienteId, nomeProfissional, dataFormatada, status, observacoes);
                 consultas.add(consulta);
             }
         } catch (SQLException e) {
