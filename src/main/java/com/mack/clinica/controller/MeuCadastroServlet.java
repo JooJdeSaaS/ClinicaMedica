@@ -19,8 +19,11 @@ public class MeuCadastroServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Obtém o caminho real do projeto
-        String realPathBase = request.getServletContext().getRealPath("/");
         HttpSession session = request.getSession();
+        if (session == null || session.getAttribute("nome") == null) {
+            response.sendRedirect("index.jsp");
+            return;
+        }
         request.setAttribute("nome", session.getAttribute("nome"));
         //TODO perguntar se devo buscar o email colando ele na sessão ou bucando novamente aqui
         //request.setAttribute("email", session.getAttribute("email"));

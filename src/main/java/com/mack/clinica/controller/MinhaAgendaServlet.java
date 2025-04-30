@@ -26,10 +26,9 @@ public class MinhaAgendaServlet extends HttpServlet {
 
         // Obtém o ID do paciente da sessão
         Integer pacienteId = (Integer) session.getAttribute("id");
-        if (pacienteId == null) {
-            response.sendRedirect("login.jsp"); // Redireciona para o login se o paciente não estiver logado
+        if (session == null || session.getAttribute("nome") == null) {
+            response.sendRedirect("index.jsp");
             return;
-
         }
 
         // Instancia o DAO e busca as consultas do paciente
