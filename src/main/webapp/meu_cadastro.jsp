@@ -13,8 +13,8 @@
     <div class="nav-links">
         <a href="paciente_dashboard">Home</a>
         <a href="agendarConsulta">Agendamento de Consultas</a>
-        <a href="minha_agenda.jsp">Minha Agenda</a>
-        <a href="meu_cadastro.jsp">Meu Cadastro</a>
+        <a href="minhaAgenda">Minha Agenda</a>
+        <a href="meuCadastro">Meu Cadastro</a>
         <a href="${pageContext.request.contextPath}/logout" class="logout-link">Logout</a>
     </div>
 </div>
@@ -25,8 +25,9 @@
     <form method="post" action="meuCadastro">
 
         <div class="form-group">
+            <% String nome = (String) session.getAttribute("nome"); %>
             <label for="nomenovo">Nome:</label>
-            <div class="current-value">${sessionScope.nome}</div>
+            <div class="current-value"> <%= nome %> </div>
             <p class="change-label">Trocar para:</p>
             <input type="text" id="nomenovo" name="nome" value="${sessionScope.nome}" required>
         </div>

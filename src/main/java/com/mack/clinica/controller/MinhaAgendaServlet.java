@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/minha_agenda")
+@WebServlet("/minhaAgenda")
 public class MinhaAgendaServlet extends HttpServlet {
 
     @Override
