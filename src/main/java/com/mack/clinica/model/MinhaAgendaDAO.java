@@ -5,39 +5,40 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MinhaAgendaDAO {
 
-    /**
-     * Busca uma consulta pelo ID no banco de dados.
-     * @param consultaId ID da consulta.
-     * @param realPathBase Caminho real da aplicação para localizar o banco.
-     * @return Objeto Consulta encontrado ou null se não encontrado.
-     */
-    public static Consulta buscarConsultaPorId(int consultaId, String realPathBase) {
+    private String realPathBase;
+
+    public MinhaAgendaDAO(String realPathBase) {
+        this.realPathBase = realPathBase;
+    }
+
+     public List<Consulta> buscarConsultasPorPacienteId(int pacienteId) {
+        List<Consulta> consultas = new ArrayList<>();
         try (Connection conn = DatabaseConnection.getConnection(realPathBase)) {
-            String sql = "SELECT id, paciente_id, profissional_id, data_hora, status, observacoes FROM consultas WHERE id = ?";
+            String sql = "SELECT id, paciente_id, profissional_id, data_hora, status, observacoes FROM consultas WHERE paciente_id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, consultaId);
+            stmt.setInt(1, pacienteId);
 
             ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
+            while (rs.next()) {
                 int id = rs.getInt("id");
-                int pacienteId = rs.getInt("paciente_id");
                 int profissionalId = rs.getInt("profissional_id");
                 String dataHora = rs.getString("data_hora");
                 String status = rs.getString("status");
                 String observacoes = rs.getString("observacoes");
 
-                return new Consulta(id, pacienteId, profissionalId, dataHora, status, observacoes);
+                Consulta consulta = new Consulta(id, pacienteId, profissionalId, dataHora, status, observacoes);
+                consultas.add(consulta);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Erro ao buscar consulta no banco de dados.", e);
+            throw new RuntimeException("Erro ao buscar consultas no banco de dados.", e);
         }
 
-        return null;
+        return consultas;
     }
 }

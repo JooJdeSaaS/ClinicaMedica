@@ -15,11 +15,7 @@
         <div class="nav-links">
             <a href="paciente_dashboard">Home</a>
             <a href="agendarConsulta">Agendamento de Consultas</a>
-            <%
-                Integer pacienteId = (Integer) session.getAttribute("id");
-                String agendaLink = "minha-agenda?id=" + pacienteId;
-            %>
-            <a href="<%= agendaLink %>">Minha Agenda</a>
+            <a href="minha_agenda.jsp">Minha Agenda</a>
             <a href="meu_cadastro.jsp">Meu Cadastro</a>
             <a href="${pageContext.request.contextPath}/logout" class="logout-link">Logout</a>
         </div>
