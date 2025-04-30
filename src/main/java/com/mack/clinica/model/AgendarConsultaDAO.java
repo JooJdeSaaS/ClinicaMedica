@@ -56,4 +56,33 @@ public class AgendarConsultaDAO {
         return medicos;
     }
     
+
+
+public List<Consulta> listarConsultasDoPaciente(int pacienteId) {
+    List<Consulta> consultas = new ArrayList<>();
+    String sql = "SELECT * FROM consultas WHERE paciente_id = ?";
+
+    try (Connection conn = DatabaseConnection.getConnection(realPathBase)) {
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, pacienteId);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Consulta consulta = new Consulta(
+                rs.getInt("id"),
+                rs.getInt("paciente_id"),
+                rs.getInt("profissional_id"),
+                rs.getString("data_hora"),
+                rs.getString("status"),
+                rs.getString("observacoes")
+            );
+            consultas.add(consulta);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return consultas;
+}
+
 }

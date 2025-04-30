@@ -1,7 +1,6 @@
 package com.mack.clinica.model;
 
 import com.mack.clinica.util.DatabaseConnection;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,8 +25,6 @@ public class MeuCadastroDAO {
             stmt.setString(2, senha);
 
             ResultSet rs = stmt.executeQuery();
-
-
 
         } catch (SQLException e) {
             e.printStackTrace();
