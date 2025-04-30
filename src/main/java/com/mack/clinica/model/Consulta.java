@@ -4,6 +4,7 @@ public class Consulta {
     private int id;
     private int pacienteId;
     private int profissionalId;
+    private String nomeProfissional;
     private String dataHora;
     private String status;
     private String observacoes;
@@ -12,6 +13,15 @@ public class Consulta {
         this.id = id;
         this.pacienteId = pacienteId;
         this.profissionalId = profissionalId;
+        this.dataHora = dataHora;
+        this.status = status;
+        this.observacoes = observacoes;
+    }
+
+    public Consulta(int id, int pacienteId, String nomeProfissional, String dataHora, String status, String observacoes) {
+        this.id = id;
+        this.pacienteId = pacienteId;
+        this.nomeProfissional = nomeProfissional;
         this.dataHora = dataHora;
         this.status = status;
         this.observacoes = observacoes;
@@ -30,6 +40,8 @@ public class Consulta {
         return profissionalId;
     }
 
+    public String getNomeProfissional() {return nomeProfissional;}
+
     public String getDataHora() {
         return dataHora;
     }
@@ -40,15 +52,5 @@ public class Consulta {
 
     public String getObservacoes() {
         return observacoes;
-    }
-
-    @Override
-    public String toString() {
-        return "Consulta [ID=" + id +
-               ", Paciente ID=" + pacienteId +
-               ", Profissional ID=" + profissionalId +
-               ", Data e Hora=" + dataHora +
-               ", Status=" + status +
-               ", Observações=" + observacoes + "]";
     }
 }
