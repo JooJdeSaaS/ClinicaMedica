@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -20,15 +22,24 @@
 </div>
 
 <!-- Conteúdo principal -->
-<div class="cadastro-container">
-    <h2>Trocar informações</h2>
-    <form method="post" action="meuCadastro">
+<h2>Consultas Agendadas</h2>
 
-       
-
-        <button type="submit">Mudar</button>
-    </form>
-</div>
-
+<c:choose>
+    <c:when test="${not empty consultas}">
+        <c:forEach var="consulta" items="${consultas}">
+            <div class="bloco-consulta">
+                <p><strong>ID:</strong> ${consulta.id}</p>
+                <p><strong>ID do Paciente:</strong> ${consulta.pacienteId}</p>
+                <p><strong>ID do Profissional:</strong> ${consulta.profissionalId}</p>
+                <p><strong>Data e Hora:</strong> ${consulta.dataHora}</p>
+                <p><strong>Status:</strong> ${consulta.status}</p>
+                <p><strong>Observações:</strong> ${consulta.observacoes}</p>
+            </div>
+        </c:forEach>
+    </c:when>
+    <c:otherwise>
+        <p>Você não tem nenhuma consulta agendada.</p>
+    </c:otherwise>
+</c:choose>
 </body>
 </html>

@@ -1,52 +1,45 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.mack.clinica.model.Consulta" %>
-<%
-    List<Consulta> consultas = (List<Consulta>) request.getAttribute("consultas");
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Minha Agenda</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 20px; }
-        .container { background: white; padding: 20px; border-radius: 8px; max-width: 800px; margin: auto; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 10px; border-bottom: 1px solid #ccc; }
-        th { background-color: #f0f0f0; }
-    </style>
+    <title>Painel do Paciente</title>
+    <!-- Importa o CSS externo -->
+    <link rel="stylesheet" href="/css/meu_cadastro.css">
 </head>
 <body>
-    <div class="container">
-        <h2>Consultas Agendadas</h2>
 
-        <% if (consultas != null && !consultas.isEmpty()) { %>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Profissional ID</th>
-                        <th>Data e Hora</th>
-                        <th>Status</th>
-                        <th>Observações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for (Consulta c : consultas) { %>
-                        <tr>
-                            <td><%= c.getId() %></td>
-                            <td><%= c.getProfissionalId() %></td>
-                            <td><%= c.getDataHora() %></td>
-                            <td><%= c.getStatus() %></td>
-                            <td><%= c.getObservacoes() %></td>
-                        </tr>
-                    <% } %>
-                </tbody>
-            </table>
-        <% } else { %>
-            <p>Nenhuma consulta encontrada.</p>
-        <% } %>
+<!-- Menu de Navegação -->
+<div class="navbar">
+    <div class="nav-links">
+        <a href="paciente_dashboard">Home</a>
+        <a href="agendarConsulta">Agendamento de Consultas</a>
+        <a href="minha_agenda.jsp">Minha Agenda</a>
+        <a href="meu_cadastro.jsp">Meu Cadastro</a>
+        <a href="${pageContext.request.contextPath}/logout" class="logout-link">Logout</a>
     </div>
+</div>
+
+<!-- Conteúdo principal -->
+<h2>Consultas Agendadas</h2>
+
+<c:choose>
+    <c:when test="${not empty consultas}">
+        <c:forEach var="consulta" items="${consultas}">
+            <div class="bloco-consulta">
+                <p><strong>ID:</strong> ${consulta.id}</p>
+                <p><strong>ID do Paciente:</strong> ${consulta.pacienteId}</p>
+                <p><strong>ID do Profissional:</strong> ${consulta.profissionalId}</p>
+                <p><strong>Data e Hora:</strong> ${consulta.dataHora}</p>
+                <p><strong>Status:</strong> ${consulta.status}</p>
+                <p><strong>Observações:</strong> ${consulta.observacoes}</p>
+            </div>
+        </c:forEach>
+    </c:when>
+    <c:otherwise>
+        <p>Você não tem nenhuma consulta agendada.</p>
+    </c:otherwise>
+</c:choose>
 </body>
 </html>

@@ -1,3 +1,4 @@
+com\mack\clinica\controller\MinhaAgendaServlet.class
 com\mack\clinica\controller\AdminDashboardServlet.class
 com\mack\clinica\controller\LoginServlet.class
 com\mack\clinica\controller\PacienteDashboardServlet.class
