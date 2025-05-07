@@ -32,7 +32,7 @@ public class UsuarioDAO {
                 usuario.setEmail(rs.getString("email"));
                 usuario.setTipo(rs.getString("tipo"));
                 usuario.setCPF(rs.getString("cpf"));
-                usuario.setCelular(rs.getLong("celular"));
+                usuario.setCelularFormatado(rs.getLong("celular"));
                 return usuario;
             }
 
