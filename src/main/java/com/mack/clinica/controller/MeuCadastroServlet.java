@@ -25,8 +25,7 @@ public class MeuCadastroServlet extends HttpServlet {
             return;
         }
         request.setAttribute("nome", session.getAttribute("nome"));
-        //TODO perguntar se devo buscar o email colando ele na sessão ou bucando novamente aqui
-        //request.setAttribute("email", session.getAttribute("email"));
+        request.setAttribute("email", session.getAttribute("email"));
         request.setAttribute("celular", session.getAttribute("celular"));
         request.setAttribute("cpf", session.getAttribute("cpf"));
         request.getRequestDispatcher("/meu_cadastro.jsp").forward(request, response);
@@ -36,38 +35,7 @@ public class MeuCadastroServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            // Pega dados do formulário
-            int profissionalId = Integer.parseInt(request.getParameter("profissionalId"));
-            String dataHora = request.getParameter("dataHora");
 
-            // Pega o paciente_id da sessão
-            Integer pacienteIdObj = (Integer) request.getSession().getAttribute("id");
-            if (pacienteIdObj == null) {
-                System.out.println("Paciente não autenticado. Redirecionando para login.");
-                response.sendRedirect("index.jsp");
-                return;
-            }
-            int pacienteId = pacienteIdObj;
-
-            // Conecta no banco
-            String realPathBase = request.getServletContext().getRealPath("/");
-
-            System.out.println("Paciente ID: " + pacienteId);
-            System.out.println("Profissional ID: " + profissionalId);
-            System.out.println("Data e Hora: " + dataHora);
-
-            AgendarConsultaDAO dao = new AgendarConsultaDAO(realPathBase);
-
-            // Agenda a consulta
-            boolean sucesso = dao.agendarConsulta(pacienteId, profissionalId, dataHora);
-            System.out.println("Sucesso: " + sucesso);
-            if (sucesso) {
-                // apresenta o pop-up de sucesso e mensagem_sucesso.jsp redireciona para o painel do paciente
-                response.sendRedirect("/mensagem_sucesso.jsp");
-
-            } else {
-                response.sendRedirect("index.jsp?erro=agendar");
-            }
 
         } catch (Exception e) {
             e.printStackTrace();

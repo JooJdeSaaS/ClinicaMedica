@@ -17,7 +17,7 @@ public class UsuarioDAO {
      */
     public static Usuario buscarUsuario(String email, String senha, String realPathBase) {
         try (Connection conn = DatabaseConnection.getConnection(realPathBase)) {
-            String sql = "SELECT id, nome, tipo, cpf, celular FROM usuarios WHERE email = ? AND senha = ?";
+            String sql = "SELECT id, nome, email, tipo, cpf, celular FROM usuarios WHERE email = ? AND senha = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, email);
             stmt.setString(2, senha);
@@ -29,6 +29,7 @@ public class UsuarioDAO {
                 Usuario usuario = new Usuario();
                 usuario.setId(rs.getInt("id"));
                 usuario.setNome(rs.getString("nome"));
+                usuario.setEmail(rs.getString("email"));
                 usuario.setTipo(rs.getString("tipo"));
                 usuario.setCPF(rs.getString("cpf"));
                 usuario.setCelular(rs.getLong("celular"));

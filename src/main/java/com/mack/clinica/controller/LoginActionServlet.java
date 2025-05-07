@@ -34,6 +34,7 @@ public class LoginActionServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("id", usuario.getId());
             session.setAttribute("nome", usuario.getNome());
+            session.setAttribute("email", usuario.getEmail());
             session.setAttribute("tipo", usuario.getTipo());
             session.setAttribute("cpf", usuario.getCPF());
             session.setAttribute("celular", usuario.getCelular());
