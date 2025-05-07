@@ -1,6 +1,12 @@
 # Compiled class file
 *.class
 
+# Ignora a pasta target (gerada por Maven)
+target/
+.idea/
+# Ignora o banco de dados local
+src/main/webapp/WEB-INF/db.db
+
 # Log file
 *.log
 
