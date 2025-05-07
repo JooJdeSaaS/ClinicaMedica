@@ -7,8 +7,10 @@ public class Usuario {
     private int id;
     private String nome;
     private String tipo; // paciente ou admin
+    private String email;
     private String CPF;
-    private long celular;
+    private String celular;
+    private String created_at;
 
 
 
@@ -29,6 +31,10 @@ public class Usuario {
         this.nome = nome;
     }
 
+    public String getEmail() {return email;}
+
+    public void setEmail(String email) {this.email = email;}
+
     public String getTipo() {
         return tipo;
     }
@@ -38,7 +44,11 @@ public class Usuario {
     }
 
     public void setCPF(String CPF) {
-        this.CPF = CPF;
+        this.CPF = String.format("%s.%s.%s-%s",
+                CPF.substring(0, 3),
+                CPF.substring(3, 6),
+                CPF.substring(6, 9),
+                CPF.substring(9, 11));
     }
 
     public String getCPF() {
@@ -46,10 +56,18 @@ public class Usuario {
     }
 
     public void setCelular(long celular) {
-        this.celular = celular;
+        String s = String.format("%011d", celular);
+        this.celular = String.format("(%s) %s-%s",
+                s.substring(0, 2),
+                s.substring(2, 7),
+                s.substring(7));
     }
 
-    public long getCelular() {
+    public String getCelular() {
         return celular;
     }
+
+    public void setCreated_at(String created_at) {this.created_at = created_at;}
+
+    public String getCreated_at() {return created_at;}
 }
