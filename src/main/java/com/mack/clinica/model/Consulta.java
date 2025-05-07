@@ -9,14 +9,6 @@ public class Consulta {
     private String status;
     private String observacoes;
 
-    public Consulta(int id, int pacienteId, int profissionalId, String dataHora, String status, String observacoes) {
-        this.id = id;
-        this.pacienteId = pacienteId;
-        this.profissionalId = profissionalId;
-        this.dataHora = dataHora;
-        this.status = status;
-        this.observacoes = observacoes;
-    }
 
     public Consulta(int id, int pacienteId, String nomeProfissional, String dataHora, String status, String observacoes) {
         this.id = id;
