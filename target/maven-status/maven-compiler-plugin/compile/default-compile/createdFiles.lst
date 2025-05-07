@@ -5,6 +5,7 @@ com\mack\clinica\controller\PacienteDashboardServlet.class
 com\mack\clinica\model\MeuCadastroDAO.class
 com\mack\clinica\controller\LogoutServlet.class
 com\mack\clinica\controller\LoginActionServlet.class
+com\mack\clinica\controller\SessionUtil.class
 com\mack\clinica\model\AgendarConsultaDAO.class
 com\mack\clinica\model\UsuarioDAO.class
 com\mack\clinica\util\DatabaseConnection.class

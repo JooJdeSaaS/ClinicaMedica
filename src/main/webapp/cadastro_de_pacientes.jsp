@@ -7,18 +7,35 @@
 <head>
     <meta charset="UTF-8">
     <title>cadastroDePacientes</title>
+    <link rel="stylesheet" href="/css/cadastro_de_pacientes.css">
 <body>
+<div class="navbar">
+    <div class="nav-links">
+        <a href="admin_dashboard">Home</a>
+        <a href="cadastroDePacientes">Cadastro de Pacientes</a>
+        <a href="cadastroDeMedicos">Cadastro de Médicos</a>
+        <a href="consultarAgenda">Consultar Agenda</a>
+        <a href="fichaClinica">Ficha Clínica</a>
+        <a href="${pageContext.request.contextPath}/logout" class="logout-link">Logout</a>
+    </div>
+</div>
+
 <div class="container">
     <div class="card">
         <h2>Criar, Ler, Atualizar, Deletar usuarios</h2>
 
         <%-- JSP Form for operation selection --%>
         <%
-            String selectedOperation = request.getParameter("crudOperation");
+            String selectedOperation = (String) request.getAttribute("crudOperation");
+            if (selectedOperation == null) {
+                selectedOperation = request.getParameter("crudOperation");
+            }
             if (selectedOperation == null) {
                 selectedOperation = "";
             }
+            request.setAttribute("selectedOperation", selectedOperation);
         %>
+
 
         <form method="get" action="cadastroDePacientes">
             <div class="form-group">
@@ -36,33 +53,38 @@
 
     <%-- Display different sections based on selection --%>
         <div class="section">
-            <% if ("criar".equals(selectedOperation)) { %>
-            <div class="create-section">
-                <form action="#" method="post">
-                    <div class="form-group">
-                        <label for="nomecriar">Nome:</label>
-                        <input type="text" id="nomecriar" name="nomecriar">
-                    </div>
-                    <div class="form-group">
-                        <label for="emailcriar">Email:</label>
-                        <input type="text" id="emailcriar" name="emailcriar">
-                    </div>
-                    <div class="form-group">
-                        <label for="cpfcriar">CPF:</label>
-                        <input type="text" id="cpfcriar" name="cpfcriar">
-                    </div>
-                    <div class="form-group">
-                        <label for="celularcriar">Celular:</label>
-                        <input type="text" id="celularcriar" name="celularcriar">
-                    </div>
-                    <div class="form-group">
-                        <label for="senhacriar">Senha:</label>
-                        <input type="text" id="senhacriar" name="senhacriar">
-                    </div>
-                    <button type="button" class="criarusuario">Criar Usuario </button>
-                </form>
-            </div>
-            <% } else if ("mostrar".equals(selectedOperation)) { %>
+            <c:if test="${selectedOperation == 'criar'}">
+                <div class="create-section">
+                    <form method="post" action="cadastroDePacientes">
+                        <input type="hidden" name="operacao" value="adicionarUsuario"/>
+
+                        <div class="form-group">
+                            <label for="nomeCriar">Nome:</label>
+                            <input type="text" id="nomeCriar" name="nomeCriar" required/>
+                        </div>
+                        <div class="form-group">
+                            <label for="emailCriar">Email:</label>
+                            <input type="email" id="emailCriar" name="emailCriar" required/>
+                        </div>
+                        <div class="form-group">
+                            <label for="cpfCriar">CPF:</label>
+                            <input type="text" id="cpfCriar" name="cpfCriar" required/>
+                        </div>
+                        <div class="form-group">
+                            <label for="celularCriar">Celular:</label>
+                            <input type="text" id="celularCriar" name="celularCriar" required/>
+                        </div>
+                        <div class="form-group">
+                            <label for="senhaCriar">Senha:</label>
+                            <input type="password" id="senhaCriar" name="senhaCriar" required/>
+                        </div>
+
+                        <!-- aqui: tipo submit! -->
+                        <button type="submit" class="criarusuario">Criar Usuário</button>
+                    </form>
+                </div>
+            </c:if>
+            <c:if test="${selectedOperation == 'mostrar'}">
             <div class="read-section">
                 <table>
                     <thead>
@@ -93,8 +115,8 @@
                     </tbody>
                 </table>
             </div>
-            <% } else if ("atualizar".equals(selectedOperation)) { %>
-            <div class="update-section">
+            </c:if>
+            <c:if test="${selectedOperation == 'atualizar'}">
                 <%
                     // Recebe o campo escolhido para buscar o usuário
                     String campoBusca = request.getParameter("campoBusca");
@@ -102,127 +124,99 @@
                         campoBusca = ""; // evita NullPointerException
                     }
                 %>
+                <%-- Se estivermos no modo “atualizar” (via atributo ou parâmetro) --%>
+                <c:if test="${crudOperation eq 'atualizar'}">
 
-                <form action="#" method="post">
-                    <input type="hidden" name="operacao" value="atualizar">
+                    <%-- 1) Formulário de busca --%>
+                    <form method="post" action="cadastroDePacientes">
+                        <input type="hidden" name="operacao" value="buscarAtualizar"/>
+                        <div class="form-group">
+                            <label for="campoBusca">Buscar usuário por:</label>
+                            <select id="campoBusca" name="campoBusca">
+                                <option value="email"   ${param.campoBusca eq 'email'   ? 'selected' : ''}>Email</option>
+                                <option value="cpf"     ${param.campoBusca eq 'cpf'     ? 'selected' : ''}>CPF</option>
+                                <option value="celular" ${param.campoBusca eq 'celular' ? 'selected' : ''}>Celular</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="valorBusca">Valor:</label>
+                            <input type="text" id="valorBusca" name="valorBusca" value="${param.valorBusca}" required/>
+                        </div>
+                        <button type="submit">Buscar para Atualizar</button>
+                    </form>
 
-                    <!-- 1) Campo para selecionar por qual campo buscar -->
-                    <div class="form-group">
-                        <label for="campoBusca">Buscar usuário por:</label>
-                        <select id="campoBusca" name="campoBusca" onchange="this.form.submit()">
-                            <option value="" <%= campoBusca.isEmpty() ? "selected" : "" %>>Selecione um campo</option>
-                            <option value="email" <%= "email".equals(campoBusca) ? "selected" : "" %>>Email</option>
-                            <option value="cpf" <%= "cpf".equals(campoBusca) ? "selected" : "" %>>CPF</option>
-                            <option value="celular" <%= "celular".equals(campoBusca) ? "selected" : "" %>>Celular</option>
+                    <%-- 2) Só exibe se o servlet devolveu um usuário encontrado --%>
+                    <c:if test="${not empty usuarioEncontrado}">
+                        <hr/>
+                        <h4>Atualizar usuário: ${usuarioEncontrado.nome}</h4>
+                        <form method="post" action="cadastroDePacientes">
+                            <input type="hidden" name="operacao" value="confirmarAtualizar"/>
+                            <input type="hidden" name="id"        value="${usuarioEncontrado.id}"/>
+
+                            <div class="form-group">
+                                <label for="nomeAtualizar">Nome:</label>
+                                <input type="text" id="nomeAtualizar" name="nomeAtualizar"
+                                       value="${usuarioEncontrado.nome}" required/>
+                            </div>
+
+                                <div class="form-group">
+                                    <label for="cpfAtualizar">CPF:</label>
+                                    <input type="text" id="cpfAtualizar" name="cpfAtualizar"
+                                           value="${usuarioEncontrado.CPF}" required/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="celularAtualizar">Celular:</label>
+                                    <input type="text" id="celularAtualizar" name="celularAtualizar"
+                                           value="${usuarioEncontrado.celular}" required/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="emailAtualizar">Email:</label>
+                                    <input type="email" id="emailAtualizar" name="emailAtualizar"
+                                           value="${usuarioEncontrado.email}" required/>
+                                </div>
+
+
+                            <div class="form-group">
+                                <label for="senhaAtualizar">Senha:</label>
+                                <input type="password" id="senhaAtualizar" name="senhaAtualizar" required/>
+                            </div>
+
+                            <button type="submit">Confirmar Atualização</button>
+                        </form>
+                    </c:if>
+
+                </c:if>
+
+            </c:if>
+            <c:if test="${selectedOperation == 'deletar'}">
+                <div class="delete-section">
+                    <!-- 1) Buscar usuário para deletar -->
+                    <form method="post" action="cadastroDePacientes">
+                        <input type="hidden" name="operacao" value="buscarDeletar"/>
+                        <label for="campoDeletar">Buscar por:</label>
+                        <select id="campoDeletar" name="campoDeletar">
+                            <option value="email">Email</option>
+                            <option value="cpf">CPF</option>
+                            <option value="celular">Celular</option>
                         </select>
-                    </div>
+                        <input type="text" name="valorDeletar" required/>
+                        <button type="submit">Buscar para Deletar</button>
+                    </form>
 
-                    <!-- 2) Campo para inserir o valor de busca -->
-                    <% if (!campoBusca.isEmpty()) { %>
-                    <div class="form-group">
-                        <label for="valorBusca">Digite o <%= campoBusca %> para buscar:</label>
-                        <input type="text" id="valorBusca" name="valorBusca" required>
-                    </div>
-
-                    <!-- 3) Campos para atualização (todos exceto o campo de busca) -->
-                    <h4>Novos dados:</h4>
-
-
-                    <div class="form-group">
-                        <label for="nomeAtualizar">Novo Nome:</label>
-                        <input type="text" id="nomeAtualizar" name="nomeAtualizar">
-                    </div>
-
-                    <% if (!"cpf".equals(campoBusca)) { %>
-                    <div class="form-group">
-                        <label for="cpfAtualizar">Novo CPF:</label>
-                        <input type="text" id="cpfAtualizar" name="cpfAtualizar">
-                    </div>
-                    <% } %>
-
-                    <% if (!"celular".equals(campoBusca)) { %>
-                    <div class="form-group">
-                        <label for="celularAtualizar">Novo Celular:</label>
-                        <input type="text" id="celularAtualizar" name="celularAtualizar">
-                    </div>
-                    <% } %>
-
-                    <% if (!"email".equals(campoBusca)) { %>
-                    <div class="form-group">
-                        <label for="emailAtualizar">Novo Email:</label>
-                        <input type="email" id="emailAtualizar" name="emailAtualizar">
-                    </div>
-                    <% } %>
-
-                    <div class="form-group">
-                        <label for="senhaAtualizar">Nova Senha:</label>
-                        <input type="password" id="senhaAtualizar" name="senhaAtualizar">
-                    </div>
-
-                    <!-- 4) Botão de submit -->
-                    <button type="submit" class="btn-update">Atualizar Usuário</button>
-                    <% } %>
-                </form>
-            </div>
-            <% } else if ("deletar".equals(selectedOperation)) { %>
-            <div class="delete-section">
-
-                <%
-                    // Recebe o campo escolhido para buscar o usuário
-                    String campoDeletar = request.getParameter("campoDeletar");
-                    if (campoDeletar == null) {
-                        campoDeletar = ""; // evita NullPointerException
-                    }
-                %>
-
-                <form action="#" method="post">
-                    <input type="hidden" name="operacao" value="atualizar">
-
-                    <!-- 1) Campo para selecionar por qual campo buscar -->
-                    <div class="form-group">
-                        <label for="campoDeletar">Buscar usuário por:</label>
-                        <select id="campoDeletar" name="campoDeletar" onchange="this.form.submit()">
-                            <option value="" <%= campoDeletar.isEmpty() ? "selected" : "" %>>Selecione um campo</option>
-                            <option value="email" <%= "email".equals(campoDeletar) ? "selected" : "" %>>Email</option>
-                            <option value="cpf" <%= "cpf".equals(campoDeletar) ? "selected" : "" %>>CPF</option>
-                            <option value="celular" <%= "celular".equals(campoDeletar) ? "selected" : "" %>>Celular</option>
-                        </select>
-                    </div>
-
-                    <!-- 2) Campo para inserir o valor de busca -->
-                        <% if (!campoDeletar.isEmpty()) { %>
-                    <div class="form-group">
-                        <label for="valorDeletar">Digite o <%= campoDeletar %> para buscar:</label>
-                        <input type="text" id="valorDeletar" name="valorDeletar" required>
-                    </div>
-                <div class="warning">
-                    <p><strong>Aviso:</strong> Essa ação não pode ser revertida.</p>
-                    <p>Você tem certeza que deseja deletar esse usuario?</p>
+                    <!-- 2) Só aparece depois que você carregar o usuário -->
+                    <c:if test="${not empty usuarioEncontrado}">
+                        <hr/>
+                        <p>Tem certeza que quer deletar: <strong>${usuarioEncontrado.nome}</strong>?</p>
+                        <form method="post" action="cadastroDePacientes">
+                            <input type="hidden" name="operacao" value="confirmarDeletar"/>
+                            <input type="hidden" name="id"        value="${usuarioEncontrado.id}"/>
+                            <button type="submit">Confirmar Deleção</button>
+                        </form>
+                    </c:if>
                 </div>
-                <button type="button" class="btn-delete">Deletar Usuario</button>
-            </div>
-            <% } }%>
-        </div>
-
-
-        <%-- In a real application, you would process form submissions here --%>
-        <%--
-        <%
-            // Process create form submission
-            if ("POST".equalsIgnoreCase(request.getMethod()) && "create".equals(selectedOperation)) {
-                String itemName = request.getParameter("itemName");
-                String itemDescription = request.getParameter("itemDescription");
-
-                // Insert into database code would go here
-                // ...
-
-                // Redirect or show success message
-            }
-
-            // Similar processing for update and delete operations
-        %>
-        --%>
+            </c:if>
     </div>
-</div>
 </body>
 </html>
