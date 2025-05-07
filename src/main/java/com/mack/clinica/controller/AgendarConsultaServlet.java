@@ -6,6 +6,7 @@ import java.util.List;
 import com.mack.clinica.model.AgendarConsultaDAO;
 import com.mack.clinica.model.Usuario;
 
+import com.mack.clinica.controller.SessionUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,11 +21,9 @@ public class AgendarConsultaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session == null || session.getAttribute("nome") == null) {
-            response.sendRedirect("index.jsp");
-            return;
-        }
+
+        if (!SessionUtil.validar(request, response)) {return;}
+
         // Obtém o caminho real do projeto
         String realPathBase = request.getServletContext().getRealPath("/");
         // Instancia o DAO passando o caminho

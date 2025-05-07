@@ -8,6 +8,7 @@ import com.mack.clinica.model.Consulta;
 import com.mack.clinica.model.MinhaAgendaDAO;
 import com.mack.clinica.model.Usuario;
 
+import com.mack.clinica.controller.SessionUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -21,15 +22,13 @@ public class MinhaAgendaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (!SessionUtil.validar(request, response)) {return;}
         HttpSession session = request.getSession();
         String realPathBase = request.getServletContext().getRealPath("/");
 
         // Obtém o ID do paciente da sessão
         Integer pacienteId = (Integer) session.getAttribute("id");
-        if (session == null || session.getAttribute("nome") == null) {
-            response.sendRedirect("index.jsp");
-            return;
-        }
+
 
         // Instancia o DAO e busca as consultas do paciente
         MinhaAgendaDAO dao = new MinhaAgendaDAO(realPathBase);

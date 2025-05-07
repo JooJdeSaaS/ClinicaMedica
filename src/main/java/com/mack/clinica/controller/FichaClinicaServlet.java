@@ -1,5 +1,6 @@
 package com.mack.clinica.controller;
 
+import com.mack.clinica.controller.SessionUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,11 +17,8 @@ public class FichaClinicaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session == null || session.getAttribute("nome") == null) {
-            response.sendRedirect("index.jsp");
-            return;
-        }
+        if (!SessionUtil.validar(request, response)) {return;}
+
         request.getRequestDispatcher("/ficha_clinica.jsp").forward(request, response);
     }
     

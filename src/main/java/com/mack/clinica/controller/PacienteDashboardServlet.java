@@ -2,6 +2,7 @@ package com.mack.clinica.controller;
 
 import java.io.IOException;
 
+import com.mack.clinica.controller.SessionUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,12 +17,8 @@ public class PacienteDashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (!SessionUtil.validar(request, response)) {return;}
 
-        HttpSession session = request.getSession();
-        if (session == null || session.getAttribute("nome") == null) {
-            response.sendRedirect("index.jsp");
-            return;
-        }
         request.getRequestDispatcher("/paciente_dashboard.jsp").forward(request, response);
     }
 }
