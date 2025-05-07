@@ -35,44 +35,32 @@
         <div class="form-group">
             <!--TODO Porra professor, celular como float foi foda-->
             <%
-                Long celular = (Long) session.getAttribute("celular");
-                String celularFormatado = celular != null ? celular.toString() : "Valor não disponível";
-
-                // Sempre assume que o celular tem 11 dígitos
-                String celularFormatado2 = String.format("(%s) %s-%s",
-                        celularFormatado.substring(0, 2),
-                        celularFormatado.substring(2, 7),
-                        celularFormatado.substring(7, 11));
+                String celular = (String) session.getAttribute("celular");
             %>
             <label for="celularnovo">Celular:</label>
-            <div class="current-value"><%= celularFormatado2 %></div>
+            <div class="current-value"><%= celular %></div>
             <p class="change-label">Trocar para:</p>
-            <input type="text" id="celularnovo" name="celular" value="<%= celularFormatado %>" required>
+            <input type="text" id="celularnovo" name="celular" value="<%= celular %>" required>
         </div>
 
         <div class="form-group">
             <%
                 String CPF = (String) session.getAttribute("cpf");
-
-                // Sempre assume que o celular tem 11 dígitos
-                String CPFFormatado = String.format("%s.%s.%s-%s",
-                        CPF.substring(0, 3),
-                        CPF.substring(3, 6),
-                        CPF.substring(6, 9),
-                        CPF.substring(9, 11));
             %>
             <label for="CPF">CPF:</label>
-            <div class="current-value"><%= CPFFormatado %></div>
+            <div class="current-value"><%= CPF %></div>
             <p class="change-label">Trocar para:</p>
             <input type="text" id="CPF" name="CPF" value="<%= CPF %>" required>
         </div>
 
         <div class="form-group">
-            <!--TODO como levar o email, pode ser pela sessão-->
+            <%
+                String email = (String) session.getAttribute("email");
+            %>
             <label for="emailnovo">E-mail:</label>
-            <div class="current-value">email da pessoa</div>
+            <div class="current-value"><%= email %></div>
             <p class="change-label">Trocar para:</p>
-            <input type="text" id="emailnovo" name="email" required>
+            <input type="text" id="emailnovo" name="emailnovo" value="<%= email %>" required>
         </div>
 
         <button type="submit">Mudar</button>
