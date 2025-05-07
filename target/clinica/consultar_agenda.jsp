@@ -21,6 +21,7 @@
         </div>
     </div>
 
+
     <!-- Conteúdo principal -->
     <div class="content">
         <h1>Painel do Administrador</h1>

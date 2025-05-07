@@ -1,0 +1,247 @@
+/* Reset básico e estilos base */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+/* Estilos da Navbar */
+.navbar {
+    background: linear-gradient(to right, #333, #222);
+    overflow: hidden;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.navbar a {
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 16px 20px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.navbar a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.logout-link {
+    background-color: rgba(255, 0, 0, 0.2);
+}
+
+.logout-link:hover {
+    background-color: rgba(255, 0, 0, 0.3);
+}
+
+/* Container principal */
+.content-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 80px auto 30px;
+    padding: 20px;
+}
+
+/* Título principal */
+h2 {
+    color: white;
+    text-align: center;
+    font-weight: 600;
+    font-size: 28px;
+    position: relative;
+    padding-bottom: 15px;
+    margin: 20px 0 30px;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 4px;
+    width: 50px;
+    border-radius: 2px;
+    background-color: white;
+}
+
+/* Grid de consultas */
+.consultas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
+}
+
+/* Blocos de consulta */
+.bloco-consulta {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bloco-consulta:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Cabeçalho da consulta */
+.consulta-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: linear-gradient(to right, #667eea, #764ba2);
+    color: white;
+}
+
+.consulta-id {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.consulta-status {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Corpo da consulta */
+.consulta-body {
+    padding: 15px;
+}
+
+/* Tabela de informações */
+.consulta-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+.consulta-table td {
+    padding: 4px 0;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #555;
+    width: 110px;
+    vertical-align: top;
+    font-size: 14px;
+}
+
+.info-value {
+    color: #333;
+    font-size: 15px;
+    word-break: normal;
+    word-wrap: break-word;
+}
+
+/* Rodapé da consulta */
+.consulta-footer {
+    padding: 12px 15px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #eee;
+}
+
+.observacoes-label {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.observacoes-content {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* Mensagem quando não há consultas */
+.no-consultas {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+}
+
+.no-consultas p {
+    color: #555;
+    font-size: 16px;
+    margin: 0;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navbar a {
+        width: 100%;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .content-container {
+        margin-top: 240px;
+    }
+
+    .consultas-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 24px;
+    }
+
+    .consulta-table {
+        font-size: 14px;
+    }
+
+    .info-label {
+        width: 90px;
+    }
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.bloco-consulta {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.bloco-consulta:nth-child(2) { animation-delay: 0.1s; }
+.bloco-consulta:nth-child(3) { animation-delay: 0.2s; }
+.bloco-consulta:nth-child(4) { animation-delay: 0.3s; }
+.bloco-consulta:nth-child(5) { animation-delay: 0.4s; }
