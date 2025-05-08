@@ -27,8 +27,7 @@ public class CRUDMedicosDAO {
             stmt.setString(1, medico.getNome());
             stmt.setString(2, medico.getEmail());
             stmt.setString(3, medico.getCPFformatado());
-            stmt.setLong(4, medico.getCelularFormatado());
-            stmt.setString(5, senha);
+           
             LocalDateTime agora = LocalDateTime.now();
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String dataHora = agora.format(formato);
