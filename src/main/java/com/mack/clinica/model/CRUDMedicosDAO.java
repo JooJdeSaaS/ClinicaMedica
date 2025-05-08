@@ -1,5 +1,15 @@
 package com.mack.clinica.model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mack.clinica.util.DatabaseConnection;
+
 public class CRUDMedicosDAO {
     private String realPathBase;
 
@@ -9,8 +19,28 @@ public class CRUDMedicosDAO {
 
     
     public boolean criarMedico(Medico medico) {
-        // Implementar lógica para criar um médico no banco de dados
-        return false; // Retornar true se a operação for bem-sucedida, caso contrário, false
+        String sql = "INSERT INTO medicos (nome, email, cpf, celular, tipo, senha, created_at) VALUES (?, ?, ?, ?, 'paciente', ?, ?)";
+
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, medico.getNome());
+            stmt.setString(2, medico.getEmail());
+            stmt.setString(3, medico.getCPFformatado());
+            stmt.setLong(4, medico.getCelularFormatado());
+            stmt.setString(5, senha);
+            LocalDateTime agora = LocalDateTime.now();
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String dataHora = agora.format(formato);
+            stmt.setString(6, dataHora);
+            int linhasAfetadas = stmt.executeUpdate();
+            System.out.println("Linhas afetadas: " + linhasAfetadas);
+            return linhasAfetadas > 0;
+        } catch (SQLException e) {
+            System.out.println("Erro ao criar médico: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public List<Medico> listarMedicos() {
