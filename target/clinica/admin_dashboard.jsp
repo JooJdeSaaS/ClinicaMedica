@@ -13,10 +13,10 @@
     <div class="navbar">
         <div class="nav-links">
             <a href="admin_dashboard">Home</a>
-            <a href="#">Cadastro de Pacientes</a>
-            <a href="#">Cadastro de Médicos</a>
-            <a href="#">Consultar Agenda</a>
-            <a href="#">Ficha Clínica</a>
+            <a href="cadastroDePacientes">Cadastro de Pacientes</a>
+            <a href="cadastroDeMedicos">Cadastro de Médicos</a>
+            <a href="consultarAgenda">Consultar Agenda</a>
+            <a href="fichaClinica">Ficha Clínica</a>
             <a href="${pageContext.request.contextPath}/logout" class="logout-link">Logout</a>
         </div>
     </div>
