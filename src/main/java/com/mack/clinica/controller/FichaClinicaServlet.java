@@ -23,12 +23,20 @@ public class FichaClinicaServlet extends HttpServlet {
         }
         request.getRequestDispatcher("/ficha_clinica.jsp").forward(request, response);
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            // pega os dado
+            String nome = request.getParameter("nome");
+            String idade = request.getParameter("idade");
+            String sintomas = request.getParameter("sintomas");
 
+            // guarda os dado
+            request.setAttribute("nome", nome);
+            request.setAttribute("idade", idade);
+            request.setAttribute("sintomas", sintomas);
 
 
         } catch (Exception e) {
