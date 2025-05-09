@@ -38,6 +38,8 @@ public class FichaClinicaServlet extends HttpServlet {
             request.setAttribute("idade", idade);
             request.setAttribute("sintomas", sintomas);
 
+            // faz voltar pra home ao enviar
+            response.sendRedirect("admin_dashboard.jsp");
 
         } catch (Exception e) {
             e.printStackTrace();
