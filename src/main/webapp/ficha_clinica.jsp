@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -26,13 +27,13 @@
 
 
 
-    <label>ID DO MEDICO:</label>
-    <input type="number" name="profissional_id"><br><br>
-
-    <label>ID DO PACIENTE:</label>
-    <input type="number" name="paciente_id"><br><br>
-
-
+    <label for="profissional_id">Selecionar Médico:</label>
+    <select name="profissional_id" id="profissional_id" required>
+        <option value="">-- Selecione um médico --</option>
+        <c:forEach var="medico" items="${medicos}">
+            <option value="${medico.id}">${medico.nome}</option>
+        </c:forEach>
+    </select>
     <label>Data:</label>
     <input type="date" name="data"><br><br>
 
