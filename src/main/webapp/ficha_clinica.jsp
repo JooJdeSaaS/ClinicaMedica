@@ -23,14 +23,26 @@
 <h2>Ficha Clínica</h2>
 
 <form action="fichaClinica" method="post">
-    <label>Nome:</label>
-    <input type="text" name="paciente_id"><br><br>
+
+
+
+    <label>ID DO MEDICO:</label>
+    <input type="number" name="profissional_id"><br><br>
+
+    <label>ID DO PACIENTE:</label>
+    <input type="number" name="paciente_id"><br><br>
+
+
+    <label>Data:</label>
+    <input type="date" name="data"><br><br>
+
+
 
     <label>Anotacoes Medicas:</label>
     <input type="text" name="anotacoes_medicas"><br><br>
 
-    <label>Prescricao</label><br>
-    <textarea name="prescricoes" type="text"></textarea><br><br>
+    <label>Prescricoes:</label>
+    <input type="text" name="prescricoes"><br><br>
 
     <input type="submit" value="Enviar">
 </form>

@@ -14,18 +14,22 @@ public class FichaClinicaDAO {
         this.realPathBase = realPathBase;
     }
 
-    public void salvarFichaClinica(String paciente_id, String anotacoes_medicas, String prescricoes) {
-        String sql = "INSERT INTO prontuarios (paciente_id, anotacoes_medicas, prescricoes) VALUES (?, ?, ?)";
+    public void salvarFichaClinica(Integer paciente_id, Integer profissional_id, String anotacoes_medicas, String prescricoes, String data) {
+        String sql = "INSERT INTO prontuarios (paciente_id, profissional_id, data, anotacoes_medicas, prescricoes) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection(realPathBase);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, paciente_id);
-            stmt.setString(2, anotacoes_medicas);
-            stmt.setString(3, prescricoes);
+            stmt.setInt(1, paciente_id);
+            stmt.setInt(2, profissional_id);
+            stmt.setString(3, data);
+            stmt.setString(4, anotacoes_medicas);
+            stmt.setString(5, prescricoes);
+
             stmt.executeUpdate();
 
         } catch (SQLException e) {
+            System.out.println("Erro ao salvar ficha clínica no DAO");
             e.printStackTrace();
             throw new RuntimeException("Erro ao salvar ficha clínica no banco de dados.", e);
         }

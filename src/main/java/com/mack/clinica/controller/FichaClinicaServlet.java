@@ -29,21 +29,29 @@ public class FichaClinicaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            String paciente_id = request.getParameter("nome");
-            String anotacoes_medicas = request.getParameter("anotacoes");
-            String prescricoes = request.getParameter("prescricao");
+            String paciente_id = request.getParameter("paciente_id");
+            String profissional_id = request.getParameter("profissional_id");
+            String anotacoes_medicas = request.getParameter("anotacoes_medicas");
+            String prescricoes = request.getParameter("prescricoes");
+            String data = request.getParameter("data");
 
-            // Caminho absoluto para o banco SQLite dentro de /WEB-INF
-            String dbPath = getServletContext().getRealPath("/WEB-INF/db.db");
+            // aaaaaaaaaaaaa
+            String dbPath = getServletContext().getRealPath("/");
+
+
+
+            Integer b = Integer.parseInt(paciente_id);
+            Integer c = Integer.parseInt(profissional_id);
 
             FichaClinicaDAO dao = new FichaClinicaDAO(dbPath);
-            dao.salvarFichaClinica(paciente_id, anotacoes_medicas, prescricoes);
+            dao.salvarFichaClinica( b, c,anotacoes_medicas,prescricoes,data);
 
             response.sendRedirect("admin_dashboard.jsp");
 
         } catch (Exception e) {
+            System.out.println("tudo errado servlet");
             e.printStackTrace();
-            response.sendRedirect("paciente_dashboard.jsp?msg=erro");
+            response.sendRedirect("admin_dashboard.jsp?msg=erro");
         }
     }
 }
