@@ -30,13 +30,13 @@ public class FichaClinicaServlet extends HttpServlet {
         try {
             // pega os dado
             String nome = request.getParameter("nome");
-            String idade = request.getParameter("idade");
-            String sintomas = request.getParameter("sintomas");
+            String anotacoes = request.getParameter("anotacoes");
+            String prescricao = request.getParameter("prescricao");
 
             // guarda os dado
             request.setAttribute("nome", nome);
-            request.setAttribute("idade", idade);
-            request.setAttribute("sintomas", sintomas);
+            request.setAttribute("anotacoes", anotacoes);
+            request.setAttribute("sintomas", prescricao);
 
             // faz voltar pra home ao enviar
             response.sendRedirect("admin_dashboard.jsp");

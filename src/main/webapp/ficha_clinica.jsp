@@ -24,13 +24,13 @@
 
 <form action="fichaClinica" method="post">
     <label>Nome:</label>
-    <input type="text" name="nome"><br><br>
+    <input type="text" name="Nome do paciente"><br><br>
 
     <label>Idade:</label>
-    <input type="number" name="idade"><br><br>
+    <input type="number" name="Anotações da consulta"><br><br>
 
     <label>Sintomas:</label><br>
-    <textarea name="sintomas" rows="5" cols="30"></textarea><br><br>
+    <textarea name="prescricao" rows="5" cols="30"></textarea><br><br>
 
     <input type="submit" value="Enviar">
 </form>
