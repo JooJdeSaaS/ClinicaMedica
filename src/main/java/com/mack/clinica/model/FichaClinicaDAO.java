@@ -14,13 +14,13 @@ public class FichaClinicaDAO {
         this.realPathBase = realPathBase;
     }
 
-    public void salvarFichaClinica(String nome, String anotacoes, String prescricao) {
+    public void salvarFichaClinica(String paciente_id, String anotacoes_medicas, String prescricoes) {
         String sql = "INSERT INTO prontuarios (paciente_id, anotacoes_medicas, prescricoes) VALUES (?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection(realPathBase);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, nome);
+            stmt.setString(1, paciente_id);
             stmt.setString(2, anotacoes_medicas);
             stmt.setString(3, prescricoes);
             stmt.executeUpdate();

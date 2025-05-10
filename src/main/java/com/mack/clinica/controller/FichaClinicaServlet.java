@@ -1,5 +1,6 @@
 package com.mack.clinica.controller;
 
+import com.mack.clinica.model.FichaClinicaDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -28,17 +29,16 @@ public class FichaClinicaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            // pega os dado
-            String nome = request.getParameter("nome");
-            String anotacoes = request.getParameter("anotacoes");
-            String prescricao = request.getParameter("prescricao");
+            String paciente_id = request.getParameter("nome");
+            String anotacoes_medicas = request.getParameter("anotacoes");
+            String prescricoes = request.getParameter("prescricao");
 
-            // guarda os dado
-            request.setAttribute("nome", nome);
-            request.setAttribute("anotacoes", anotacoes);
-            request.setAttribute("sintomas", prescricao);
+            // Caminho absoluto para o banco SQLite dentro de /WEB-INF
+            String dbPath = getServletContext().getRealPath("/WEB-INF/db.db");
 
-            // faz voltar pra home ao enviar
+            FichaClinicaDAO dao = new FichaClinicaDAO(dbPath);
+            dao.salvarFichaClinica(paciente_id, anotacoes_medicas, prescricoes);
+
             response.sendRedirect("admin_dashboard.jsp");
 
         } catch (Exception e) {
@@ -46,5 +46,4 @@ public class FichaClinicaServlet extends HttpServlet {
             response.sendRedirect("paciente_dashboard.jsp?msg=erro");
         }
     }
-
 }
