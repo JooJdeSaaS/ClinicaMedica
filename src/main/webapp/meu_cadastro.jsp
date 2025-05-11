@@ -33,7 +33,6 @@
         </div>
 
         <div class="form-group">
-            <!--TODO Porra professor, celular como float foi foda-->
             <%
                 String celular = (String) session.getAttribute("celular");
             %>
