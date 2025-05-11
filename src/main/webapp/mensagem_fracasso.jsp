@@ -6,7 +6,7 @@
     <title>Sucesso</title>
     <script>
         window.onload = function() {
-            alert("${sujeito} ${verbo} com sucesso!");
+            alert("Ocorreu um erro ao ${texto}, por favor contate o suporte para resolver o problema");
             window.location.href = "<%= request.getAttribute("redirect") %>";
         };
     </script>

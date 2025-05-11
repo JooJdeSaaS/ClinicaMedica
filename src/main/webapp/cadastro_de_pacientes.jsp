@@ -37,18 +37,20 @@
         %>
 
 
-        <form method="get" action="cadastroDePacientes">
+        <form id="operationForm" method="post" action="cadastroDePacientes">
+            <input type="hidden" name="operacao" value="selecionarOperacao"/>
             <div class="form-group">
                 <label for="crudOperation">Selecionar Operação:</label>
                 <select name="crudOperation" id="crudOperation" onchange="this.form.submit()">
-                    <option value="" <%= selectedOperation.isEmpty() ? "selected" : "" %>>Selecionar Operação</option>
-                    <option value="criar" <%= "criar".equals(selectedOperation) ? "selected" : "" %>>Criar</option>
-                    <option value="mostrar" <%= "mostrar".equals(selectedOperation) ? "selected" : "" %>>Mostrar</option>
-                    <option value="atualizar" <%= "atualizar".equals(selectedOperation) ? "selected" : "" %>>Atualizar</option>
-                    <option value="deletar" <%= "deletar".equals(selectedOperation) ? "selected" : "" %>>Deletar</option>
+                    <option value=""   ${selectedOperation.isEmpty()? 'selected':''}>Selecionar Operação</option>
+                    <option value="criar"    ${selectedOperation=='criar'   ? 'selected':''}>Criar</option>
+                    <option value="mostrar"  ${selectedOperation=='mostrar' ? 'selected':''}>Mostrar</option>
+                    <option value="atualizar"${selectedOperation=='atualizar'? 'selected':''}>Atualizar</option>
+                    <option value="deletar"  ${selectedOperation=='deletar' ? 'selected':''}>Deletar</option>
                 </select>
             </div>
         </form>
+
 
 
     <%-- Display different sections based on selection --%>
@@ -124,71 +126,65 @@
                         campoBusca = ""; // evita NullPointerException
                     }
                 %>
-                <%-- Se estivermos no modo “atualizar” (via atributo ou parâmetro) --%>
-                <c:if test="${crudOperation eq 'atualizar'}">
+                <%-- 1) Formulário de busca --%>
+                <form method="post" action="cadastroDePacientes">
+                    <input type="hidden" name="operacao" value="buscarAtualizar"/>
+                    <div class="form-group">
+                        <label for="campoBusca">Buscar usuário por:</label>
+                        <select id="campoBusca" name="campoBusca">
+                            <option value="email"   ${param.campoBusca eq 'email'   ? 'selected' : ''}>Email</option>
+                            <option value="cpf"     ${param.campoBusca eq 'cpf'     ? 'selected' : ''}>CPF</option>
+                            <option value="celular" ${param.campoBusca eq 'celular' ? 'selected' : ''}>Celular</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="valorBusca">Valor:</label>
+                        <input type="text" id="valorBusca" name="valorBusca" value="${param.valorBusca}" required/>
+                    </div>
+                    <button type="submit">Buscar para Atualizar</button>
+                </form>
 
-                    <%-- 1) Formulário de busca --%>
+                <%-- 2) Só exibe se o servlet devolveu um usuário encontrado --%>
+                <c:if test="${not empty usuarioEncontrado}">
+                    <hr/>
+                    <h4>Atualizar usuário: ${usuarioEncontrado.nome}</h4>
                     <form method="post" action="cadastroDePacientes">
-                        <input type="hidden" name="operacao" value="buscarAtualizar"/>
+                        <input type="hidden" name="operacao" value="confirmarAtualizar"/>
+                        <input type="hidden" name="id"        value="${usuarioEncontrado.id}"/>
+
                         <div class="form-group">
-                            <label for="campoBusca">Buscar usuário por:</label>
-                            <select id="campoBusca" name="campoBusca">
-                                <option value="email"   ${param.campoBusca eq 'email'   ? 'selected' : ''}>Email</option>
-                                <option value="cpf"     ${param.campoBusca eq 'cpf'     ? 'selected' : ''}>CPF</option>
-                                <option value="celular" ${param.campoBusca eq 'celular' ? 'selected' : ''}>Celular</option>
-                            </select>
+                            <label for="nomeAtualizar">Nome:</label>
+                            <input type="text" id="nomeAtualizar" name="nomeAtualizar"
+                                   value="${usuarioEncontrado.nome}" />
                         </div>
+
+                            <div class="form-group">
+                                <label for="cpfAtualizar">CPF:</label>
+                                <input type="text" id="cpfAtualizar" name="cpfAtualizar"
+                                       value="${usuarioEncontrado.CPF}" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="celularAtualizar">Celular:</label>
+                                <input type="text" id="celularAtualizar" name="celularAtualizar"
+                                       value="${usuarioEncontrado.celular}" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="emailAtualizar">Email:</label>
+                                <input type="email" id="emailAtualizar" name="emailAtualizar"
+                                       value="${usuarioEncontrado.email}" />
+                            </div>
+
+
                         <div class="form-group">
-                            <label for="valorBusca">Valor:</label>
-                            <input type="text" id="valorBusca" name="valorBusca" value="${param.valorBusca}" required/>
+                            <label for="senhaAtualizar">Senha:</label>
+                            <input type="password" id="senhaAtualizar" name="senhaAtualizar" />
                         </div>
-                        <button type="submit">Buscar para Atualizar</button>
+
+                        <button type="submit">Confirmar Atualização</button>
                     </form>
-
-                    <%-- 2) Só exibe se o servlet devolveu um usuário encontrado --%>
-                    <c:if test="${not empty usuarioEncontrado}">
-                        <hr/>
-                        <h4>Atualizar usuário: ${usuarioEncontrado.nome}</h4>
-                        <form method="post" action="cadastroDePacientes">
-                            <input type="hidden" name="operacao" value="confirmarAtualizar"/>
-                            <input type="hidden" name="id"        value="${usuarioEncontrado.id}"/>
-
-                            <div class="form-group">
-                                <label for="nomeAtualizar">Nome:</label>
-                                <input type="text" id="nomeAtualizar" name="nomeAtualizar"
-                                       value="${usuarioEncontrado.nome}" required/>
-                            </div>
-
-                                <div class="form-group">
-                                    <label for="cpfAtualizar">CPF:</label>
-                                    <input type="text" id="cpfAtualizar" name="cpfAtualizar"
-                                           value="${usuarioEncontrado.CPF}" required/>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="celularAtualizar">Celular:</label>
-                                    <input type="text" id="celularAtualizar" name="celularAtualizar"
-                                           value="${usuarioEncontrado.celular}" required/>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="emailAtualizar">Email:</label>
-                                    <input type="email" id="emailAtualizar" name="emailAtualizar"
-                                           value="${usuarioEncontrado.email}" required/>
-                                </div>
-
-
-                            <div class="form-group">
-                                <label for="senhaAtualizar">Senha:</label>
-                                <input type="password" id="senhaAtualizar" name="senhaAtualizar" required/>
-                            </div>
-
-                            <button type="submit">Confirmar Atualização</button>
-                        </form>
-                    </c:if>
-
                 </c:if>
-
             </c:if>
             <c:if test="${selectedOperation == 'deletar'}">
                 <div class="delete-section">

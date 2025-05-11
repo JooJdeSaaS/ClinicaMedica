@@ -75,6 +75,10 @@ public class Usuario {
     }
     //salvar do jsp
     public void setCelularFormatado(String celular) {
+        if (celular.equals("")){
+            this.celular = "";
+            return;
+        }
         String digits = celular.replaceAll("\\D", "");
         long num = 0L;
         if (!digits.isEmpty()) {
@@ -88,6 +92,9 @@ public class Usuario {
     }
     //formatar para salvar no banco de dados
     public long getCelularFormatado() {
+        if (celular == null || celular.equals("")) {
+            return 0;
+        }
         String onlyDigits = celular.replaceAll("\\D", "");
         return Long.parseLong(onlyDigits);
     }

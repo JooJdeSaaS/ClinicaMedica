@@ -21,17 +21,11 @@ public class CadastroDePacientesServlet extends HttpServlet {
             throws ServletException, IOException {
         if (!SessionUtil.validar(request, response)) {return;}
 
-        String oper = request.getParameter("crudOperation");
-        request.setAttribute("crudOperation", oper);
-
-
         String realPathBase = request.getServletContext().getRealPath("/");
         CRUDPacientesDAO dao = new CRUDPacientesDAO(realPathBase);
 
-
         List<Usuario> usuarios = dao.listarUsuarios();
         request.setAttribute("listaDeUsuarios", usuarios);
-
 
         request.getRequestDispatcher("/cadastro_de_pacientes.jsp").forward(request, response);
     }
@@ -40,11 +34,29 @@ public class CadastroDePacientesServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-        String oper = request.getParameter("operacao");
+
         String realPathBase = getServletContext().getRealPath("/");
         CRUDPacientesDAO dao = new CRUDPacientesDAO(realPathBase);
 
-        if ("adicionarUsuario".equals(oper)) {
+        String operacao = request.getParameter("operacao");
+
+        // captura a operação de visão (criar/mostrar/atualizar/deletar) e se for ler, manda a lista
+        if ("selecionarOperacao".equals(operacao)) {
+            String escolha = request.getParameter("crudOperation");
+            request.setAttribute("crudOperation", escolha);
+
+            if ("mostrar".equals(escolha)) {
+                List<Usuario> usuarios = dao.listarUsuarios();
+                request.setAttribute("listaDeUsuarios", usuarios);
+            }
+
+            request.getRequestDispatcher("/cadastro_de_pacientes.jsp").forward(request, response);
+
+            return;
+        }
+
+        //Criar Usuario
+        if ("adicionarUsuario".equals(operacao)) {
             Usuario novoUsuario = new Usuario();
             novoUsuario.setNome(request.getParameter("nomeCriar"));
             novoUsuario.setCPFformatado(request.getParameter("cpfCriar"));
@@ -52,77 +64,100 @@ public class CadastroDePacientesServlet extends HttpServlet {
             novoUsuario.setEmail(request.getParameter("emailCriar"));
             String senha = request.getParameter("senhaCriar");
 
-            dao.criarUsuario(novoUsuario, senha);
+            boolean tudoCerto = dao.criarUsuario(novoUsuario, senha);
 
-            response.sendRedirect("cadastroDePacientes?crudOperation=mostrar");
+            if(tudoCerto) {
+                request.setAttribute("sujeito", "Usuario");
+                request.setAttribute("verbo", "adicionado");
+                request.setAttribute("redirect", "cadastroDePacientes?crudOperation=mostrar");
+                request.getRequestDispatcher("/mensagem_sucesso.jsp").forward(request, response);
+
+                return;
+            }
+
+            request.setAttribute("texto", "criar um novo usuario");
+            request.setAttribute("redirect", "/admin_dashboard");
+            response.sendRedirect("/mensagem_erro.jsp");
+
             return;
         }
 
-            // 1) Buscar para atualizar: carrega o usuário e reexibe o JSP em modo "atualizar"
-        if ("buscarAtualizar".equals(oper)) {
-            String campo = request.getParameter("campoBusca");
-            String valor = request.getParameter("valorBusca");
+        //Recebe o valor para pesquisar o usuario
+        if ("buscarAtualizar".equals(operacao) || "buscarDeletar".equals(operacao)) {
 
-            // Remove tudo que não for número se o campo for "cpf" ou "celular"
+            String campo = "buscarAtualizar".equals(operacao)
+                    ? request.getParameter("campoBusca")
+                    : request.getParameter("campoDeletar");
+            String valor = "buscarAtualizar".equals(operacao)
+                    ? request.getParameter("valorBusca")
+                    : request.getParameter("valorDeletar");
+
             if ("cpf".equals(campo) || "celular".equals(campo)) {
                 valor = valor.replaceAll("\\D", "");
             }
-            Usuario u = dao.buscarPorCampo(campo, valor);
 
-            request.setAttribute("usuarioEncontrado", u);
-            request.setAttribute("crudOperation", "atualizar");
-            request.getRequestDispatcher("/cadastro_de_pacientes.jsp")
-                    .forward(request, response);
+            Usuario usuarioEncontrado = dao.buscarPorCampo(campo, valor);
+
+            request.setAttribute("usuarioEncontrado", usuarioEncontrado);
+            request.setAttribute("crudOperation", "buscarAtualizar".equals(operacao) ? "atualizar" : "deletar");
+
+            request.getRequestDispatcher("/cadastro_de_pacientes.jsp").forward(request, response);
+
             return;
         }
 
-        // 2) Confirmar atualização: pega novos valores, executa update e redireciona
-        if ("confirmarAtualizar".equals(oper)) {
+        //Salva as atualizações do usuario
+        if ("confirmarAtualizar".equals(operacao)) {
             Usuario u = new Usuario();
             u.setId(Integer.parseInt(request.getParameter("id")));
             u.setNome(request.getParameter("nomeAtualizar"));
             u.setCPFformatado(request.getParameter("cpfAtualizar"));
-            u.setCelularFormatado(request.getParameter("celularAtualizar"));
+            u.setCelularFormatado(request.getParameter("celularAtualizar"));//celular bugado
             u.setEmail(request.getParameter("emailAtualizar"));
             String senha = request.getParameter("senhaAtualizar");
-            dao.atualizarUsuario(u,senha);
 
-            // após atualizar, volta para a listagem
-            response.sendRedirect("cadastroDePacientes?crudOperation=mostrar");
-            return;
-        }
+            boolean tudoCerto = dao.atualizarUsuario(u,senha);
+            System.out.println(tudoCerto);
 
-        // 3) Buscar para deletar: carrega o usuário e reexibe o JSP em modo "deletar"
-        if ("buscarDeletar".equals(oper)) {
-            String campo = request.getParameter("campoDeletar");
-            String valor = request.getParameter("valorDeletar");
-
-            if ("cpf".equals(campo) || "celular".equals(campo)) {
-                valor = valor.replaceAll("\\D", "");
+            if(tudoCerto) {
+                request.setAttribute("sujeito", "Usuario");
+                request.setAttribute("verbo", "atualizado");
+                request.setAttribute("redirect", "cadastroDePacientes?crudOperation=mostrar");
+                request.getRequestDispatcher("/mensagem_sucesso.jsp").forward(request, response);
+                return;
             }
-            Usuario u = dao.buscarPorCampo(campo, valor);
 
-            request.setAttribute("usuarioEncontrado", u);
-            request.setAttribute("crudOperation", "deletar");
-            request.getRequestDispatcher("/cadastro_de_pacientes.jsp")
-                    .forward(request, response);
+            request.setAttribute("texto", "atualizar o usuario");
+            request.setAttribute("redirect", "/admin_dashboard");
+            response.sendRedirect("/mensagem_erro.jsp");
+
             return;
         }
 
-        // 4) Confirmar deleção: remove o usuário pelo ID e redireciona
-        if ("confirmarDeletar".equals(oper)) {
+        //Deleta o usuario
+        if ("confirmarDeletar".equals(operacao)) {
             int id = Integer.parseInt(request.getParameter("id"));
-            dao.deletarUsuario(id);
 
-            response.sendRedirect("cadastroDePacientes?crudOperation=mostrar");
+            boolean tudoCerto = dao.deletarUsuario(id);
+
+            if(tudoCerto) {
+                request.setAttribute("sujeito", "Usuario");
+                request.setAttribute("verbo", "deletado");
+                request.setAttribute("redirect", "cadastroDePacientes?crudOperation=mostrar");
+                request.getRequestDispatcher("/mensagem_sucesso.jsp").forward(request, response);
+                return;
+            }
+
+            request.setAttribute("texto", "deletar o usuario");
+            request.setAttribute("redirect", "/admin_dashboard");
+            response.sendRedirect("/mensagem_erro.jsp");
+
             return;
         }
 
         // Qualquer outra operação, apenas volte à tela inicial
         response.sendRedirect("cadastroDePacientes");
 
-
-            request.getRequestDispatcher("/cadastro_de_pacientes.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("paciente_dashboard.jsp?msg=erro");

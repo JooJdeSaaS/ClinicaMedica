@@ -19,31 +19,6 @@ public class CRUDPacientesDAO {
         this.realPathBase = realPathBase;
     }
 
-    public boolean criarUsuario(Usuario usuario, String senha) {
-        String sql = "INSERT INTO usuarios (nome, email, cpf, celular, tipo, senha, created_at) VALUES (?, ?, ?, ?, 'paciente', ?, ?)";
-
-        try (Connection conn = DatabaseConnection.getConnection(realPathBase);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, usuario.getNome());
-            stmt.setString(2, usuario.getEmail());
-            stmt.setString(3, usuario.getCPFformatado());
-            stmt.setLong(4, usuario.getCelularFormatado());
-            stmt.setString(5, senha);
-            LocalDateTime agora = LocalDateTime.now();
-            DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            String dataHora = agora.format(formato);
-            stmt.setString(6, dataHora);
-            int linhasAfetadas = stmt.executeUpdate();
-            System.out.println("Linhas afetadas: " + linhasAfetadas);
-            return linhasAfetadas > 0;
-        } catch (SQLException e) {
-            System.out.println("entrou aqui");
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     public List<Usuario> listarUsuarios() {
         List<Usuario> usuarios = new ArrayList<>();
         String sql = "SELECT id, nome, email, cpf, celular, created_at FROM usuarios WHERE tipo = 'paciente'";
@@ -90,11 +65,39 @@ public class CRUDPacientesDAO {
         }
         return u;
     }
+    public boolean criarUsuario(Usuario usuario, String senha) {
+        String sql = "INSERT INTO usuarios (nome, email, cpf, celular, tipo, senha, created_at) VALUES (?, ?, ?, ?, 'paciente', ?, ?)";
 
-    public void atualizarUsuario(Usuario usuario, String senha) {
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        String sql = "UPDATE usuarios SET nome = ?, email = ?, cpf = ?, celular = ?, senha = ? WHERE id = ?";
+            stmt.setString(1, usuario.getNome());
+            stmt.setString(2, usuario.getEmail());
+            stmt.setString(3, usuario.getCPFformatado());
+            stmt.setLong(4, usuario.getCelularFormatado());
+            stmt.setString(5, senha);
+            LocalDateTime agora = LocalDateTime.now();
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String dataHora = agora.format(formato);
+            stmt.setString(6, dataHora);
+            int linhasAfetadas = stmt.executeUpdate();
+            return linhasAfetadas > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean atualizarUsuario(Usuario usuario, String senha) {
 
+        String sql = """
+        UPDATE usuarios 
+           SET nome    = COALESCE(NULLIF(?, ''), nome),
+               email   = COALESCE(NULLIF(?, ''), email),
+               cpf     = COALESCE(NULLIF(?, ''), cpf),
+               celular = COALESCE(NULLIF(?, 0), celular),
+               senha   = COALESCE(NULLIF(?, ''), senha)
+         WHERE id = ?
+        """;
         try (Connection conn = DatabaseConnection.getConnection(realPathBase);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -105,12 +108,13 @@ public class CRUDPacientesDAO {
             stmt.setString(5, senha);
             stmt.setInt(6, usuario.getId());
             int linhasAfetadas = stmt.executeUpdate();
+            return linhasAfetadas > 0;
         } catch (SQLException e) {
-            System.out.println("entrou aqui");
             e.printStackTrace();
+            return false;
         }
     }
-    public void deletarUsuario(int id) {
+    public boolean deletarUsuario(int id) {
         deletarUsuarioConsulta(id);
         String sql = "DELETE FROM usuarios WHERE id = ?";
 
@@ -119,14 +123,15 @@ public class CRUDPacientesDAO {
 
             stmt.setInt(1, id);
             int linhasAfetadas = stmt.executeUpdate();
+            return linhasAfetadas > 0;
 
         } catch (SQLException e) {
-            System.out.println("entrou aqui");
             e.printStackTrace();
+            return false;
         }
 
     }
-    public void deletarUsuarioConsulta(int id) {
+    public boolean deletarUsuarioConsulta(int id) {
         String sql = "DELETE FROM consultas WHERE paciente_id = ?;";
 
         try (Connection conn = DatabaseConnection.getConnection(realPathBase);
@@ -134,10 +139,11 @@ public class CRUDPacientesDAO {
 
             stmt.setInt(1, id);
             int linhasAfetadas = stmt.executeUpdate();
+            return linhasAfetadas > 0;
 
         } catch (SQLException e) {
-            System.out.println("entrou aqui");
             e.printStackTrace();
+            return false;
         }
 
     }
