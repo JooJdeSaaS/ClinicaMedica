@@ -48,10 +48,15 @@ public class AgendarConsultaServlet extends HttpServlet {
             boolean sucesso = dao.agendarConsulta(pacienteId, profissionalId, dataHora);
             if (sucesso) {
                 // apresenta o pop-up de sucesso e mensagem_sucesso.jsp redireciona para o painel do paciente
-                response.sendRedirect("/mensagem_sucesso.jsp");
+                request.setAttribute("sujeito", "Consulta");
+                request.setAttribute("verbo", "agendada");
+                request.setAttribute("redirect", "paciente_dashboard");
+                request.getRequestDispatcher("/mensagem_sucesso.jsp").forward(request, response);
 
             } else {
-                response.sendRedirect("index.jsp?erro=agendar");
+                request.setAttribute("texto", "deletar o usuario");
+                request.setAttribute("redirect", "paciente_dashboard");
+                request.getRequestDispatcher("/mensagem_erro.jsp").forward(request, response);
             }
 
         } catch (Exception e) {

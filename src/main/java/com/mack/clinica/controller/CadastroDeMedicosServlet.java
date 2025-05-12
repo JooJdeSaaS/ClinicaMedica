@@ -68,7 +68,7 @@ public class CadastroDeMedicosServlet extends HttpServlet {
                 boolean tudoCerto = dao.criarUsuario(novoUsuario, senha);
 
                 if(tudoCerto) {
-                    request.setAttribute("sujeito", "Usuario");
+                    request.setAttribute("sujeito", "Medico");
                     request.setAttribute("verbo", "adicionado");
                     request.setAttribute("redirect", "cadastroDeMedicos?crudOperation=mostrar");
                     request.getRequestDispatcher("/mensagem_sucesso.jsp").forward(request, response);
@@ -76,9 +76,10 @@ public class CadastroDeMedicosServlet extends HttpServlet {
                     return;
                 }
 
-                request.setAttribute("texto", "criar um novo usuario");
-                request.setAttribute("redirect", "/admin_dashboard");
-                response.sendRedirect("/mensagem_erro.jsp");
+                request.setAttribute("texto", "criar um novo medico");
+                request.setAttribute("redirect", "admin_dashboard");
+                request.getRequestDispatcher("/mensagem_erro.jsp").forward(request, response);
+
 
                 return;
             }
@@ -121,16 +122,17 @@ public class CadastroDeMedicosServlet extends HttpServlet {
                 System.out.println(tudoCerto);
 
                 if(tudoCerto) {
-                    request.setAttribute("sujeito", "Usuario");
+                    request.setAttribute("sujeito", "Medico");
                     request.setAttribute("verbo", "atualizado");
                     request.setAttribute("redirect", "cadastroDeMedicos?crudOperation=mostrar");
                     request.getRequestDispatcher("/mensagem_sucesso.jsp").forward(request, response);
                     return;
                 }
 
-                request.setAttribute("texto", "atualizar o usuario");
-                request.setAttribute("redirect", "/admin_dashboard");
-                response.sendRedirect("/mensagem_erro.jsp");
+                request.setAttribute("texto", "atualizar o medico");
+                request.setAttribute("redirect", "admin_dashboard");
+                request.getRequestDispatcher("/mensagem_erro.jsp").forward(request, response);
+
 
                 return;
             }
@@ -142,16 +144,17 @@ public class CadastroDeMedicosServlet extends HttpServlet {
                 boolean tudoCerto = dao.deletarUsuario(id);
 
                 if(tudoCerto) {
-                    request.setAttribute("sujeito", "Usuario");
+                    request.setAttribute("sujeito", "Medico");
                     request.setAttribute("verbo", "deletado");
                     request.setAttribute("redirect", "cadastroDeMedicos?crudOperation=mostrar");
                     request.getRequestDispatcher("/mensagem_sucesso.jsp").forward(request, response);
                     return;
                 }
 
-                request.setAttribute("texto", "deletar o usuario");
-                request.setAttribute("redirect", "/admin_dashboard");
-                response.sendRedirect("/mensagem_erro.jsp");
+                request.setAttribute("texto", "deletar o medico");
+                request.setAttribute("redirect", "admin_dashboard");
+                request.getRequestDispatcher("/mensagem_erro.jsp").forward(request, response);
+
 
                 return;
             }
