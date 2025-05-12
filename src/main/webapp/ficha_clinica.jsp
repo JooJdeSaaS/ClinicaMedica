@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.mack.clinica.model.Usuario" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -25,24 +27,36 @@
 
 <form action="fichaClinica" method="post">
 
-
-
-    <label for="profissional_id">Selecionar Médico:</label>
-    <select name="profissional_id" id="profissional_id" required>
-        <option value="">-- Selecione um médico --</option>
-        <c:forEach var="medico" items="${medicos}">
-            <option value="${medico.id}">${medico.nome}</option>
-        </c:forEach>
+    <!-- Campo para seleção do médico -->
+    <label for="profissional_id">Profissional:</label>
+    <select id="profissional_id" name="profissional_id" required>
+        <option value="">Selecione o médico</option>
+        <%
+            List<Usuario> medicos = (List<Usuario>) request.getAttribute("medicos");
+            if (medicos != null) {
+                for (Usuario medico : medicos) {
+        %>
+        <option value="<%= medico.getId() %>"><%= medico.getNome() %></option>
+        <%
+                }
+            }
+        %>
     </select>
-    <label>Data:</label>
-    <input type="date" name="data"><br><br>
+    <br><br>
 
+    <!-- Campo para ID do paciente (ajuste conforme necessário) -->
+    <label for="paciente_id">ID do Paciente:</label>
+    <input type="number" name="paciente_id" id="paciente_id" required>
+    <br><br>
 
+    <label for="data">Data:</label>
+    <input type="date" name="data" id="data" required>
+    <br><br>
 
-    <label>Anotacoes Medicas:</label>
+    <label>Anotações Médicas:</label>
     <input type="text" name="anotacoes_medicas"><br><br>
 
-    <label>Prescricoes:</label>
+    <label>Prescrições:</label>
     <input type="text" name="prescricoes"><br><br>
 
     <input type="submit" value="Enviar">
