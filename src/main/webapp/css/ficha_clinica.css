@@ -1,0 +1,168 @@
+/* Reset básico e estilos base */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+/* Estilos da Navbar */
+.navbar {
+    background: linear-gradient(to right, #333, #222);
+    overflow: hidden;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.navbar a {
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 16px 20px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.navbar a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.logout-link {
+    background-color: rgba(255, 0, 0, 0.2);
+}
+
+.logout-link:hover {
+    background-color: rgba(255, 0, 0, 0.3);
+}
+
+/* Container principal */
+.form-container {
+    background-color: white;
+    padding: 30px;
+    max-width: 600px;
+    margin: 120px auto 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease forwards;
+    box-sizing: border-box;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #444;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background: linear-gradient(to right, #667eea, #764ba2);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background 0.3s ease;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Título */
+h2 {
+    color: #333;
+    text-align: center;
+    font-weight: 600;
+    font-size: 28px;
+    position: relative;
+    padding-bottom: 15px;
+    margin: 20px 0 30px;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 4px;
+    width: 50px;
+    border-radius: 2px;
+    background-color: #764ba2;
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.bloco-consulta {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.bloco-consulta:nth-child(2) { animation-delay: 0.1s; }
+.bloco-consulta:nth-child(3) { animation-delay: 0.2s; }
+.bloco-consulta:nth-child(4) { animation-delay: 0.3s; }
+.bloco-consulta:nth-child(5) { animation-delay: 0.4s; }
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navbar a {
+        width: 100%;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .form-container {
+        margin-top: 200px;
+    }
+}
