@@ -6,22 +6,22 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
-public class CRUDPacientesDAO {
+public class CRUDMedicosDAO {
 
     private String realPathBase;
 
-    public CRUDPacientesDAO(String realPathBase) {
+    public CRUDMedicosDAO(String realPathBase) {
         this.realPathBase = realPathBase;
     }
 
     public List<Usuario> listarUsuarios() {
         List<Usuario> usuarios = new ArrayList<>();
-        String sql = "SELECT id, nome, email, cpf, celular, created_at FROM usuarios WHERE tipo = 'paciente'";
+        String sql = "SELECT id, nome, email, cpf, celular, created_at FROM usuarios WHERE tipo = 'medico'";
 
         try (Connection conn = DatabaseConnection.getConnection(realPathBase);
              PreparedStatement stmt = conn.prepareStatement(sql);
@@ -46,9 +46,9 @@ public class CRUDPacientesDAO {
 
     public Usuario buscarPorCampo(String campo, String valor) {
         Usuario u = null;
-        String sql = "SELECT * FROM usuarios WHERE " + campo + " = ? AND tipo = 'paciente'";
+        String sql = "SELECT * FROM usuarios WHERE " + campo + " = ? AND tipo = 'medico'";
         try (Connection conn = DatabaseConnection.getConnection(realPathBase);
-             PreparedStatement stmt = conn.prepareStatement(sql);) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, valor);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -66,7 +66,7 @@ public class CRUDPacientesDAO {
         return u;
     }
     public boolean criarUsuario(Usuario usuario, String senha) {
-        String sql = "INSERT INTO usuarios (nome, email, cpf, celular, tipo, senha, created_at) VALUES (?, ?, ?, ?, 'paciente', ?, ?)";
+        String sql = "INSERT INTO usuarios (nome, email, cpf, celular, tipo, senha, created_at) VALUES (?, ?, ?, ?, 'medico', ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection(realPathBase);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -90,7 +90,7 @@ public class CRUDPacientesDAO {
     public boolean atualizarUsuario(Usuario usuario, String senha) {
 
         String sql = """
-        UPDATE usuarios 
+        UPDATE usuarios
            SET nome    = COALESCE(NULLIF(?, ''), nome),
                email   = COALESCE(NULLIF(?, ''), email),
                cpf     = COALESCE(NULLIF(?, ''), cpf),
