@@ -50,7 +50,7 @@ public class ConsultarAgendaServlet extends HttpServlet {
 
         List<Consulta> consultas;
         if (medicoId != null || pacienteId != null || (dataParam != null && !dataParam.isEmpty())) {
-            consultas = dao.buscarConsultasFiltradas(medicoId, pacienteId, dataParam);
+            consultas = dao.buscarConsultasFiltradas(medicoId, dataParam);
         } else {
             consultas = dao.buscarTodasConsultas();
         }
