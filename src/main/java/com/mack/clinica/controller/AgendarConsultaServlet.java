@@ -6,6 +6,7 @@ import java.util.List;
 import com.mack.clinica.model.AgendarConsultaDAO;
 import com.mack.clinica.model.Usuario;
 
+import com.mack.clinica.controller.SessionUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,65 +17,46 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet("/agendarConsulta")
 public class AgendarConsultaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session == null || session.getAttribute("nome") == null) {
-            response.sendRedirect("index.jsp");
-            return;
-        }
-        // Obtém o caminho real do projeto
+
+        if (!SessionUtil.validar(request, response)) {return;}
+
         String realPathBase = request.getServletContext().getRealPath("/");
-        // Instancia o DAO passando o caminho
         AgendarConsultaDAO dao = new AgendarConsultaDAO(realPathBase);
-        // Busca a lista de médicos
+
         List<Usuario> medicos = dao.listarMedicos();
-        System.out.println("Médicos encontrados: " + (medicos != null ? medicos.size() : 0));
-        List<Usuario> pacientes = dao.listarPacientes();
-        request.setAttribute("pacientes", pacientes);
-        // Atribui a lista no request para ser usada no JSP
         request.setAttribute("medicos", medicos);
-        // Encaminha para a página de agendamento
+
         request.getRequestDispatcher("/agendar_consulta.jsp").forward(request, response);
     }
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            // Pega dados do formulário
+            if (!SessionUtil.validar(request, response)) {return;}
+
+            int pacienteId = (Integer) request.getSession().getAttribute("id");
             int profissionalId = Integer.parseInt(request.getParameter("profissionalId"));
             String dataHora = request.getParameter("dataHora");
 
-            // Pega o paciente_id da sessão
-            Integer pacienteIdObj = (Integer) request.getSession().getAttribute("id");
-            if (pacienteIdObj == null) {
-                System.out.println("Paciente não autenticado. Redirecionando para login.");
-                response.sendRedirect("index.jsp");
-                return;
-            }
-            int pacienteId = pacienteIdObj;
-
-            // Conecta no banco
             String realPathBase = request.getServletContext().getRealPath("/");
-
-            System.out.println("Paciente ID: " + pacienteId);
-            System.out.println("Profissional ID: " + profissionalId);
-            System.out.println("Data e Hora: " + dataHora);
-
             AgendarConsultaDAO dao = new AgendarConsultaDAO(realPathBase);
 
-            // Agenda a consulta
             boolean sucesso = dao.agendarConsulta(pacienteId, profissionalId, dataHora);
-            System.out.println("Sucesso: " + sucesso);
             if (sucesso) {
                 // apresenta o pop-up de sucesso e mensagem_sucesso.jsp redireciona para o painel do paciente
-                response.sendRedirect("/mensagem_sucesso.jsp");
+                request.setAttribute("sujeito", "Consulta");
+                request.setAttribute("verbo", "agendada");
+                request.setAttribute("redirect", "paciente_dashboard");
+                request.getRequestDispatcher("/mensagem_sucesso.jsp").forward(request, response);
 
             } else {
-                response.sendRedirect("index.jsp?erro=agendar");
+                request.setAttribute("texto", "deletar o usuario");
+                request.setAttribute("redirect", "paciente_dashboard");
+                request.getRequestDispatcher("/mensagem_erro.jsp").forward(request, response);
             }
 
         } catch (Exception e) {

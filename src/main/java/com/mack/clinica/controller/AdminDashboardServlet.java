@@ -2,6 +2,7 @@ package com.mack.clinica.controller;
 
 import java.io.IOException;
 
+import com.mack.clinica.controller.SessionUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,7 +17,8 @@ public class AdminDashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Faz o forward para o JSP interno
+        if (!SessionUtil.validar(request, response)) {return;}
+
         request.getRequestDispatcher("/admin_dashboard.jsp").forward(request, response);
     }
 }
