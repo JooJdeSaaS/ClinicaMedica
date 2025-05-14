@@ -28,17 +28,29 @@ public class ConsultarAgendaServlet extends HttpServlet {
         String path = getServletContext().getRealPath("/");
         AgendarConsultaDAO dao = new AgendarConsultaDAO(path);
 
+        // Adiciona médicos e pacientes para os selects
+        request.setAttribute("medicos", dao.listarMedicos());
+        request.setAttribute("pacientes", dao.listarPacientes());
+
+        // Pega os filtros
         String medicoIdParam = request.getParameter("medicoId");
+        String pacienteIdParam = request.getParameter("pacienteId");
         String dataParam = request.getParameter("data");
 
         Integer medicoId = null;
+        Integer pacienteId = null;
+
         if (medicoIdParam != null && !medicoIdParam.isEmpty()) {
             medicoId = Integer.parseInt(medicoIdParam);
         }
 
+        if (pacienteIdParam != null && !pacienteIdParam.isEmpty()) {
+            pacienteId = Integer.parseInt(pacienteIdParam);
+        }
+
         List<Consulta> consultas;
-        if (medicoId != null || (dataParam != null && !dataParam.isEmpty())) {
-            consultas = dao.buscarConsultasFiltradas(medicoId, dataParam);
+        if (medicoId != null || pacienteId != null || (dataParam != null && !dataParam.isEmpty())) {
+            consultas = dao.buscarConsultasFiltradas(medicoId, pacienteId, dataParam);
         } else {
             consultas = dao.buscarTodasConsultas();
         }

@@ -32,12 +32,14 @@ public class AgendarConsultaServlet extends HttpServlet {
         // Busca a lista de médicos
         List<Usuario> medicos = dao.listarMedicos();
         System.out.println("Médicos encontrados: " + (medicos != null ? medicos.size() : 0));
+        List<Usuario> pacientes = dao.listarPacientes();
+        request.setAttribute("pacientes", pacientes);
         // Atribui a lista no request para ser usada no JSP
         request.setAttribute("medicos", medicos);
         // Encaminha para a página de agendamento
         request.getRequestDispatcher("/agendar_consulta.jsp").forward(request, response);
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

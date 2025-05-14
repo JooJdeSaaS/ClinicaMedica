@@ -14,6 +14,7 @@ public class Consulta {
     // Construtor vazio necessário para uso com setters
     public Consulta() {}
 
+
     public Consulta(int id, int pacienteId, String nomeProfissional, String dataHora, String status, String observacoes) {
         this.id = id;
         this.pacienteId = pacienteId;

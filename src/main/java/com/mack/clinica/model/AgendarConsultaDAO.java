@@ -58,6 +58,26 @@ public class AgendarConsultaDAO {
 
         return medicos;
     }
+    public List<Usuario> listarPacientes() {
+        List<Usuario> pacientes = new ArrayList<>();
+        String sql = "SELECT id, nome FROM usuarios WHERE tipo = 'paciente'";
+
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase);
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Usuario u = new Usuario();
+                u.setId(rs.getInt("id"));
+                u.setNome(rs.getString("nome"));
+                pacientes.add(u);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar pacientes: " + e.getMessage());
+        }
+
+        return pacientes;
+    }
     public List<Consulta> listarTodasConsultas() {
         List<Consulta> consultas = new ArrayList<>();
         String sql = "SELECT c.id, c.data_hora, c.status, " +

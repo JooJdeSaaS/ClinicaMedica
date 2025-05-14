@@ -72,7 +72,30 @@
         <label for="medico">Médico:</label>
         <select name="medicoId" id="medico">
             <option value="">Todos</option>
-            <%-- Aqui você pode preencher os médicos se quiser adicionar isso ao request no servlet --%>
+            <%
+                List<Usuario> medicos = (List<Usuario>) request.getAttribute("medicos");
+                if (medicos != null) {
+                    for (Usuario medico : medicos) {
+            %>
+            <option value="<%= medico.getId() %>"><%= medico.getNome() %></option>
+            <%
+                    }
+                }
+            %>
+        </select>
+        <label for="paciente">Paciente:</label>
+        <select name="pacienteId" id="paciente">
+            <option value="">Todos</option>
+            <%
+                List<Usuario> pacientes = (List<Usuario>) request.getAttribute("pacientes");
+                if (pacientes != null) {
+                    for (Usuario p : pacientes) {
+            %>
+            <option value="<%= p.getId() %>"><%= p.getNome() %></option>
+            <%
+                    }
+                }
+            %>
         </select>
 
         <label for="data">Data:</label>
@@ -100,7 +123,7 @@
         <tr>
             <td><%= c.getId() %></td>
             <td><%= c.getNomePaciente() %></td>
-            <td><%= c.getNomeMedico() %></td>
+            <td><%= c.getNomeProfissional() %></td>
             <td><%= c.getDataHora() %></td>
             <td><%= c.getStatus() %></td>
             <td>
