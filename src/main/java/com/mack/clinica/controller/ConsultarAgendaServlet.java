@@ -1,7 +1,8 @@
 package com.mack.clinica.controller;
 
-import com.mack.clinica.model.AgendarConsultaDAO;
 import com.mack.clinica.model.Consulta;
+import com.mack.clinica.model.ConsultaDAO;
+import com.mack.clinica.model.UsuarioDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,18 +20,16 @@ public class ConsultarAgendaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session == null || session.getAttribute("nome") == null) {
-            response.sendRedirect("index.jsp");
-            return;
-        }
+        if (!SessionUtil.validar(request, response)) {return;}
 
-        String path = getServletContext().getRealPath("/");
-        AgendarConsultaDAO dao = new AgendarConsultaDAO(path);
+
+        String realPathBase = request.getServletContext().getRealPath("/");
+        UsuarioDAO usuarioDAO = new UsuarioDAO(realPathBase);
+        ConsultaDAO consultaDAO = new ConsultaDAO(realPathBase);
 
         // Adiciona médicos e pacientes para os selects
-        request.setAttribute("medicos", dao.listarMedicos());
-        request.setAttribute("pacientes", dao.listarPacientes());
+        request.setAttribute("medicos", usuarioDAO.listarUsuarios("medico"));
+        request.setAttribute("pacientes", usuarioDAO.listarUsuarios("paciente"));
 
         // Pega os filtros
         String medicoIdParam = request.getParameter("medicoId");
@@ -50,9 +49,9 @@ public class ConsultarAgendaServlet extends HttpServlet {
 
         List<Consulta> consultas;
         if (medicoId != null || pacienteId != null || (dataParam != null && !dataParam.isEmpty())) {
-            consultas = dao.buscarConsultasFiltradas(medicoId, dataParam);
+            consultas = consultaDAO.buscarConsultasFiltradas(medicoId, dataParam);
         } else {
-            consultas = dao.buscarTodasConsultas();
+            consultas = consultaDAO.buscarTodasConsultas();
         }
 
         request.setAttribute("consultas", consultas);
@@ -63,8 +62,8 @@ public class ConsultarAgendaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        String path = getServletContext().getRealPath("/");
-        AgendarConsultaDAO dao = new AgendarConsultaDAO(path);
+        String realPathBase = request.getServletContext().getRealPath("/");
+        ConsultaDAO dao = new ConsultaDAO(realPathBase);
 
         if ("cancelar".equals(action)) {
             int consultaId = Integer.parseInt(request.getParameter("consultaId"));

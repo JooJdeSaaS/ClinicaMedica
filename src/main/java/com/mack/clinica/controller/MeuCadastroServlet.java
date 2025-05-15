@@ -1,6 +1,5 @@
 package com.mack.clinica.controller;
 
-import com.mack.clinica.model.AgendarConsultaDAO;
 import com.mack.clinica.controller.SessionUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,7 +18,7 @@ public class MeuCadastroServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Obtém o caminho real do projeto
+
         if (!SessionUtil.validar(request, response)) {return;}
 
         HttpSession session = request.getSession();

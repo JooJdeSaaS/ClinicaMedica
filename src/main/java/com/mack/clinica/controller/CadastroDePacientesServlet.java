@@ -1,8 +1,8 @@
 package com.mack.clinica.controller;
 
-import com.mack.clinica.model.CRUDPacientesDAO;
 import com.mack.clinica.model.Usuario;
 import com.mack.clinica.controller.SessionUtil;
+import com.mack.clinica.model.UsuarioDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -22,9 +22,9 @@ public class CadastroDePacientesServlet extends HttpServlet {
         if (!SessionUtil.validar(request, response)) {return;}
 
         String realPathBase = request.getServletContext().getRealPath("/");
-        CRUDPacientesDAO dao = new CRUDPacientesDAO(realPathBase);
+        UsuarioDAO dao = new UsuarioDAO(realPathBase);
 
-        List<Usuario> usuarios = dao.listarUsuarios();
+        List<Usuario> usuarios = dao.listarUsuarios("paciente");
         request.setAttribute("listaDeUsuarios", usuarios);
 
         request.getRequestDispatcher("/cadastro_de_pacientes.jsp").forward(request, response);
@@ -36,7 +36,7 @@ public class CadastroDePacientesServlet extends HttpServlet {
         try {
 
         String realPathBase = getServletContext().getRealPath("/");
-        CRUDPacientesDAO dao = new CRUDPacientesDAO(realPathBase);
+        UsuarioDAO dao = new UsuarioDAO(realPathBase);
 
         String operacao = request.getParameter("operacao");
 
@@ -46,7 +46,7 @@ public class CadastroDePacientesServlet extends HttpServlet {
             request.setAttribute("crudOperation", escolha);
 
             if ("mostrar".equals(escolha)) {
-                List<Usuario> usuarios = dao.listarUsuarios();
+                List<Usuario> usuarios = dao.listarUsuarios("paciente");
                 request.setAttribute("listaDeUsuarios", usuarios);
             }
 
@@ -64,7 +64,7 @@ public class CadastroDePacientesServlet extends HttpServlet {
             novoUsuario.setEmail(request.getParameter("emailCriar"));
             String senha = request.getParameter("senhaCriar");
 
-            boolean tudoCerto = dao.criarUsuario(novoUsuario, senha);
+            boolean tudoCerto = dao.criarUsuario(novoUsuario, senha, "paciente");
 
             if(tudoCerto) {
                 request.setAttribute("sujeito", "Usuario");
@@ -76,7 +76,7 @@ public class CadastroDePacientesServlet extends HttpServlet {
             }
 
             request.setAttribute("texto", "criar um novo usuario");
-            request.setAttribute("redirect", "/paciente_dashboard");
+            request.setAttribute("redirect", "/admin_dashboard");
             request.getRequestDispatcher("/mensagem_erro.jsp").forward(request, response);
 
 
@@ -97,7 +97,7 @@ public class CadastroDePacientesServlet extends HttpServlet {
                 valor = valor.replaceAll("\\D", "");
             }
 
-            Usuario usuarioEncontrado = dao.buscarPorCampo(campo, valor);
+            Usuario usuarioEncontrado = dao.buscarPorCampo(campo, valor, "paciente");
 
             request.setAttribute("usuarioEncontrado", usuarioEncontrado);
             request.setAttribute("crudOperation", "buscarAtualizar".equals(operacao) ? "atualizar" : "deletar");
@@ -129,7 +129,7 @@ public class CadastroDePacientesServlet extends HttpServlet {
             }
 
             request.setAttribute("texto", "atualizar o usuario");
-            request.setAttribute("redirect", "/paciente_dashboard");
+            request.setAttribute("redirect", "/admin_dashboard");
             request.getRequestDispatcher("/mensagem_erro.jsp").forward(request, response);
 
 
@@ -140,7 +140,7 @@ public class CadastroDePacientesServlet extends HttpServlet {
         if ("confirmarDeletar".equals(operacao)) {
             int id = Integer.parseInt(request.getParameter("id"));
 
-            boolean tudoCerto = dao.deletarUsuario(id);
+            boolean tudoCerto = dao.deletarUsuario(id, "paciente");
 
             if(tudoCerto) {
                 request.setAttribute("sujeito", "Usuario");
@@ -151,7 +151,7 @@ public class CadastroDePacientesServlet extends HttpServlet {
             }
 
             request.setAttribute("texto", "deletar o usuario");
-            request.setAttribute("redirect", "/paciente_dashboard");
+            request.setAttribute("redirect", "/admin_dashboard");
             request.getRequestDispatcher("/mensagem_erro.jsp").forward(request, response);
 
 
@@ -163,7 +163,7 @@ public class CadastroDePacientesServlet extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("paciente_dashboard.jsp?msg=erro");
+            response.sendRedirect("admin_dashboard.jsp?msg=erro");
         }
     }
 

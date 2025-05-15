@@ -12,9 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-/**
- * Servlet responsável por processar o login do usuário.
- */
 @WebServlet("/loginAction")
 public class LoginActionServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -27,8 +24,8 @@ public class LoginActionServlet extends HttpServlet {
         String senha = request.getParameter("senha");
 
         String realPathBase = request.getServletContext().getRealPath("/");
-
-        Usuario usuario = UsuarioDAO.buscarUsuario(email, senha, realPathBase);
+        UsuarioDAO dao = new UsuarioDAO(realPathBase);
+        Usuario usuario = dao.buscarUsuario(email, senha);
 
         if (usuario != null) {
             HttpSession session = request.getSession();
