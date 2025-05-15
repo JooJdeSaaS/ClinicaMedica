@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel do Paciente</title>
+    <title>Minha Agenda</title>
     <!-- Importa o CSS externo -->
     <link rel="stylesheet" href="/css/minha_agenda.css">
 </head>

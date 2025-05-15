@@ -7,50 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Consultar Agenda</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        table {
-            width: 90%;
-            margin: 20px auto;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 12px;
-            border: 1px solid #ccc;
-            text-align: center;
-        }
-
-        th {
-            background-color: #f5f5f5;
-        }
-
-        h1 {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        form.filtro-form {
-            text-align: center;
-            margin: 20px auto;
-        }
-
-        .cancelar-btn {
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        .cancelar-btn:hover {
-            background-color: #c0392b;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/consultar_agenda.css">
 </head>
 <body>
 

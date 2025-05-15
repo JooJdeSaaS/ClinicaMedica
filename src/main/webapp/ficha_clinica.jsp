@@ -8,63 +8,6 @@
     <meta charset="UTF-8">
     <title>Painel do Administrador</title>
     <link rel="stylesheet" href="/css/ficha_clinica.css">
-    <style>
-        .form-container {
-            background-color: white;
-            padding: 30px;
-            max-width: 600px;
-            margin: 120px auto 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        .form-container h2 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: #444;
-        }
-
-        input[type="text"],
-        input[type="date"],
-        input[type="number"],
-        select {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 15px;
-        }
-
-        input[type="submit"] {
-            background: linear-gradient(to right, #667eea, #764ba2);
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: background 0.3s ease;
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        input[type="submit"]:hover {
-            background: linear-gradient(to right, #5a67d8, #6b46c1);
-        }
-    </style>
 </head>
 <body>
 

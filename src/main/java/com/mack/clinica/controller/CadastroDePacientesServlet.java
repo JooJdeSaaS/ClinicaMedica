@@ -76,7 +76,7 @@ public class CadastroDePacientesServlet extends HttpServlet {
             }
 
             request.setAttribute("texto", "criar um novo usuario");
-            request.setAttribute("redirect", "/admin_dashboard");
+            request.setAttribute("redirect", "/paciente_dashboard");
             request.getRequestDispatcher("/mensagem_erro.jsp").forward(request, response);
 
 
@@ -129,7 +129,7 @@ public class CadastroDePacientesServlet extends HttpServlet {
             }
 
             request.setAttribute("texto", "atualizar o usuario");
-            request.setAttribute("redirect", "/admin_dashboard");
+            request.setAttribute("redirect", "/paciente_dashboard");
             request.getRequestDispatcher("/mensagem_erro.jsp").forward(request, response);
 
 
@@ -151,7 +151,7 @@ public class CadastroDePacientesServlet extends HttpServlet {
             }
 
             request.setAttribute("texto", "deletar o usuario");
-            request.setAttribute("redirect", "/admin_dashboard");
+            request.setAttribute("redirect", "/paciente_dashboard");
             request.getRequestDispatcher("/mensagem_erro.jsp").forward(request, response);
 
 

@@ -1,8 +1,9 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Painel do Paciente</title>
+    <title>Meu Cadastro</title>
     <!-- Importa o CSS externo -->
     <link rel="stylesheet" href="/css/meu_cadastro.css">
 </head>
@@ -21,7 +22,7 @@
 
 <!-- Conteúdo principal -->
 <div class="cadastro-container">
-    <h2>Trocar informações</h2>
+    <h2>Trocar Informações</h2>
     <form method="post" action="meuCadastro">
 
         <div class="form-group">

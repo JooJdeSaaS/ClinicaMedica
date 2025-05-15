@@ -60,10 +60,10 @@ body, html {
     background-color: rgba(255, 0, 0, 0.3);
 }
 
-/* Container do formulário */
-.form-container {
+/* Container de conteúdo */
+.content {
     width: 90%;
-    max-width: 700px;
+    max-width: 1000px;
     margin: 100px auto 40px;
     background-color: white;
     border-radius: 10px;
@@ -73,13 +73,13 @@ body, html {
     transition: transform 0.3s ease;
 }
 
-.form-container:hover {
+.content:hover {
     transform: translateY(-5px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 /* Título principal */
-h2 {
+h1 {
     color: #333;
     text-align: center;
     font-weight: 600;
@@ -89,7 +89,7 @@ h2 {
     margin-bottom: 30px;
 }
 
-h2::after {
+h1::after {
     content: '';
     position: absolute;
     left: 50%;
@@ -101,66 +101,41 @@ h2::after {
     background-color: #764ba2;
 }
 
-/* Formulário */
-form {
+/* Formulário de filtro */
+.filtro-form {
     display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-.form-group {
+    flex-wrap: wrap;
+    gap: 15px;
     background-color: #f9f9f9;
     border-radius: 8px;
     padding: 20px;
-    transition: all 0.3s ease;
+    margin-bottom: 30px;
     border-left: 4px solid #764ba2;
-    opacity: 0;
     animation: fadeIn 0.5s ease forwards;
+    animation-delay: 0.1s;
+    opacity: 0;
 }
 
-.form-group:hover {
-    background-color: #f0f0f0;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-}
-
-.form-group:nth-child(1) { animation-delay: 0.1s; }
-.form-group:nth-child(2) { animation-delay: 0.2s; }
-.form-group:nth-child(3) { animation-delay: 0.3s; }
-.form-group:nth-child(4) { animation-delay: 0.4s; }
-.form-group:nth-child(5) { animation-delay: 0.5s; }
-
-label {
-    display: block;
-    color: #333;
-    font-size: 18px;
+.filtro-form label {
     font-weight: 600;
-    margin-bottom: 10px;
+    color: #333;
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
 }
 
-/* Estilos para inputs */
-input[type="text"],
-input[type="number"],
-input[type="date"],
-select {
-    width: 100%;
-    padding: 12px 15px;
+.filtro-form select,
+.filtro-form input[type="date"] {
+    padding: 10px 15px;
     border: 1px solid #ddd;
     border-radius: 6px;
-    font-size: 16px;
+    font-size: 14px;
+    flex: 1;
+    min-width: 150px;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-input[type="text"]:focus,
-input[type="number"]:focus,
-input[type="date"]:focus,
-select:focus {
-    outline: none;
-    border-color: #764ba2;
-    box-shadow: 0 0 0 2px rgba(118, 75, 162, 0.2);
-}
-
-/* Estilos específicos para o select */
-select {
+.filtro-form select {
     appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
@@ -169,30 +144,110 @@ select {
     padding-right: 40px;
 }
 
-/* Botão de envio */
-input[type="submit"] {
+.filtro-form select:focus,
+.filtro-form input[type="date"]:focus {
+    outline: none;
+    border-color: #764ba2;
+    box-shadow: 0 0 0 2px rgba(118, 75, 162, 0.2);
+}
+
+.filtro-form button {
     background: linear-gradient(to right, #667eea, #764ba2);
     color: white;
     border: none;
     border-radius: 6px;
-    padding: 14px;
-    font-size: 16px;
+    padding: 10px 20px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 10px;
-    align-self: center;
-    width: 200px;
+    margin-left: auto;
 }
 
-input[type="submit"]:hover {
+.filtro-form button:hover {
     background: linear-gradient(to right, #5a72e0, #6a3d99);
     box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
     transform: translateY(-2px);
 }
 
-input[type="submit"]:active {
+.filtro-form button:active {
     transform: translateY(0);
+}
+
+/* Tabela de consultas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
+}
+
+thead {
+    background: linear-gradient(to right, #667eea, #764ba2);
+    color: white;
+}
+
+th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+tbody tr {
+    background-color: #fff;
+    transition: background-color 0.3s;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f0f0f0;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+/* Botão de cancelar */
+.cancelar-btn {
+    background-color: #ff5252;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cancelar-btn:hover {
+    background-color: #ff1a1a;
+    box-shadow: 0 2px 8px rgba(255, 82, 82, 0.4);
+}
+
+/* Mensagem de nenhuma consulta */
+p {
+    font-size: 16px;
+    color: #666;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    text-align: center;
+    border-left: 4px solid #764ba2;
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
 }
 
 /* Animações */
@@ -218,45 +273,86 @@ input[type="submit"]:active {
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .form-container {
+    .content {
         margin-top: 240px;
         width: 95%;
         padding: 20px;
     }
 
-    h2 {
+    h1 {
         font-size: 24px;
     }
 
-    .form-group {
-        padding: 15px;
+    .filtro-form {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filtro-form label {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .filtro-form select,
+    .filtro-form input[type="date"] {
+        width: 100%;
+    }
+
+    .filtro-form button {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    th, td {
+        min-width: 120px;
     }
 }
 
 @media (max-width: 480px) {
-    .form-container {
+    .content {
         padding: 15px;
     }
 
-    label {
-        font-size: 16px;
+    h1 {
+        font-size: 22px;
     }
 
-    input[type="text"],
-    input[type="number"],
-    input[type="date"],
-    select,
-    input[type="submit"] {
+    th, td {
         padding: 10px;
-        font-size: 14px;
+        font-size: 13px;
+    }
+
+    .cancelar-btn {
+        padding: 6px 10px;
+        font-size: 12px;
     }
 }
 
-/* Efeitos de validação */
-input:valid {
-    border-color: #4CAF50;
+/* Status styling */
+td:nth-child(5) {
+    font-weight: 600;
 }
 
-input:invalid {
-    border-color: #f44336;
+td:nth-child(5):contains("cancelada") {
+    color: #ff5252;
+}
+
+td:nth-child(5):contains("agendada") {
+    color: #4CAF50;
+}
+
+td:nth-child(5):contains("concluída") {
+    color: #2196F3;
+}
+
+/* Efeito de carregamento para a tabela */
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
 }

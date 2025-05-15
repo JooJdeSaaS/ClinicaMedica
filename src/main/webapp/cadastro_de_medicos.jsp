@@ -22,7 +22,7 @@
 
 <div class="container">
     <div class="card">
-        <h2>Criar, Ler, Atualizar, Deletar medicos</h2>
+        <h2>Criar, Ler, Atualizar, Deletar Medicos</h2>
 
         <%-- JSP Form for operation selection --%>
             <%

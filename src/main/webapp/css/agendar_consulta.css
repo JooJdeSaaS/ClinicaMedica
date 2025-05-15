@@ -60,10 +60,10 @@ body, html {
     background-color: rgba(255, 0, 0, 0.3);
 }
 
-/* Container do formulário */
-.form-container {
+/* Conteúdo centralizado */
+.content {
     width: 90%;
-    max-width: 700px;
+    max-width: 600px;
     margin: 100px auto 40px;
     background-color: white;
     border-radius: 10px;
@@ -73,23 +73,23 @@ body, html {
     transition: transform 0.3s ease;
 }
 
-.form-container:hover {
+.content:hover {
     transform: translateY(-5px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 /* Título principal */
-h2 {
+h1 {
     color: #333;
     text-align: center;
     font-weight: 600;
     font-size: 28px;
     position: relative;
     padding-bottom: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
-h2::after {
+h1::after {
     content: '';
     position: absolute;
     left: 50%;
@@ -102,75 +102,44 @@ h2::after {
 }
 
 /* Formulário */
-form {
+.form-container {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 20px;
 }
-
-.form-group {
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 20px;
-    transition: all 0.3s ease;
-    border-left: 4px solid #764ba2;
-    opacity: 0;
-    animation: fadeIn 0.5s ease forwards;
-}
-
-.form-group:hover {
-    background-color: #f0f0f0;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-}
-
-.form-group:nth-child(1) { animation-delay: 0.1s; }
-.form-group:nth-child(2) { animation-delay: 0.2s; }
-.form-group:nth-child(3) { animation-delay: 0.3s; }
-.form-group:nth-child(4) { animation-delay: 0.4s; }
-.form-group:nth-child(5) { animation-delay: 0.5s; }
 
 label {
     display: block;
-    color: #333;
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    color: #555;
+    font-size: 16px;
+    font-weight: 500;
 }
 
-/* Estilos para inputs */
-input[type="text"],
-input[type="number"],
-input[type="date"],
-select {
+select, input[type="datetime-local"] {
     width: 100%;
     padding: 12px 15px;
     border: 1px solid #ddd;
     border-radius: 6px;
     font-size: 16px;
     transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #f9f9f9;
 }
 
-input[type="text"]:focus,
-input[type="number"]:focus,
-input[type="date"]:focus,
-select:focus {
+select:focus, input[type="datetime-local"]:focus {
     outline: none;
     border-color: #764ba2;
     box-shadow: 0 0 0 2px rgba(118, 75, 162, 0.2);
 }
 
-/* Estilos específicos para o select */
-select {
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 15px center;
-    background-size: 16px;
-    padding-right: 40px;
+/* Estilizando o input de data e hora */
+input[type="datetime-local"] {
+    padding: 11px 15px;
+    color: #333;
 }
 
-/* Botão de envio */
-input[type="submit"] {
+/* Botão */
+.button {
     background: linear-gradient(to right, #667eea, #764ba2);
     color: white;
     border: none;
@@ -181,18 +150,11 @@ input[type="submit"] {
     cursor: pointer;
     transition: all 0.3s ease;
     margin-top: 10px;
-    align-self: center;
-    width: 200px;
 }
 
-input[type="submit"]:hover {
+.button:hover {
     background: linear-gradient(to right, #5a72e0, #6a3d99);
     box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
-    transform: translateY(-2px);
-}
-
-input[type="submit"]:active {
-    transform: translateY(0);
 }
 
 /* Animações */
@@ -218,45 +180,97 @@ input[type="submit"]:active {
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .form-container {
+    .content {
         margin-top: 240px;
         width: 95%;
         padding: 20px;
     }
 
-    h2 {
+    h1 {
         font-size: 24px;
-    }
-
-    .form-group {
-        padding: 15px;
     }
 }
 
 @media (max-width: 480px) {
-    .form-container {
+    .content {
         padding: 15px;
     }
 
-    label {
-        font-size: 16px;
-    }
-
-    input[type="text"],
-    input[type="number"],
-    input[type="date"],
-    select,
-    input[type="submit"] {
+    select, input[type="datetime-local"], .button {
         padding: 10px;
         font-size: 14px;
     }
 }
 
-/* Efeitos de validação */
-input:valid {
-    border-color: #4CAF50;
+/* Estilização do input de data e hora */
+.datetime-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
-input:invalid {
-    border-color: #f44336;
+.datetime-wrapper label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.datetime-wrapper input[type="datetime-local"] {
+    width: 100%;
+    padding: 12px 15px;
+    padding-right: 40px; /* Espaço para o ícone */
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    color: #333;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.datetime-wrapper input[type="datetime-local"]:focus {
+    outline: none;
+    border-color: #764ba2;
+    box-shadow: 0 0 0 2px rgba(118, 75, 162, 0.2);
+}
+
+/* Adiciona um ícone de calendário */
+.datetime-wrapper::after {
+    content: '\1F4C5'; /* Emoji de calendário Unicode */
+    position: absolute;
+    right: 12px;
+    top: 38px;
+    font-size: 18px;
+    color: #764ba2;
+    pointer-events: none; /* Permite clicar "através" do ícone */
+}
+
+/* Estilização específica para diferentes navegadores */
+/* Chrome, Edge */
+.datetime-wrapper input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    opacity: 0; /* Esconde o ícone padrão */
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+/* Firefox */
+.datetime-wrapper input[type="datetime-local"] {
+    -moz-appearance: none;
+}
+
+/* Efeito hover */
+.datetime-wrapper input[type="datetime-local"]:hover {
+    border-color: #aaa;
+    background-color: #f5f5f5;
+}
+
+/* Animação ao clicar */
+.datetime-wrapper input[type="datetime-local"]:active {
+    transform: scale(0.99);
 }

@@ -1,49 +1,220 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+/* Reset básico e estilos base */
+body,
+html {
     margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+/* Container de login */
 .login-container {
     background-color: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-}
-
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-label, input {
-    display: block;
+    padding: 40px;
     width: 100%;
-    margin-bottom: 15px;
+    max-width: 390px; /* Increased from 400px to 500px */
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease forwards;
+    box-sizing: border-box;
+    margin: 40px 20px; /* Added margin to ensure space around the container */
 }
 
-input {
-    padding: 10px;
+/* Título */
+h2 {
+    color: #333;
+    text-align: center;
+    font-weight: 600;
+    font-size: 28px;
+    position: relative;
+    padding-bottom: 15px;
+    margin: 0 0 30px;
+}
+
+h2::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 4px;
+    width: 50px;
+    border-radius: 2px;
+    background-color: #764ba2;
+}
+
+/* Formulário */
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #444;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
 }
 
 button {
-    width: 100%;
-    padding: 10px;
-    background-color: #0066cc;
+    background: linear-gradient(to right, #667eea, #764ba2);
     color: white;
+    padding: 14px 20px;
     border: none;
-    border-radius: 4px;
-    font-size: 16px;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 10px;
 }
 
 button:hover {
-    background-color: #004d99;
+    background: linear-gradient(to right, #5a6fd9, #6a3d9a);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Mensagem de erro (caso você precise adicionar) */
+.error-message {
+    background: linear-gradient(to right, #dc3545, #f56565);
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    text-align: center;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fix for any lists or elements that might appear under the login box */
+ul,
+ol,
+.footer-links,
+.additional-options,
+.info-text {
+    color: white;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+ul li,
+ol li,
+.footer-links a,
+.additional-options a,
+.info-text a {
+    color: white;
+    text-decoration: none;
+    margin: 8px 0;
+    font-size: 14px;
+    opacity: 0.9;
+    transition: opacity 0.3s;
+}
+
+ul li:hover,
+ol li:hover,
+.footer-links a:hover,
+.additional-options a:hover,
+.info-text a:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .login-container {
+        padding: 30px 20px;
+        margin: 20px;
+        width: calc(100% - 40px);
+        max-width: none; /* Allow full width on small screens minus margins */
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    button {
+        padding: 12px;
+    }
+}
+
+/* Efeito de destaque nos campos */
+@keyframes highlight {
+    0% {
+        background-color: rgba(102, 126, 234, 0.1);
+    }
+    100% {
+        background-color: transparent;
+    }
+}
+
+input:focus {
+    animation: highlight 1s ease;
+}
+
+/* Ensure the body covers the entire viewport */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Make sure any content below the login box inherits the gradient background */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    z-index: -1;
 }

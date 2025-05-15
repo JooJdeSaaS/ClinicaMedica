@@ -1,4 +1,4 @@
-/* Reset and base styles */
+/* Reset básico e estilos base */
 * {
     margin: 0;
     padding: 0;
@@ -6,167 +6,261 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-body {
-    background-color: #f5f7fa;
-    color: #333;
-    line-height: 1.6;
+body, html {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Navigation bar styles */
+/* Estilos da Navbar */
 .navbar {
-    background-color: #2c3e50;
-    padding: 1rem 2rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: sticky;
+    background: linear-gradient(to right, #333, #222);
+    overflow: hidden;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    position: fixed;
     top: 0;
-    z-index: 100;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
 }
 
 .nav-links {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.nav-links a {
-    color: #ecf0f1;
+.navbar a {
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 16px 20px;
     text-decoration: none;
+    transition: all 0.3s ease;
     font-weight: 500;
-    padding: 0.5rem 0;
-    transition: color 0.3s ease;
-    position: relative;
 }
 
-.nav-links a:hover {
-    color: #3498db;
+.navbar a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
 }
 
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: #3498db;
-    transition: width 0.3s ease;
-}
-
-.nav-links a:hover::after {
-    width: 100%;
+.navbar a.active {
+    background-color: rgba(118, 75, 162, 0.7);
 }
 
 .logout-link {
-    margin-left: auto;
-    background-color: #e74c3c;
-    padding: 0.5rem 1rem !important;
-    border-radius: 4px;
-    color: white !important;
+    background-color: rgba(255, 0, 0, 0.2);
 }
 
 .logout-link:hover {
-    background-color: #c0392b;
-    color: white !important;
+    background-color: rgba(255, 0, 0, 0.3);
 }
 
-/* Main content container */
+/* Container do cadastro */
 .cadastro-container {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 2rem;
+    width: 90%;
+    max-width: 700px;
+    margin: 100px auto 40px;
     background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    animation: fadeIn 0.5s ease forwards;
+    transition: transform 0.3s ease;
 }
 
-.cadastro-container h2 {
-    color: #2c3e50;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid #3498db;
-    font-size: 1.8rem;
+.cadastro-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
-/* Form styles */
+/* Título principal */
+h2 {
+    color: #333;
+    text-align: center;
+    font-weight: 600;
+    font-size: 28px;
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 4px;
+    width: 50px;
+    border-radius: 2px;
+    background-color: #764ba2;
+}
+
+/* Formulário */
 form {
-    display: grid;
-    gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-group {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    border-left: 4px solid #764ba2;
+}
+
+.form-group:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 label {
-    font-weight: 600;
-    color: #2c3e50;
-    margin-top: 1rem;
     display: block;
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
 }
 
-p {
-    margin: 0.5rem 0;
-    color: #7f8c8d;
+.current-value {
+    background-color: rgba(118, 75, 162, 0.1);
+    padding: 12px 15px;
+    border-radius: 6px;
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 15px;
+    border: 1px dashed #764ba2;
+}
+
+.change-label {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 8px;
+    font-weight: 500;
 }
 
 input[type="text"] {
     width: 100%;
-    padding: 0.8rem;
+    padding: 12px 15px;
     border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 input[type="text"]:focus {
-    border-color: #3498db;
-    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
     outline: none;
+    border-color: #764ba2;
+    box-shadow: 0 0 0 2px rgba(118, 75, 162, 0.2);
 }
 
-button[type="submit"] {
-    background-color: #3498db;
+/* Botão */
+button {
+    background: linear-gradient(to right, #667eea, #764ba2);
     color: white;
     border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 4px;
+    border-radius: 6px;
+    padding: 14px;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 1rem;
-    justify-self: start;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    align-self: center;
+    width: 200px;
 }
 
-button[type="submit"]:hover {
-    background-color: #2980b9;
+button:hover {
+    background: linear-gradient(to right, #5a72e0, #6a3d99);
+    box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+    transform: translateY(-2px);
 }
 
-/* Responsive styles */
+button:active {
+    transform: translateY(0);
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsividade */
 @media (max-width: 768px) {
-    .nav-links {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: flex-start;
+    .navbar {
+        padding: 0;
     }
 
-    .logout-link {
-        margin-left: 0;
-        margin-top: 1rem;
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navbar a {
+        width: 100%;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .cadastro-container {
-        margin: 1rem;
-        padding: 1.5rem;
+        margin-top: 240px;
+        width: 95%;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    .form-group {
+        padding: 15px;
     }
 }
 
 @media (max-width: 480px) {
-    .navbar {
-        padding: 1rem;
-    }
-
     .cadastro-container {
-        padding: 1rem;
+        padding: 15px;
     }
 
-    input[type="text"], button[type="submit"] {
-        padding: 0.7rem;
+    label {
+        font-size: 16px;
+    }
+
+    input[type="text"], button {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .current-value {
+        padding: 10px;
+        font-size: 14px;
     }
 }
+
+/* Efeitos de validação */
+input:valid {
+    border-color: #4CAF50;
+}
+
+input:invalid {
+    border-color: #f44336;
+}
+
+/* Efeito de transição para os campos */
+.form-group {
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.form-group:nth-child(1) { animation-delay: 0.1s; }
+.form-group:nth-child(2) { animation-delay: 0.2s; }
+.form-group:nth-child(3) { animation-delay: 0.3s; }
+.form-group:nth-child(4) { animation-delay: 0.4s; }

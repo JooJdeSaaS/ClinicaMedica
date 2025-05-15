@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Agendar Consulta</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/agendar_consulta.css">
 </head>
 <body>
 
@@ -40,8 +40,10 @@
                 %>
             </select>
 
-            <label for="dataHora">Data e Hora:</label>
-            <input type="datetime-local" id="dataHora" name="dataHora" required>
+            <div class="datetime-wrapper">
+                <label for="dataHora">Data e Hora:</label>
+                <input type="datetime-local" id="dataHora" name="dataHora" required>
+            </div>
 
             <button type="submit" class="button">Agendar</button>
         </form>

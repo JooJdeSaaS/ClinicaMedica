@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Painel do Administrador</title>
     <!-- Importa o CSS externo -->
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/paciente_dashboard.css">
 </head>
 <body>
 
