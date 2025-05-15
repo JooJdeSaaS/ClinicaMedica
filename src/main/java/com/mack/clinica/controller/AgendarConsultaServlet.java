@@ -3,10 +3,11 @@ package com.mack.clinica.controller;
 import java.io.IOException;
 import java.util.List;
 
-import com.mack.clinica.model.AgendarConsultaDAO;
+import com.mack.clinica.model.ConsultaDAO;
 import com.mack.clinica.model.Usuario;
 
 import com.mack.clinica.controller.SessionUtil;
+import com.mack.clinica.model.UsuarioDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -24,9 +25,9 @@ public class AgendarConsultaServlet extends HttpServlet {
         if (!SessionUtil.validar(request, response)) {return;}
 
         String realPathBase = request.getServletContext().getRealPath("/");
-        AgendarConsultaDAO dao = new AgendarConsultaDAO(realPathBase);
+        UsuarioDAO dao = new UsuarioDAO(realPathBase);
 
-        List<Usuario> medicos = dao.listarMedicos();
+        List<Usuario> medicos = dao.listarUsuarios("medico");
         request.setAttribute("medicos", medicos);
 
         request.getRequestDispatcher("/agendar_consulta.jsp").forward(request, response);
@@ -43,7 +44,7 @@ public class AgendarConsultaServlet extends HttpServlet {
             String dataHora = request.getParameter("dataHora");
 
             String realPathBase = request.getServletContext().getRealPath("/");
-            AgendarConsultaDAO dao = new AgendarConsultaDAO(realPathBase);
+            ConsultaDAO dao = new ConsultaDAO(realPathBase);
 
             boolean sucesso = dao.agendarConsulta(pacienteId, profissionalId, dataHora);
             if (sucesso) {

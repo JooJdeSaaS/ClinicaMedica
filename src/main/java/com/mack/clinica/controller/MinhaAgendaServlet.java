@@ -3,10 +3,10 @@ package com.mack.clinica.controller;
 import java.io.IOException;
 import java.util.List;
 
-import com.mack.clinica.model.AgendarConsultaDAO;
+
 import com.mack.clinica.model.Consulta;
-import com.mack.clinica.model.MinhaAgendaDAO;
-import com.mack.clinica.model.Usuario;
+import com.mack.clinica.model.ConsultaDAO;
+
 
 import com.mack.clinica.controller.SessionUtil;
 import jakarta.servlet.ServletException;
@@ -31,7 +31,7 @@ public class MinhaAgendaServlet extends HttpServlet {
 
 
         // Instancia o DAO e busca as consultas do paciente
-        MinhaAgendaDAO dao = new MinhaAgendaDAO(realPathBase);
+        ConsultaDAO dao = new ConsultaDAO(realPathBase);
         List<Consulta> consultas = dao.buscarConsultasPorPacienteId(pacienteId);
 
         // Define as consultas como atributo e encaminha para o JSP

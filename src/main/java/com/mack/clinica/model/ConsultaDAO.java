@@ -1,25 +1,59 @@
 package com.mack.clinica.model;
 
+import com.mack.clinica.util.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-import com.mack.clinica.util.DatabaseConnection;
+public class ConsultaDAO {
 
-public class AgendarConsultaDAO {
-
-    private String nomePaciente;
-    public String getNomePaciente() { return nomePaciente; }
-    public void setNomePaciente(String nomePaciente) { this.nomePaciente = nomePaciente; }
     private String realPathBase;
 
-    public AgendarConsultaDAO(String realPathBase) {
+    public ConsultaDAO(String realPathBase) {
         this.realPathBase = realPathBase;
     }
 
+    //Minha agenda
+    public List<Consulta> buscarConsultasPorPacienteId(int pacienteId) {
+        List<Consulta> consultas = new ArrayList<>();
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase)) {
+            String sql = "SELECT c.paciente_id, c.profissional_id, c.data_hora, c.status, c.observacoes, u.nome " +
+                    "FROM consultas c " +
+                    "JOIN usuarios u ON c.profissional_id = u.id " +
+                    "WHERE c.paciente_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, pacienteId);
+
+            ResultSet rs = stmt.executeQuery();
+            int count = 1;
+            while (rs.next()) {
+                int id = count;
+                count++;
+                String nomeProfissional = rs.getString("nome"); // agora pega o campo 'nome'
+                String dataHora = rs.getString("data_hora");
+                LocalDateTime dataHora1 = LocalDateTime.parse(dataHora);
+                DateTimeFormatter formatador = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
+                String dataFormatada = dataHora1.format(formatador);
+                String status = rs.getString("status");
+                String observacoes = rs.getString("observacoes");
+
+                Consulta consulta = new Consulta(id, pacienteId, nomeProfissional, dataFormatada, status, observacoes);
+                consultas.add(consulta);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao buscar consultas no banco de dados.", e);
+        }
+
+        return consultas;
+    }
+
+    //Agendar Consulta
     public boolean agendarConsulta(int pacienteId, int profissionalId, String dataHora) {
         String sql = "INSERT INTO consultas (paciente_id, profissional_id, data_hora, status, observacoes) VALUES (?, ?, ?, 'agendada', '')";
 
@@ -38,6 +72,7 @@ public class AgendarConsultaDAO {
         }
     }
 
+    //Agendar Consulta, Consultar agenda, ficha clinica
     public List<Usuario> listarMedicos() {
         List<Usuario> medicos = new ArrayList<>();
         String sql = "SELECT id, nome FROM usuarios WHERE tipo = 'medico'";
@@ -58,53 +93,8 @@ public class AgendarConsultaDAO {
 
         return medicos;
     }
-    public List<Usuario> listarPacientes() {
-        List<Usuario> pacientes = new ArrayList<>();
-        String sql = "SELECT id, nome FROM usuarios WHERE tipo = 'paciente'";
 
-        try (Connection conn = DatabaseConnection.getConnection(realPathBase);
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                Usuario u = new Usuario();
-                u.setId(rs.getInt("id"));
-                u.setNome(rs.getString("nome"));
-                pacientes.add(u);
-            }
-        } catch (SQLException e) {
-            System.err.println("Erro ao buscar pacientes: " + e.getMessage());
-        }
-
-        return pacientes;
-    }
-    public List<Consulta> listarTodasConsultas() {
-        List<Consulta> consultas = new ArrayList<>();
-        String sql = "SELECT c.id, c.data_hora, c.status, " +
-                "p.nome AS nomePaciente, m.nome AS nomeMedico " +
-                "FROM consultas c " +
-                "JOIN usuarios p ON c.paciente_id = p.id " +
-                "JOIN usuarios m ON c.profissional_id = m.id";
-
-        try (Connection conn = DatabaseConnection.getConnection(realPathBase);
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                Consulta consulta = new Consulta();
-                consulta.setId(rs.getInt("id"));
-                consulta.setDataHora(rs.getString("data_hora"));
-                consulta.setStatus(rs.getString("status"));
-                consulta.setNomePaciente(rs.getString("nomePaciente"));
-                consulta.setNomeMedico(rs.getString("nomeMedico"));
-                consultas.add(consulta);
-            }
-        } catch (SQLException e) {
-            System.err.println("Erro ao listar consultas: " + e.getMessage());
-        }
-
-        return consultas;
-    }
+    //agendar consulta e consultar agenda
     public List<Consulta> buscarConsultasFiltradas(Integer medicoId, String data) {
         List<Consulta> consultas = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT c.id, c.paciente_id, p.nome AS nome_paciente, c.profissional_id, m.nome AS nome_medico, c.data_hora, c.status, c.observacoes ");
@@ -155,7 +145,7 @@ public class AgendarConsultaDAO {
     public List<Consulta> buscarTodasConsultas() {
         return buscarConsultasFiltradas(null, null);
     }
-
+    //consultar agenda
     public void cancelarConsulta(int consultaId) {
         String sql = "UPDATE consultas SET status = 'cancelada' WHERE id = ?";
 

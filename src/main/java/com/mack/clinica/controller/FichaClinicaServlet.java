@@ -1,8 +1,9 @@
 package com.mack.clinica.controller;
 
-import com.mack.clinica.model.AgendarConsultaDAO;
-import com.mack.clinica.model.FichaClinicaDAO;
+
+import com.mack.clinica.model.ProntuariosDAO;
 import com.mack.clinica.model.Usuario;
+import com.mack.clinica.model.UsuarioDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,17 +21,14 @@ public class FichaClinicaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session == null || session.getAttribute("nome") == null) {
-            response.sendRedirect("index.jsp");
-            return;
-        }
 
-        String dbPath = getServletContext().getRealPath("/");
+        if (!SessionUtil.validar(request, response)) {return;}
+
+        String realPathBase = request.getServletContext().getRealPath("/");
 
         // Carregar lista de médicos
-        AgendarConsultaDAO dao = new AgendarConsultaDAO(dbPath);
-        List<Usuario> medicos = dao.listarMedicos();
+        UsuarioDAO dao = new UsuarioDAO(realPathBase);
+        List<Usuario> medicos = dao.listarUsuarios("medico");
         request.setAttribute("medicos", medicos);
 
         request.getRequestDispatcher("/ficha_clinica.jsp").forward(request, response);
@@ -46,13 +44,13 @@ public class FichaClinicaServlet extends HttpServlet {
             String prescricoes = request.getParameter("prescricoes");
             String data = request.getParameter("data");
 
-            String dbPath = getServletContext().getRealPath("/");
+            String realPathBase = request.getServletContext().getRealPath("/");
 
-            Integer b = Integer.parseInt(paciente_id);
-            Integer c = Integer.parseInt(profissional_id);
+            int id_paciente = Integer.parseInt(paciente_id);
+            int id_medico = Integer.parseInt(profissional_id);
 
-            FichaClinicaDAO dao = new FichaClinicaDAO(dbPath);
-            dao.salvarFichaClinica(b, c, anotacoes_medicas, prescricoes, data);
+            ProntuariosDAO dao = new ProntuariosDAO(realPathBase);
+            dao.salvarFichaClinica(id_paciente, id_medico, anotacoes_medicas, prescricoes, data);
 
             response.sendRedirect("admin_dashboard.jsp");
 

@@ -6,11 +6,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class FichaClinicaDAO {
+public class ProntuariosDAO {
 
     private String realPathBase;
 
-    public FichaClinicaDAO(String realPathBase) {
+    public ProntuariosDAO(String realPathBase) {
         this.realPathBase = realPathBase;
     }
 
@@ -34,4 +34,6 @@ public class FichaClinicaDAO {
             throw new RuntimeException("Erro ao salvar ficha clínica no banco de dados.", e);
         }
     }
+
+
 }
