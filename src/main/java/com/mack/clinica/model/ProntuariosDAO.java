@@ -1,4 +1,3 @@
-<<<<<<<< HEAD:src/main/java/com/mack/clinica/model/ProntuariosDAO.java
 package com.mack.clinica.model;
 
 import com.mack.clinica.util.DatabaseConnection;
@@ -38,5 +37,4 @@ public class ProntuariosDAO {
 
 
 }
-========
->>>>>>>> origin/main:src/main/java/com/mack/clinica/model/FichaClinicaDAO.java
+

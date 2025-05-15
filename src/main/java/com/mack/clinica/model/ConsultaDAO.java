@@ -1,4 +1,3 @@
-<<<<<<<< HEAD:src/main/java/com/mack/clinica/model/ConsultaDAO.java
 package com.mack.clinica.model;
 
 import com.mack.clinica.util.DatabaseConnection;
@@ -160,5 +159,3 @@ public class ConsultaDAO {
     }
 
 }
-========
->>>>>>>> origin/main:src/main/java/com/mack/clinica/model/AgendarConsultaDAO.java
