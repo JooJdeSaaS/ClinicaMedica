@@ -38,7 +38,7 @@ public class FichaClinicaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            String paciente_id = request.getParameter("paciente_id");
+            String cpfPaciente = request.getParameter("paciente_id");
             String profissional_id = request.getParameter("profissional_id");
             String anotacoes_medicas = request.getParameter("anotacoes_medicas");
             String prescricoes = request.getParameter("prescricoes");
@@ -46,11 +46,10 @@ public class FichaClinicaServlet extends HttpServlet {
 
             String realPathBase = request.getServletContext().getRealPath("/");
 
-            int id_paciente = Integer.parseInt(paciente_id);
             int id_medico = Integer.parseInt(profissional_id);
 
             ProntuariosDAO dao = new ProntuariosDAO(realPathBase);
-            dao.salvarFichaClinica(id_paciente, id_medico, anotacoes_medicas, prescricoes, data);
+            dao.salvarFichaClinica(cpfPaciente, id_medico, anotacoes_medicas, prescricoes, data);
 
             response.sendRedirect("admin_dashboard.jsp");
 
