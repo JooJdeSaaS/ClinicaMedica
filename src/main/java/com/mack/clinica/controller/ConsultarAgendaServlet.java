@@ -20,38 +20,28 @@ public class ConsultarAgendaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (!SessionUtil.validar(request, response)) {return;}
-
+        if (!SessionUtil.validar(request, response)) return;
 
         String realPathBase = request.getServletContext().getRealPath("/");
-        UsuarioDAO usuarioDAO = new UsuarioDAO(realPathBase);
         ConsultaDAO consultaDAO = new ConsultaDAO(realPathBase);
 
         // Adiciona médicos e pacientes para os selects
-        request.setAttribute("medicos", usuarioDAO.listarUsuarios("medico"));
-        request.setAttribute("pacientes", usuarioDAO.listarUsuarios("paciente"));
+        request.setAttribute("medicos", consultaDAO.listarMedicos());
+        request.setAttribute("pacientes", consultaDAO.listarPacientes());
 
         // Pega os filtros
         String medicoIdParam = request.getParameter("medicoId");
         String pacienteIdParam = request.getParameter("pacienteId");
         String dataParam = request.getParameter("data");
 
-        Integer medicoId = null;
-        Integer pacienteId = null;
-
-        if (medicoIdParam != null && !medicoIdParam.isEmpty()) {
-            medicoId = Integer.parseInt(medicoIdParam);
-        }
-
-        if (pacienteIdParam != null && !pacienteIdParam.isEmpty()) {
-            pacienteId = Integer.parseInt(pacienteIdParam);
-        }
+        Integer medicoId = (medicoIdParam != null && !medicoIdParam.isEmpty()) ? Integer.parseInt(medicoIdParam) : null;
+        Integer pacienteId = (pacienteIdParam != null && !pacienteIdParam.isEmpty()) ? Integer.parseInt(pacienteIdParam) : null;
 
         List<Consulta> consultas;
         if (medicoId != null || pacienteId != null || (dataParam != null && !dataParam.isEmpty())) {
-            consultas = consultaDAO.buscarConsultasFiltradas(medicoId, dataParam);
+            consultas = consultaDAO.buscarConsultasFiltradas(medicoId, pacienteId, dataParam);
         } else {
-            consultas = consultaDAO.buscarTodasConsultas();
+            consultas = consultaDAO.listarTodasConsultas();
         }
 
         request.setAttribute("consultas", consultas);
