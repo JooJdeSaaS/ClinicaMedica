@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="/css/paciente_dashboard.css">
 </head>
 <body>
-
+<video autoplay muted loop id="bg-video">
+    <source src="subway.mp4" type="video/mp4">
+</video>
     <!-- Menu de Navegação -->
     <div class="navbar">
         <div class="nav-links">

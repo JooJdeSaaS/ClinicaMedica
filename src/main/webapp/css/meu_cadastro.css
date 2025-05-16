@@ -1,266 +1,600 @@
-/* Reset básico e estilos base */
+/* Reset and base styles with an EXTREMELY bizarre twist */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', 'Papyrus', cursive;
+    letter-spacing: -0.5px;
+    word-spacing: 3px;
+    text-shadow: 0 0 2px rgba(255, 0, 255, 0.5);
 }
 
-body, html {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+/* EXTREME animations */
+@keyframes crazyGradient {
+    0% { background-position: 0% 50%; filter: hue-rotate(0deg); }
+    25% { background-position: 50% 100%; filter: hue-rotate(90deg); }
+    50% { background-position: 100% 50%; filter: hue-rotate(180deg); }
+    75% { background-position: 50% 0%; filter: hue-rotate(270deg); }
+    100% { background-position: 0% 50%; filter: hue-rotate(360deg); }
+}
+
+@keyframes crazyFloat {
+    0% { transform: translateY(0px) rotate(0deg) scale(1); }
+    20% { transform: translateY(-30px) rotate(10deg) scale(1.2); }
+    40% { transform: translateY(20px) rotate(-15deg) scale(0.8); }
+    60% { transform: translateY(-15px) rotate(20deg) scale(1.1); }
+    80% { transform: translateY(10px) rotate(-5deg) scale(0.9); }
+    100% { transform: translateY(0px) rotate(0deg) scale(1); }
+}
+
+@keyframes insaneSpin {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(90deg) scale(1.2); }
+    50% { transform: rotate(180deg) scale(0.8); }
+    75% { transform: rotate(270deg) scale(1.3); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes extremeWobble {
+    0%, 100% { transform: translateX(0) skew(0deg); }
+    10% { transform: translateX(-35%) rotate(-10deg) skew(-20deg); }
+    20% { transform: translateX(30%) rotate(8deg) skew(15deg); }
+    30% { transform: translateX(-25%) rotate(-6deg) skew(-10deg); }
+    40% { transform: translateX(20%) rotate(4deg) skew(5deg); }
+    50% { transform: translateX(-15%) rotate(-2deg) skew(-2deg); }
+    60% { transform: translateX(10%) rotate(1deg) skew(1deg); }
+    70% { transform: translateX(-5%) rotate(-0.5deg) skew(-0.5deg); }
+}
+
+@keyframes crazyPulse {
+    0% { transform: scale(1) rotate(0deg); filter: hue-rotate(0deg); }
+    25% { transform: scale(1.2) rotate(5deg); filter: hue-rotate(90deg); }
+    50% { transform: scale(0.8) rotate(-5deg); filter: hue-rotate(180deg); }
+    75% { transform: scale(1.1) rotate(3deg); filter: hue-rotate(270deg); }
+    100% { transform: scale(1) rotate(0deg); filter: hue-rotate(360deg); }
+}
+
+@keyframes jitter {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    10% { transform: translate(-5px, -5px) rotate(2deg); }
+    20% { transform: translate(5px, 5px) rotate(-2deg); }
+    30% { transform: translate(-3px, 3px) rotate(1deg); }
+    40% { transform: translate(3px, -3px) rotate(-1deg); }
+    50% { transform: translate(-2px, -2px) rotate(1deg); }
+    60% { transform: translate(2px, 2px) rotate(-1deg); }
+    70% { transform: translate(-1px, 1px) rotate(0.5deg); }
+    80% { transform: translate(1px, -1px) rotate(-0.5deg); }
+    90% { transform: translate(-0.5px, -0.5px) rotate(0.2deg); }
+}
+
+@keyframes textGlitch {
+    0%, 100% { text-shadow: 2px 2px 0 #ff00cc, -2px -2px 0 #00ffcc; }
+    25% { text-shadow: -2px 2px 0 #ffcc00, 2px -2px 0 #3333ff; }
+    50% { text-shadow: 2px -2px 0 #ff6666, -2px 2px 0 #00ffcc; }
+    75% { text-shadow: -2px -2px 0 #3333ff, 2px 2px 0 #ff00cc; }
+}
+
+@keyframes borderMadness {
+    0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+    25% { border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%; }
+    50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
+    75% { border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%; }
+    100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+}
+
+body {
+    background: linear-gradient(45deg, #ff00cc, #3333ff, #00ffcc, #ffcc00, #ff6666, #ff00ff, #00ffff, #ffff00);
+    background-size: 800% 800%;
+    animation: crazyGradient 20s ease infinite;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    overflow-x: hidden;
+    position: relative;
 }
 
-/* Estilos da Navbar */
+/* BIZARRE cursors */
+html {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>👽</text></svg>") 16 0, auto;
+}
+
+input, button {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>👇</text></svg>") 16 0, auto;
+}
+
+a {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>👈</text></svg>") 16 0, auto;
+}
+
+/* EXTREME navbar styling */
 .navbar {
-    background: linear-gradient(to right, #333, #222);
-    overflow: hidden;
-    width: 100%;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px) hue-rotate(45deg);
+    border-bottom: 8px solid transparent;
+    border-image: linear-gradient(to right, #ff00cc, #3333ff, #00ffcc, #ffcc00, #ff6666, #ff00ff, #00ffff);
+    border-image-slice: 1;
+    padding: 20px;
+    position: relative;
+    transform: perspective(1000px) rotateX(5deg) skewX(-2deg);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5), 0 5px 15px rgba(255, 0, 204, 0.5);
+    margin-bottom: 60px;
+    z-index: 100;
+    clip-path: polygon(
+            0% 0%,
+            100% 0%,
+            98% 80%,
+            90% 100%,
+            10% 100%,
+            2% 80%
+    );
+    animation: jitter 5s infinite;
+}
+
+.navbar::before {
+    content: "🏥";
+    position: absolute;
+    top: -25px;
+    left: 20px;
+    font-size: 40px;
+    animation: crazyFloat 5s ease-in-out infinite;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 0, 204, 0.8);
+    z-index: 1;
 }
 
 .nav-links {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-}
-
-.navbar a {
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 16px 20px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-weight: 500;
-}
-
-.navbar a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-}
-
-.navbar a.active {
-    background-color: rgba(118, 75, 162, 0.7);
-}
-
-.logout-link {
-    background-color: rgba(255, 0, 0, 0.2);
-}
-
-.logout-link:hover {
-    background-color: rgba(255, 0, 0, 0.3);
-}
-
-/* Container do cadastro */
-.cadastro-container {
-    width: 90%;
-    max-width: 700px;
-    margin: 100px auto 40px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    animation: fadeIn 0.5s ease forwards;
-    transition: transform 0.3s ease;
-}
-
-.cadastro-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-}
-
-/* Título principal */
-h2 {
-    color: #333;
-    text-align: center;
-    font-weight: 600;
-    font-size: 28px;
-    position: relative;
-    padding-bottom: 15px;
-    margin-bottom: 30px;
-}
-
-h2::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%);
-    height: 4px;
-    width: 50px;
-    border-radius: 2px;
-    background-color: #764ba2;
-}
-
-/* Formulário */
-form {
-    display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 25px;
 }
 
+.nav-links a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 12px 20px;
+    border-radius: 30px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    transform: skew(-8deg);
+    text-shadow: 2px 2px 0 #ff00cc, -2px -2px 0 #3333ff;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    animation: textGlitch 5s infinite;
+}
+
+.nav-links a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    transition: 0.5s;
+}
+
+.nav-links a:hover {
+    background: linear-gradient(45deg, #ff00cc, #3333ff, #00ffcc);
+    background-size: 300% 300%;
+    animation: crazyGradient 3s ease infinite;
+    color: white;
+    transform: skew(8deg) scale(1.2) rotate(3deg);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 0, 204, 0.7);
+    z-index: 10;
+}
+
+.nav-links a:hover::before {
+    left: 100%;
+}
+
+.nav-links a:active {
+    transform: skew(0deg) scale(0.9) rotate(-3deg);
+}
+
+/* EXTREME styling for logout link */
+.logout-link {
+    background: linear-gradient(45deg, #ff6666, #ff00cc, #ff00ff);
+    background-size: 300% 300%;
+    color: white !important;
+    animation: crazyGradient 3s ease infinite;
+    text-shadow: 2px 2px 0 #3333ff, -2px -2px 0 #00ffcc !important;
+    box-shadow: 0 5px 15px rgba(255, 0, 204, 0.5) !important;
+}
+
+/* EXTREME cadastro container styling */
+.cadastro-container {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px) hue-rotate(30deg);
+    border: 8px solid transparent;
+    border-image: linear-gradient(to right, #ff00cc, #3333ff, #00ffcc, #ffcc00, #ff6666, #ff00ff);
+    border-image-slice: 1;
+    padding: 50px 40px;
+    width: 90%;
+    max-width: 700px;
+    margin: 0 auto 70px;
+    text-align: center;
+    position: relative;
+    transform: perspective(1000px) rotateX(3deg) skewY(1deg);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 0, 204, 0.6);
+    transition: all 0.5s ease;
+    animation: borderMadness 20s linear infinite;
+    overflow: visible; /* Changed from hidden to visible */
+    z-index: 1; /* Ensure proper stacking */
+}
+
+.cadastro-container:hover {
+    transform: perspective(1000px) rotateX(-2deg) skewY(-1deg) scale(1.03);
+    animation: extremeWobble 2s ease, borderMadness 20s linear infinite;
+}
+
+/* EXTREME heading */
+.cadastro-container h2 {
+    color: transparent;
+    background: linear-gradient(45deg, #ff00cc, #3333ff, #00ffcc, #ffcc00, #ff6666, #ff00ff);
+    background-size: 600% 600%;
+    animation: crazyGradient 8s ease infinite;
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-size: 42px;
+    margin-bottom: 40px;
+    letter-spacing: 5px;
+    text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transform: skew(-5deg);
+    font-weight: 900;
+}
+
+/* Removed the ::before and ::after pseudo-elements from h2 that might be hiding inputs */
+
+/* EXTREME form styling */
 .form-group {
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 20px;
-    transition: all 0.3s ease;
-    border-left: 4px solid #764ba2;
+    margin-bottom: 35px;
+    position: relative;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 25px;
+    border-radius: 20px;
+    border: 4px solid transparent;
+    border-image: linear-gradient(to right, #3333ff, #00ffcc, #ff00ff);
+    border-image-slice: 1;
+    transition: all 0.5s;
+    transform: perspective(500px) rotateX(2deg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 20px rgba(51, 51, 255, 0.3);
+    animation: borderMadness 15s linear infinite;
+    z-index: 2; /* Ensure form groups are above other elements */
 }
 
 .form-group:hover {
-    background-color: #f0f0f0;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transform: perspective(500px) rotateX(-2deg) translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 255, 204, 0.5);
+    background: rgba(255, 255, 255, 0.8);
+    animation: jitter 0.5s infinite, borderMadness 15s linear infinite;
 }
 
+/* Removed the ::before and ::after pseudo-elements from form-group that might be hiding inputs */
+
+/* EXTREME label styling */
 label {
     display: block;
-    color: #333;
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-.current-value {
-    background-color: rgba(118, 75, 162, 0.1);
-    padding: 12px 15px;
-    border-radius: 6px;
-    color: #555;
-    font-size: 16px;
     margin-bottom: 15px;
-    border: 1px dashed #764ba2;
+    color: #333;
+    font-size: 22px;
+    font-weight: bold;
+    transform: skew(-8deg);
+    text-shadow: 2px 2px 0 #ff00cc, -2px -2px 0 #3333ff;
+    animation: textGlitch 8s infinite;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 3; /* Ensure labels are visible */
 }
 
+/* EXTREME current value styling */
+.current-value {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    border-left: 6px solid;
+    border-image: linear-gradient(to bottom, #3333ff, #00ffcc, #ff00ff);
+    border-image-slice: 1;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1), 0 0 10px rgba(51, 51, 255, 0.2);
+    transform: skew(-3deg);
+    animation: jitter 3s infinite;
+    z-index: 3; /* Ensure current values are visible */
+}
+
+/* Removed the ::before and ::after pseudo-elements from current-value that might be hiding inputs */
+
+/* EXTREME change label styling */
 .change-label {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 8px;
-    font-weight: 500;
+    margin: 15px 0;
+    color: #ff00cc;
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+    transform: skew(-5deg);
+    text-shadow: 1px 1px 0 #3333ff, -1px -1px 0 #00ffcc;
+    animation: textGlitch 5s infinite;
+    padding: 5px 15px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    z-index: 3; /* Ensure change labels are visible */
 }
 
+/* Removed the ::before and ::after pseudo-elements from change-label that might be hiding inputs */
+
+/* EXTREME input styling */
 input[type="text"] {
     width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 16px;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    padding: 15px 20px;
+    border: 5px solid;
+    border-image: linear-gradient(to right, #3333ff, #00ffcc, #ff00ff, #ffcc00);
+    border-image-slice: 1;
+    font-size: 18px;
+    transition: all 0.5s;
+    background: rgba(255, 255, 255, 0.8);
+    transform: skew(-8deg);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1), inset 0 0 10px rgba(51, 51, 255, 0.1);
+    animation: borderMadness 10s linear infinite;
+    position: relative;
+    z-index: 5; /* Ensure inputs are on top and visible */
 }
 
 input[type="text"]:focus {
     outline: none;
-    border-color: #764ba2;
-    box-shadow: 0 0 0 2px rgba(118, 75, 162, 0.2);
+    transform: skew(8deg) scale(1.08);
+    box-shadow: 0 0 25px rgba(0, 255, 204, 0.7), inset 0 0 15px rgba(255, 0, 204, 0.2);
+    animation: crazyPulse 3s infinite, borderMadness 10s linear infinite;
+    z-index: 10; /* Ensure focused inputs are definitely visible */
 }
 
-/* Botão */
+input[type="text"]:hover {
+    animation: jitter 0.3s infinite, borderMadness 10s linear infinite;
+}
+
+/* EXTREME button styling */
 button {
-    background: linear-gradient(to right, #667eea, #764ba2);
+    background: linear-gradient(45deg, #ff00cc, #3333ff, #00ffcc, #ff00ff, #ffcc00);
+    background-size: 400% 400%;
+    animation: crazyGradient 5s ease infinite;
     color: white;
     border: none;
-    border-radius: 6px;
-    padding: 14px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 10px;
-    align-self: center;
-    width: 200px;
+    border-radius: 50px;
+    padding: 20px 40px;
+    font-size: 22px;
+    font-weight: bold;
+    transition: all 0.5s;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 0, 204, 0.6);
+    transform: skew(-5deg);
+    text-shadow: 2px 2px 0 #3333ff, -2px -2px 0 #ff00cc;
+    z-index: 5; /* Ensure button is visible */
+}
+
+button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    transition: 0.5s;
 }
 
 button:hover {
-    background: linear-gradient(to right, #5a72e0, #6a3d99);
-    box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
-    transform: translateY(-2px);
+    transform: skew(5deg) translateY(-10px) scale(1.1);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 50px rgba(0, 255, 204, 0.8);
+    animation: crazyGradient 3s ease infinite, jitter 0.5s infinite;
+}
+
+button:hover::before {
+    left: 100%;
 }
 
 button:active {
-    transform: translateY(0);
+    transform: translateY(5px) scale(0.9);
 }
 
-/* Animações */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+/* EXTREME button text effect */
+button::after {
+    content: "✓✓✓";
+    position: absolute;
+    right: 30px;
+    opacity: 0;
+    transition: all 0.5s;
+    animation: textGlitch 2s infinite;
 }
 
-/* Responsividade */
+button:hover::after {
+    opacity: 1;
+    right: 20px;
+    animation: textGlitch 1s infinite;
+}
+
+/* Removed all the decorative pseudo-elements from cadastro-container */
+
+/* EXTREME responsive adjustments */
 @media (max-width: 768px) {
     .navbar {
-        padding: 0;
+        padding: 20px 15px;
+        clip-path: polygon(
+                0% 0%,
+                100% 0%,
+                95% 85%,
+                85% 100%,
+                15% 100%,
+                5% 85%
+        );
+        animation: jitter 3s infinite;
     }
 
     .nav-links {
         flex-direction: column;
-        width: 100%;
+        align-items: center;
+        gap: 15px;
     }
 
-    .navbar a {
+    .nav-links a {
         width: 100%;
-        padding: 12px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+        font-size: 18px;
+        animation: textGlitch 3s infinite, jitter 2s infinite;
     }
 
     .cadastro-container {
-        margin-top: 240px;
+        padding: 40px 25px;
         width: 95%;
-        padding: 20px;
+        animation: borderMadness 15s linear infinite, jitter 3s infinite;
     }
 
-    h2 {
-        font-size: 24px;
+    .cadastro-container h2 {
+        font-size: 32px;
+        animation: textGlitch 5s infinite, crazyGradient 8s ease infinite;
     }
 
     .form-group {
-        padding: 15px;
-    }
-}
-
-@media (max-width: 480px) {
-    .cadastro-container {
-        padding: 15px;
-    }
-
-    label {
-        font-size: 16px;
+        padding: 20px;
+        animation: borderMadness 10s linear infinite, jitter 2s infinite;
     }
 
     input[type="text"], button {
-        padding: 10px;
-        font-size: 14px;
-    }
-
-    .current-value {
-        padding: 10px;
-        font-size: 14px;
+        font-size: 16px;
+        animation: borderMadness 8s linear infinite, jitter 1s infinite;
     }
 }
 
-/* Efeitos de validação */
-input:valid {
-    border-color: #4CAF50;
+/* EXTREME animations for specific elements */
+@keyframes ultraGlitch {
+    0% { transform: translate(0) skew(0deg); filter: hue-rotate(0deg); }
+    10% { transform: translate(-5px, 5px) skew(10deg); filter: hue-rotate(36deg); }
+    20% { transform: translate(5px, -5px) skew(-10deg); filter: hue-rotate(72deg); }
+    30% { transform: translate(-3px, -3px) skew(5deg); filter: hue-rotate(108deg); }
+    40% { transform: translate(3px, 3px) skew(-5deg); filter: hue-rotate(144deg); }
+    50% { transform: translate(-2px, 2px) skew(3deg); filter: hue-rotate(180deg); }
+    60% { transform: translate(2px, -2px) skew(-3deg); filter: hue-rotate(216deg); }
+    70% { transform: translate(-1px, -1px) skew(1deg); filter: hue-rotate(252deg); }
+    80% { transform: translate(1px, 1px) skew(-1deg); filter: hue-rotate(288deg); }
+    90% { transform: translate(-0.5px, 0.5px) skew(0.5deg); filter: hue-rotate(324deg); }
+    100% { transform: translate(0) skew(0deg); filter: hue-rotate(360deg); }
 }
 
+input:hover, button:hover, .form-group:hover label {
+    animation: ultraGlitch 0.3s infinite;
+}
+
+/* EXTREME scrollbar styling */
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background: linear-gradient(to bottom, #ff00cc, #3333ff, #00ffcc, #ff00ff, #ffcc00);
+    border-radius: 15px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #ffcc00, #ff6666, #ff00ff, #3333ff);
+    border-radius: 15px;
+    border: 4px solid transparent;
+    background-clip: content-box;
+    box-shadow: 0 0 15px rgba(255, 0, 204, 0.7);
+    animation: crazyGradient 5s linear infinite;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #ff6666, #ffcc00, #00ffcc, #ff00cc);
+    background-clip: content-box;
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.8);
+}
+
+/* EXTREME form validation styling */
 input:invalid {
-    border-color: #f44336;
+    border-image: linear-gradient(to right, #ff6666, #ff00cc, #ff00ff);
+    border-image-slice: 1;
+    animation: jitter 0.2s infinite, borderMadness 8s linear infinite;
+    box-shadow: 0 0 20px rgba(255, 0, 204, 0.5);
 }
 
-/* Efeito de transição para os campos */
-.form-group {
-    opacity: 0;
-    animation: fadeIn 0.5s ease forwards;
+input:valid {
+    border-image: linear-gradient(to right, #00ffcc, #ffcc00, #3333ff);
+    border-image-slice: 1;
+    animation: crazyPulse 2s infinite, borderMadness 8s linear infinite;
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
 }
 
-.form-group:nth-child(1) { animation-delay: 0.1s; }
-.form-group:nth-child(2) { animation-delay: 0.2s; }
-.form-group:nth-child(3) { animation-delay: 0.3s; }
-.form-group:nth-child(4) { animation-delay: 0.4s; }
+/* Add text selection styling */
+::selection {
+    background: linear-gradient(to right, #ff00cc, #3333ff);
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* Add page load animation */
+@keyframes pageLoad {
+    0% { opacity: 0; transform: scale(0.8) rotate(-10deg); }
+    50% { opacity: 0.5; transform: scale(1.1) rotate(5deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+body {
+    animation: pageLoad 1s ease-out, crazyGradient 20s ease infinite;
+}
+
+/* Add text distortion effect */
+@keyframes letterSpacing {
+    0% { letter-spacing: normal; }
+    50% { letter-spacing: 5px; }
+    100% { letter-spacing: normal; }
+}
+
+label:hover, .change-label:hover, button:hover {
+    animation: letterSpacing 1s infinite, textGlitch 2s infinite;
+}
+
+/* Add extreme text shadow on hover */
+input:hover, .current-value:hover {
+    text-shadow:
+            2px 0 0 #ff00cc,
+            -2px 0 0 #3333ff,
+            0 2px 0 #00ffcc,
+            0 -2px 0 #ffcc00,
+            1px 1px 0 #ff6666,
+            -1px -1px 0 #ff00ff;
+}
+body {
+    overflow-x: hidden; /* ok manter só o X escondido, se precisar */
+    overflow-y: auto;   /* permita rolagem vertical, senão corta */
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#bg-video {
+    position: fixed;    /* fixa na viewport */
+    top: 0;             /* canto superior */
+    left: 0;            /* canto esquerdo */
+    width: 100vw;       /* 100% da largura da viewport */
+    height: 100vh;      /* 100% da altura da viewport */
+    object-fit: fill;   /* estica forçando cobertura (distorce) */
+    z-index: -1;        /* atrás de todo o resto */
+}
+
+

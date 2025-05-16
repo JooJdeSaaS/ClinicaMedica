@@ -20,6 +20,9 @@
             <a href="${pageContext.request.contextPath}/logout" class="logout-link">Logout</a>
         </div>
     </div>
+    <video autoplay muted loop id="bg-video">
+        <source src="subway.mp4" type="video/mp4">
+    </video>
 
     <!-- Conteúdo centralizado -->
     <div class="content">

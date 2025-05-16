@@ -8,6 +8,9 @@
     <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 <body>
+<video autoplay muted loop id="bg-video">
+    <source src="subway.mp4" type="video/mp4">
+</video>
 
 <div class="login-container">
     <h2>Login</h2>
