@@ -30,7 +30,7 @@
             <label for="nomenovo">Nome:</label>
             <div class="current-value"> <%= nome %> </div>
             <p class="change-label">Trocar para:</p>
-            <input type="text" id="nomenovo" name="nome" value="${sessionScope.nome}" required>
+            <input type="text" id="nomenovo" name="nome" value="${sessionScope.nome}">
         </div>
 
         <div class="form-group">
@@ -40,7 +40,7 @@
             <label for="celularnovo">Celular:</label>
             <div class="current-value"><%= celular %></div>
             <p class="change-label">Trocar para:</p>
-            <input type="text" id="celularnovo" name="celular" value="<%= celular %>" required>
+            <input type="text" id="celularnovo" name="celular" value="<%= celular %>" >
         </div>
 
         <div class="form-group">
@@ -50,7 +50,7 @@
             <label for="CPF">CPF:</label>
             <div class="current-value"><%= CPF %></div>
             <p class="change-label">Trocar para:</p>
-            <input type="text" id="CPF" name="CPF" value="<%= CPF %>" required>
+            <input type="text" id="CPF" name="CPF" value="<%= CPF %>" >
         </div>
 
         <div class="form-group">
@@ -60,7 +60,7 @@
             <label for="emailnovo">E-mail:</label>
             <div class="current-value"><%= email %></div>
             <p class="change-label">Trocar para:</p>
-            <input type="text" id="emailnovo" name="emailnovo" value="<%= email %>" required>
+            <input type="text" id="emailnovo" name="emailnovo" value="<%= email %>" >
         </div>
 
         <button type="submit">Mudar</button>

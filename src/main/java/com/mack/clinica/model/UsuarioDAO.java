@@ -48,14 +48,27 @@ public class UsuarioDAO {
     }
 
     //Meu Cadastro
-    public void editarUsuario(String email, String senha, String realPathBase) {
-        try (Connection conn = DatabaseConnection.getConnection(realPathBase)) {
-            //TODO fazer o Meu Cadastro ligar com o banco de dados
+    public boolean atualizarUsuario(Usuario u) {
+        String sql = "UPDATE usuarios "
+                + "SET nome = ?, celular = ?, cpf = ?, email = ? "
+                + "WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection(realPathBase);
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, u.getNome());
+            ps.setString(2, u.getCelular());
+            ps.setString(3, u.getCPFformatado());
+            ps.setString(4, u.getEmail());
+            ps.setInt(5,    u.getId());
+
+            int affected = ps.executeUpdate();
+            return affected > 0;
+
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Erro ao buscar usuário no banco de dados.", e);
+            System.err.println("Erro ao atualizar usuário: " + e.getMessage());
+            return false;
         }
-        return;
     }
 
     //CRUD paciente e CRUD medico
