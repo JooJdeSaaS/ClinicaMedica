@@ -76,43 +76,7 @@ public class ConsultaDAO {
         }
     }
 
-    public List<Usuario> listarMedicos() {
-        List<Usuario> medicos = new ArrayList<>();
-        String sql = "SELECT id, nome FROM usuarios WHERE tipo = 'medico'";
-        try (Connection conn = DatabaseConnection.getConnection(realPathBase);
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
 
-            while (rs.next()) {
-                Usuario u = new Usuario();
-                u.setId(rs.getInt("id"));
-                u.setNome(rs.getString("nome"));
-                medicos.add(u);
-            }
-        } catch (SQLException e) {
-            System.err.println("Erro ao buscar médicos: " + e.getMessage());
-        }
-        return medicos;
-    }
-
-    public List<Usuario> listarPacientes() {
-        List<Usuario> pacientes = new ArrayList<>();
-        String sql = "SELECT id, nome FROM usuarios WHERE tipo = 'paciente'";
-        try (Connection conn = DatabaseConnection.getConnection(realPathBase);
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                Usuario u = new Usuario();
-                u.setId(rs.getInt("id"));
-                u.setNome(rs.getString("nome"));
-                pacientes.add(u);
-            }
-        } catch (SQLException e) {
-            System.err.println("Erro ao buscar pacientes: " + e.getMessage());
-        }
-        return pacientes;
-    }
 
     public List<Consulta> listarTodasConsultas() {
         return buscarConsultasFiltradas(null, null, null);
@@ -151,7 +115,7 @@ public class ConsultaDAO {
                         rs.getInt("id"),
                         rs.getInt("paciente_id"),
                         rs.getString("nome_medico"),
-                        rs.getString("data_hora"),
+                        formatarDataHora(rs.getString("data_hora")),
                         rs.getString("status"),
                         rs.getString("observacoes")
                 );
@@ -165,5 +129,12 @@ public class ConsultaDAO {
 
         return consultas;
     }
+    private String formatarDataHora(String dataHoraISO) {
+        if (dataHoraISO == null || dataHoraISO.isEmpty()) return "";
+        LocalDateTime ldt = LocalDateTime.parse(dataHoraISO);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return ldt.format(formatter);
+    }
+
 
 }

@@ -24,10 +24,11 @@ public class ConsultarAgendaServlet extends HttpServlet {
 
         String realPathBase = request.getServletContext().getRealPath("/");
         ConsultaDAO consultaDAO = new ConsultaDAO(realPathBase);
+        UsuarioDAO usuarioDAO = new UsuarioDAO(realPathBase);
 
         // Adiciona médicos e pacientes para os selects
-        request.setAttribute("medicos", consultaDAO.listarMedicos());
-        request.setAttribute("pacientes", consultaDAO.listarPacientes());
+        request.setAttribute("medicos", usuarioDAO.listarMedicos());
+        request.setAttribute("pacientes", usuarioDAO.listarPacientes());
 
         // Pega os filtros
         String medicoIdParam = request.getParameter("medicoId");
