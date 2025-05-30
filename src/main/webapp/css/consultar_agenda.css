@@ -1,358 +1,713 @@
-/* Reset básico e estilos base */
+/* Reset and base styles with an EXTREMELY bizarre twist */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', 'Papyrus', cursive;
+    letter-spacing: -0.5px;
+    word-spacing: 3px;
+    text-shadow: 0 0 2px rgba(255, 0, 255, 0.5);
 }
 
-body, html {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+/* EXTREME animations */
+@keyframes crazyGradient {
+    0% { background-position: 0% 50%; filter: hue-rotate(0deg); }
+    25% { background-position: 50% 100%; filter: hue-rotate(90deg); }
+    50% { background-position: 100% 50%; filter: hue-rotate(180deg); }
+    75% { background-position: 50% 0%; filter: hue-rotate(270deg); }
+    100% { background-position: 0% 50%; filter: hue-rotate(360deg); }
+}
+
+@keyframes crazyFloat {
+    0% { transform: translateY(0px) rotate(0deg) scale(1); }
+    20% { transform: translateY(-30px) rotate(10deg) scale(1.2); }
+    40% { transform: translateY(20px) rotate(-15deg) scale(0.8); }
+    60% { transform: translateY(-15px) rotate(20deg) scale(1.1); }
+    80% { transform: translateY(10px) rotate(-5deg) scale(0.9); }
+    100% { transform: translateY(0px) rotate(0deg) scale(1); }
+}
+
+@keyframes insaneSpin {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(90deg) scale(1.2); }
+    50% { transform: rotate(180deg) scale(0.8); }
+    75% { transform: rotate(270deg) scale(1.3); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes extremeWobble {
+    0%, 100% { transform: translateX(0) skew(0deg); }
+    10% { transform: translateX(-35%) rotate(-10deg) skew(-20deg); }
+    20% { transform: translateX(30%) rotate(8deg) skew(15deg); }
+    30% { transform: translateX(-25%) rotate(-6deg) skew(-10deg); }
+    40% { transform: translateX(20%) rotate(4deg) skew(5deg); }
+    50% { transform: translateX(-15%) rotate(-2deg) skew(-2deg); }
+    60% { transform: translateX(10%) rotate(1deg) skew(1deg); }
+    70% { transform: translateX(-5%) rotate(-0.5deg) skew(-0.5deg); }
+}
+
+@keyframes crazyPulse {
+    0% { transform: scale(1) rotate(0deg); filter: hue-rotate(0deg); }
+    25% { transform: scale(1.2) rotate(5deg); filter: hue-rotate(90deg); }
+    50% { transform: scale(0.8) rotate(-5deg); filter: hue-rotate(180deg); }
+    75% { transform: scale(1.1) rotate(3deg); filter: hue-rotate(270deg); }
+    100% { transform: scale(1) rotate(0deg); filter: hue-rotate(360deg); }
+}
+
+@keyframes jitter {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    10% { transform: translate(-5px, -5px) rotate(2deg); }
+    20% { transform: translate(5px, 5px) rotate(-2deg); }
+    30% { transform: translate(-3px, 3px) rotate(1deg); }
+    40% { transform: translate(3px, -3px) rotate(-1deg); }
+    50% { transform: translate(-2px, -2px) rotate(1deg); }
+    60% { transform: translate(2px, 2px) rotate(-1deg); }
+    70% { transform: translate(-1px, 1px) rotate(0.5deg); }
+    80% { transform: translate(1px, -1px) rotate(-0.5deg); }
+    90% { transform: translate(-0.5px, -0.5px) rotate(0.2deg); }
+}
+
+@keyframes textGlitch {
+    0%, 100% { text-shadow: 2px 2px 0 #ff00cc, -2px -2px 0 #00ffcc; }
+    25% { text-shadow: -2px 2px 0 #ffcc00, 2px -2px 0 #3333ff; }
+    50% { text-shadow: 2px -2px 0 #ff6666, -2px 2px 0 #00ffcc; }
+    75% { text-shadow: -2px -2px 0 #3333ff, 2px 2px 0 #ff00cc; }
+}
+
+@keyframes borderMadness {
+    0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+    25% { border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%; }
+    50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
+    75% { border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%; }
+    100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+}
+
+body {
+    background: linear-gradient(45deg, #ff00cc, #3333ff, #00ffcc, #ffcc00, #ff6666, #ff00ff, #00ffff, #ffff00);
+    background-size: 800% 800%;
+    animation: crazyGradient 20s ease infinite;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    overflow-x: hidden;
+    position: relative;
 }
 
-/* Estilos da Navbar */
+/* BIZARRE cursors */
+html {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>👽</text></svg>") 16 0, auto;
+}
+
+input, button, select {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>👇</text></svg>") 16 0, auto;
+}
+
+a {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>👈</text></svg>") 16 0, auto;
+}
+
+/* EXTREME navbar styling */
 .navbar {
-    background: linear-gradient(to right, #333, #222);
-    overflow: hidden;
-    width: 100%;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px) hue-rotate(45deg);
+    border-bottom: 8px solid transparent;
+    border-image: linear-gradient(to right, #ff00cc, #3333ff, #00ffcc, #ffcc00, #ff6666, #ff00ff, #00ffff);
+    border-image-slice: 1;
+    padding: 20px;
+    position: relative;
+    transform: perspective(1000px) rotateX(5deg) skewX(-2deg);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5), 0 5px 15px rgba(255, 0, 204, 0.5);
+    margin-bottom: 60px;
+    z-index: 100;
+    clip-path: polygon(
+            0% 0%,
+            100% 0%,
+            98% 80%,
+            90% 100%,
+            10% 100%,
+            2% 80%
+    );
+    animation: jitter 5s infinite;
+}
+
+.navbar::before {
+    content: "🏥📅";
+    position: absolute;
+    top: -25px;
+    left: 20px;
+    font-size: 40px;
+    animation: crazyFloat 5s ease-in-out infinite;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 0, 204, 0.8);
+    z-index: 1;
 }
 
 .nav-links {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 12px 20px;
+    border-radius: 30px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    transform: skew(-8deg);
+    text-shadow: 2px 2px 0 #ff00cc, -2px -2px 0 #3333ff;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    animation: textGlitch 5s infinite;
+}
+
+.nav-links a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    transition: 0.5s;
+}
+
+.nav-links a:hover {
+    background: linear-gradient(45deg, #ff00cc, #3333ff, #00ffcc);
+    background-size: 300% 300%;
+    animation: crazyGradient 3s ease infinite;
+    color: white;
+    transform: skew(8deg) scale(1.2) rotate(3deg);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 0, 204, 0.7);
+    z-index: 10;
+}
+
+.nav-links a:hover::before {
+    left: 100%;
+}
+
+.nav-links a:active {
+    transform: skew(0deg) scale(0.9) rotate(-3deg);
+}
+
+/* EXTREME styling for logout link */
+.logout-link {
+    background: linear-gradient(45deg, #ff6666, #ff00cc, #ff00ff) !important;
+    background-size: 300% 300% !important;
+    color: white !important;
+    animation: crazyGradient 3s ease infinite !important;
+    text-shadow: 2px 2px 0 #3333ff, -2px -2px 0 #00ffcc !important;
+    box-shadow: 0 5px 15px rgba(255, 0, 204, 0.5) !important;
+}
+
+/* EXTREME content container styling */
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+/* EXTREME heading */
+.content h1 {
+    color: transparent;
+    background: linear-gradient(45deg, #ff00cc, #3333ff, #00ffcc, #ffcc00, #ff6666, #ff00ff);
+    background-size: 600% 600%;
+    animation: crazyGradient 8s ease infinite;
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-size: 42px;
+    margin-bottom: 40px;
+    letter-spacing: 5px;
+    text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transform: skew(-5deg);
+    font-weight: 900;
+    text-align: center;
+}
+
+.content h1::before {
+    content: "📅";
+    position: absolute;
+    left: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 50px;
+    animation: insaneSpin 8s infinite;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 0, 204, 0.8);
+}
+
+.content h1::after {
+    content: "⏰";
+    position: absolute;
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 50px;
+    animation: crazyFloat 6s infinite;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(0, 255, 204, 0.8);
+}
+
+/* EXTREME filter form styling */
+.filtro-form {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px) hue-rotate(30deg);
+    border: 8px solid transparent;
+    border-image: linear-gradient(to right, #ff00cc, #3333ff, #00ffcc, #ffcc00, #ff6666, #ff00ff);
+    border-image-slice: 1;
+    padding: 40px;
+    margin-bottom: 50px;
+    text-align: center;
+    position: relative;
+    transform: perspective(1000px) rotateX(3deg) skewY(1deg);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 0, 204, 0.6);
+    transition: all 0.5s ease;
+    animation: borderMadness 20s linear infinite;
+    overflow: visible;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    align-items: end;
     justify-content: center;
 }
 
-.navbar a {
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 16px 20px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-weight: 500;
+.filtro-form:hover {
+    transform: perspective(1000px) rotateX(-2deg) skewY(-1deg) scale(1.03);
+    animation: extremeWobble 2s ease, borderMadness 20s linear infinite;
 }
 
-.navbar a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-}
-
-.navbar a.active {
-    background-color: rgba(118, 75, 162, 0.7);
-}
-
-.logout-link {
-    background-color: rgba(255, 0, 0, 0.2);
-}
-
-.logout-link:hover {
-    background-color: rgba(255, 0, 0, 0.3);
-}
-
-/* Container de conteúdo */
-.content {
-    width: 90%;
-    max-width: 1000px;
-    margin: 100px auto 40px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    animation: fadeIn 0.5s ease forwards;
-    transition: transform 0.3s ease;
-}
-
-.content:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-}
-
-/* Título principal */
-h1 {
-    color: #333;
-    text-align: center;
-    font-weight: 600;
-    font-size: 28px;
-    position: relative;
-    padding-bottom: 15px;
-    margin-bottom: 30px;
-}
-
-h1::after {
-    content: '';
+.filtro-form::before {
+    content: "🔍";
     position: absolute;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%);
-    height: 4px;
-    width: 50px;
-    border-radius: 2px;
-    background-color: #764ba2;
+    top: -30px;
+    left: 30px;
+    font-size: 40px;
+    animation: crazyFloat 5s ease-in-out infinite;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 0, 204, 0.8);
+    z-index: 1;
 }
 
-/* Formulário de filtro */
-.filtro-form {
+/* EXTREME form group styling */
+.filtro-form > div {
     display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 30px;
-    border-left: 4px solid #764ba2;
-    animation: fadeIn 0.5s ease forwards;
-    animation-delay: 0.1s;
-    opacity: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 200px;
 }
 
+/* EXTREME label styling */
 .filtro-form label {
-    font-weight: 600;
+    display: block;
+    margin-bottom: 10px;
     color: #333;
-    margin-right: 5px;
-    display: flex;
-    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    transform: skew(-8deg);
+    text-shadow: 2px 2px 0 #ff00cc, -2px -2px 0 #3333ff;
+    animation: textGlitch 8s infinite;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 3;
 }
 
-.filtro-form select,
-.filtro-form input[type="date"] {
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 14px;
-    flex: 1;
-    min-width: 150px;
-    transition: border-color 0.3s, box-shadow 0.3s;
+/* EXTREME input and select styling */
+.filtro-form input, .filtro-form select {
+    padding: 15px 20px;
+    border: 5px solid;
+    border-image: linear-gradient(to right, #3333ff, #00ffcc, #ff00ff, #ffcc00);
+    border-image-slice: 1;
+    font-size: 16px;
+    transition: all 0.5s;
+    background: rgba(255, 255, 255, 0.8);
+    transform: skew(-8deg);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1), inset 0 0 10px rgba(51, 51, 255, 0.1);
+    animation: borderMadness 10s linear infinite;
+    position: relative;
+    z-index: 5;
+    width: 100%;
 }
 
-.filtro-form select {
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 15px center;
-    background-size: 16px;
-    padding-right: 40px;
-}
-
-.filtro-form select:focus,
-.filtro-form input[type="date"]:focus {
+.filtro-form input:focus, .filtro-form select:focus {
     outline: none;
-    border-color: #764ba2;
-    box-shadow: 0 0 0 2px rgba(118, 75, 162, 0.2);
+    transform: skew(8deg) scale(1.08);
+    box-shadow: 0 0 25px rgba(0, 255, 204, 0.7), inset 0 0 15px rgba(255, 0, 204, 0.2);
+    animation: crazyPulse 3s infinite, borderMadness 10s linear infinite;
+    z-index: 10;
 }
 
+.filtro-form input:hover, .filtro-form select:hover {
+    animation: jitter 0.3s infinite, borderMadness 10s linear infinite;
+}
+
+/* EXTREME button styling */
 .filtro-form button {
-    background: linear-gradient(to right, #667eea, #764ba2);
+    background: linear-gradient(45deg, #ff00cc, #3333ff, #00ffcc, #ff00ff, #ffcc00);
+    background-size: 400% 400%;
+    animation: crazyGradient 5s ease infinite;
     color: white;
     border: none;
-    border-radius: 6px;
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-left: auto;
+    border-radius: 50px;
+    padding: 20px 40px;
+    font-size: 20px;
+    font-weight: bold;
+    transition: all 0.5s;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 0, 204, 0.6);
+    transform: skew(-5deg);
+    text-shadow: 2px 2px 0 #3333ff, -2px -2px 0 #ff00cc;
+    z-index: 5;
+}
+
+.filtro-form button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    transition: 0.5s;
 }
 
 .filtro-form button:hover {
-    background: linear-gradient(to right, #5a72e0, #6a3d99);
-    box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
-    transform: translateY(-2px);
+    transform: skew(5deg) translateY(-10px) scale(1.1);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 50px rgba(0, 255, 204, 0.8);
+    animation: crazyGradient 3s ease infinite, jitter 0.5s infinite;
+}
+
+.filtro-form button:hover::before {
+    left: 100%;
 }
 
 .filtro-form button:active {
-    transform: translateY(0);
+    transform: translateY(5px) scale(0.9);
 }
 
-/* Tabela de consultas */
+.filtro-form button::after {
+    content: "✓✓✓";
+    position: absolute;
+    right: 30px;
+    opacity: 0;
+    transition: all 0.5s;
+    animation: textGlitch 2s infinite;
+}
+
+.filtro-form button:hover::after {
+    opacity: 1;
+    right: 20px;
+    animation: textGlitch 1s infinite;
+}
+
+/* EXTREME table styling */
 table {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    border-radius: 8px;
+    border-collapse: separate;
+    border-spacing: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
     overflow: hidden;
-    animation: fadeIn 0.5s ease forwards;
-    animation-delay: 0.2s;
-    opacity: 0;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 0, 204, 0.6);
+    animation: borderMadness 25s linear infinite;
+    transform: perspective(1000px) rotateX(3deg);
+    position: relative;
 }
 
-thead {
-    background: linear-gradient(to right, #667eea, #764ba2);
+table::before {
+    content: "📊";
+    position: absolute;
+    top: -30px;
+    left: 30px;
+    font-size: 40px;
+    animation: crazyFloat 5s ease-in-out infinite;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 0, 204, 0.8);
+    z-index: 1;
+}
+
+table:hover {
+    transform: perspective(1000px) rotateX(-2deg) scale(1.02);
+    animation: extremeWobble 2s ease, borderMadness 25s linear infinite;
+}
+
+table thead {
+    background: linear-gradient(45deg, #ff00cc, #3333ff, #00ffcc);
+    background-size: 300% 300%;
+    animation: crazyGradient 10s ease infinite;
+}
+
+table th {
+    padding: 20px;
     color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 2px 2px 0 #3333ff, -2px -2px 0 #ff00cc;
+    animation: textGlitch 10s infinite;
+    transform: skew(-5deg);
 }
 
-th {
-    padding: 15px;
-    text-align: left;
-    font-weight: 600;
+table td {
+    padding: 15px 20px;
+    border-bottom: 2px solid rgba(255, 0, 204, 0.3);
     font-size: 16px;
+    background: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s;
+    transform: skew(-2deg);
 }
 
-tbody tr {
-    background-color: #fff;
-    transition: background-color 0.3s;
+table tr:hover td {
+    background: rgba(0, 255, 204, 0.2);
+    transform: skew(2deg) scale(1.02);
+    animation: jitter 0.5s infinite;
 }
 
-tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-tbody tr:hover {
-    background-color: #f0f0f0;
-}
-
-td {
-    padding: 15px;
-    border-bottom: 1px solid #eee;
-    font-size: 14px;
-}
-
-/* Botão de cancelar */
+/* EXTREME cancel button styling */
 .cancelar-btn {
-    background-color: #ff5252;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 12px;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    background: linear-gradient(45deg, #ff6666, #ff00cc, #ff00ff) !important;
+    background-size: 300% 300% !important;
+    animation: crazyGradient 4s ease infinite !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 30px !important;
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    transition: all 0.3s !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    position: relative !important;
+    overflow: hidden !important;
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4) !important;
+    transform: skew(-5deg) !important;
+    text-shadow: 1px 1px 0 #3333ff, -1px -1px 0 #ff00cc !important;
+}
+
+.cancelar-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    transition: 0.3s;
 }
 
 .cancelar-btn:hover {
-    background-color: #ff1a1a;
-    box-shadow: 0 2px 8px rgba(255, 82, 82, 0.4);
+    transform: skew(5deg) translateY(-5px) scale(1.1) !important;
+    box-shadow: 0 10px 25px rgba(255, 0, 0, 0.6), 0 0 20px rgba(255, 0, 204, 0.7) !important;
+    animation: crazyGradient 2s ease infinite, jitter 0.3s infinite !important;
 }
 
-/* Mensagem de nenhuma consulta */
-p {
-    font-size: 16px;
-    color: #666;
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    text-align: center;
-    border-left: 4px solid #764ba2;
-    animation: fadeIn 0.5s ease forwards;
-    animation-delay: 0.2s;
-    opacity: 0;
+.cancelar-btn:hover::before {
+    left: 100%;
 }
 
-/* Animações */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+.cancelar-btn:active {
+    transform: translateY(3px) scale(0.9) !important;
 }
 
-/* Responsividade */
+/* EXTREME "no consultations" message styling */
+p[style*="text-align: center"] {
+    font-size: 24px;
+    color: transparent;
+    background: linear-gradient(45deg, #ff00cc, #3333ff, #00ffcc, #ffcc00);
+    background-size: 400% 400%;
+    animation: crazyGradient 6s ease infinite;
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+    transform: skew(-3deg);
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+    border: 5px solid transparent;
+    border-image: linear-gradient(45deg, #ff00cc, #3333ff, #00ffcc);
+    border-image-slice: 1;
+    animation: textGlitch 4s infinite, borderMadness 15s linear infinite;
+    position: relative;
+}
+
+p[style*="text-align: center"]::before {
+    content: "😢";
+    position: absolute;
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    animation: crazyFloat 4s ease-in-out infinite;
+}
+
+p[style*="text-align: center"]::after {
+    content: "📅";
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    animation: insaneSpin 5s infinite;
+}
+
+/* EXTREME scrollbar styling */
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background: linear-gradient(to bottom, #ff00cc, #3333ff, #00ffcc, #ff00ff, #ffcc00);
+    border-radius: 15px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #ffcc00, #ff6666, #ff00ff, #3333ff);
+    border-radius: 15px;
+    border: 4px solid transparent;
+    background-clip: content-box;
+    box-shadow: 0 0 15px rgba(255, 0, 204, 0.7);
+    animation: crazyGradient 5s linear infinite;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #ff6666, #ffcc00, #00ffcc, #ff00cc);
+    background-clip: content-box;
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.8);
+}
+
+/* Add text selection styling */
+::selection {
+    background: linear-gradient(to right, #ff00cc, #3333ff);
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* Add page load animation */
+@keyframes pageLoad {
+    0% { opacity: 0; transform: scale(0.8) rotate(-10deg); }
+    50% { opacity: 0.5; transform: scale(1.1) rotate(5deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+body {
+    animation: pageLoad 1s ease-out, crazyGradient 20s ease infinite;
+}
+
+/* EXTREME responsive adjustments */
 @media (max-width: 768px) {
     .navbar {
-        padding: 0;
+        padding: 20px 15px;
+        clip-path: polygon(
+                0% 0%,
+                100% 0%,
+                95% 85%,
+                85% 100%,
+                15% 100%,
+                5% 85%
+        );
+        animation: jitter 3s infinite;
     }
 
     .nav-links {
         flex-direction: column;
-        width: 100%;
+        align-items: center;
+        gap: 15px;
     }
 
-    .navbar a {
+    .nav-links a {
         width: 100%;
-        padding: 12px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+        font-size: 18px;
+        animation: textGlitch 3s infinite, jitter 2s infinite;
     }
 
     .content {
-        margin-top: 240px;
-        width: 95%;
-        padding: 20px;
+        padding: 30px 20px;
     }
 
-    h1 {
-        font-size: 24px;
+    .content h1 {
+        font-size: 32px;
+        animation: textGlitch 5s infinite, crazyGradient 8s ease infinite;
+    }
+
+    .content h1::before,
+    .content h1::after {
+        display: none;
     }
 
     .filtro-form {
+        padding: 30px 20px;
         flex-direction: column;
-        gap: 10px;
+        animation: borderMadness 15s linear infinite, jitter 3s infinite;
     }
 
-    .filtro-form label {
+    .filtro-form > div {
         width: 100%;
-        margin-bottom: 5px;
+        min-width: auto;
     }
 
-    .filtro-form select,
-    .filtro-form input[type="date"] {
-        width: 100%;
-    }
-
-    .filtro-form button {
-        width: 100%;
-        margin-top: 10px;
+    .filtro-form input, .filtro-form select, .filtro-form button {
+        font-size: 16px;
+        animation: borderMadness 8s linear infinite, jitter 1s infinite;
     }
 
     table {
-        display: block;
-        overflow-x: auto;
+        font-size: 14px;
+        transform: perspective(600px) rotateX(3deg);
+        animation: borderMadness 20s linear infinite, jitter 2s infinite;
     }
 
-    th, td {
-        min-width: 120px;
-    }
-}
-
-@media (max-width: 480px) {
-    .content {
-        padding: 15px;
-    }
-
-    h1 {
-        font-size: 22px;
-    }
-
-    th, td {
+    table th, table td {
         padding: 10px;
-        font-size: 13px;
     }
 
     .cancelar-btn {
-        padding: 6px 10px;
-        font-size: 12px;
+        font-size: 12px !important;
+        padding: 8px 15px !important;
     }
 }
 
-/* Status styling */
-td:nth-child(5) {
-    font-weight: 600;
+/* Additional extreme effects for specific elements */
+.filtro-form::after {
+    content: "⚡";
+    position: absolute;
+    top: -30px;
+    right: 30px;
+    font-size: 40px;
+    animation: insaneSpin 6s infinite;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(0, 255, 204, 0.8);
+    z-index: 1;
 }
 
-td:nth-child(5):contains("cancelada") {
-    color: #ff5252;
+/* Extreme hover effects for text */
+table th:hover, .filtro-form label:hover {
+    animation: textGlitch 1s infinite;
+    transform: skew(-3deg) scale(1.05);
 }
 
-td:nth-child(5):contains("agendada") {
-    color: #4CAF50;
+/* Additional glitch effects */
+@keyframes ultraGlitch {
+    0% { transform: translate(0) skew(0deg); filter: hue-rotate(0deg); }
+    10% { transform: translate(-5px, 5px) skew(10deg); filter: hue-rotate(36deg); }
+    20% { transform: translate(5px, -5px) skew(-10deg); filter: hue-rotate(72deg); }
+    30% { transform: translate(-3px, -3px) skew(5deg); filter: hue-rotate(108deg); }
+    40% { transform: translate(3px, 3px) skew(-5deg); filter: hue-rotate(144deg); }
+    50% { transform: translate(-2px, 2px) skew(3deg); filter: hue-rotate(180deg); }
+    60% { transform: translate(2px, -2px) skew(-3deg); filter: hue-rotate(216deg); }
+    70% { transform: translate(-1px, -1px) skew(1deg); filter: hue-rotate(252deg); }
+    80% { transform: translate(1px, 1px) skew(-1deg); filter: hue-rotate(288deg); }
+    90% { transform: translate(-0.5px, 0.5px) skew(0.5deg); filter: hue-rotate(324deg); }
+    100% { transform: translate(0) skew(0deg); filter: hue-rotate(360deg); }
 }
 
-td:nth-child(5):contains("concluída") {
-    color: #2196F3;
-}
-
-/* Efeito de carregamento para a tabela */
-@keyframes pulse {
-    0% { opacity: 0.6; }
-    50% { opacity: 1; }
-    100% { opacity: 0.6; }
+input:hover, button:hover, select:hover, table td:hover {
+    animation: ultraGlitch 0.3s infinite;
 }
